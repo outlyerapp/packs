@@ -1,0 +1,29 @@
+title: Production Riak
+criteria:
+  - metric: 'riak.status'
+    scope:
+      tag: riak
+    condition:
+      timeout: 120
+      threshold: false
+  - metric: riak.node_get_fsm_time_mean
+    scope:
+      tag: riak
+    condition:
+      timeout: 120
+      threshold: 300
+- metric: riak.node_put_fsm_time_mean
+    scope:
+      tag: riak
+    condition:
+      timeout: 120
+      threshold: 1000
+- metric: base.disk./data.percent_used
+    scope:
+      tag: riak
+    condition:
+      timeout: 60
+      threshold: 70
+actions:
+  - emails: []
+    message: ''

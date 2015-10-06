@@ -1,0 +1,17 @@
+title: All Systems
+criteria:
+  - metric: 'source:status'
+    scope:
+      tag: all
+    condition:
+      timeout: 120
+      threshold: false
+  - metric: base.load_fractional
+    scope:
+      tag: all
+    condition:
+      timeout: 120
+      threshold: 3
+actions:
+  - emails: []
+    message: ''

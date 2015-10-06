@@ -1,0 +1,11 @@
+title: Production Rabbit Warning
+criteria:
+  - metric: 'rabbitmq.queue_totals.messages_ready'
+    scope:
+      tag: rabbit
+    condition:
+      timeout: 60
+      threshold: 400000
+actions:
+  - emails: []
+    message: ''
