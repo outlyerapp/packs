@@ -1,0 +1,11 @@
+title: Production Redis Warning
+criteria:
+  - metric: 'redis.keys'
+    scope:
+      tag: redis
+    condition:
+      timeout: 120
+      threshold: 3000000
+actions:
+  - emails: []
+    message: ''

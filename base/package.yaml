@@ -1,3 +1,8 @@
+title: A title for the base pack
 author: Thibault (the farmer)
 version: 0.0.1
 description: This is not the pack you are looking for.
+icon:
+	- name: ping
+	- background: red
+	- foreground: blue
