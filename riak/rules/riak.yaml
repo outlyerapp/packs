@@ -1,4 +1,4 @@
-title: Production Riak
+title: Riak
 criteria:
   - metric: 'riak.status'
     scope:
