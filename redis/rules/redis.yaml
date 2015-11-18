@@ -1,4 +1,4 @@
-title: Production Redis
+title: Redis
 criteria:
   - metric: 'redis.status'
     scope:
