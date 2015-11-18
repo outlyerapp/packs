@@ -1,4 +1,4 @@
-title: Production Redis Warning
+title: Redis Warnings
 criteria:
   - metric: 'redis.keys'
     scope:
