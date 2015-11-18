@@ -1,8 +1,6 @@
-title: A title for the base pack
-author: Thibault (the farmer)
-version: 0.0.1
-description: This is not the pack you are looking for.
+title: Base
+author: Dataloop.IO
+version: 1.0.0
+description: Basic operating system metrics including cpu, memory, network and disk.
 icon:
-    name: ping
-    background: red
-    foreground: blue
+    name: base
