@@ -3,6 +3,6 @@ author: Dataloop.IO
 version: 1.0.0
 description: Every metric from mongostat
 icon:
-    name: mongo
+    name: mongodb
     background: green
     foreground: white
