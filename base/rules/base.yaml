@@ -1,6 +1,6 @@
 title: All Systems
 criteria:
-  - metric: agent.status
+  - metric: 'source:status'
     scope:
       tag: all
     condition:
