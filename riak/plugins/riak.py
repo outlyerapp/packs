@@ -4,10 +4,11 @@ import requests
 from socket import gethostname
 
 URL = 'http://%s:8098/stats' % gethostname()
+
 try:
-    resp = requests.get(URL, timeout=60).json()
-except:
-    print "Plugin Failed! Unable to connect to %s" % URL
+    resp = requests.get(URL).json()
+except Exception, e:
+    print "connection failed: %s" % e
     sys.exit(2)
 
 exclude_list = ['goldrush_version', 'erlang_js_version', 'riak_kv_version', 'riak_pipe_version', 'compiler_version',
@@ -18,11 +19,17 @@ exclude_list = ['goldrush_version', 'erlang_js_version', 'riak_kv_version', 'ria
                 'crypto_version', 'syntax_tools_version', 'riak_api_version', 'nodename', 'merge_index_version',
                 'inets_version', 'sys_system_architecture', 'ssl_version', 'mochiweb_version', 'storage_backend',
                 'sys_logical_processors']
-                
+
+micro_second_list = ['node_get_fsm_time_mean', 'node_get_fsm_time_95', 'node_get_fsm_time_99', 'node_get_fsm_time_100',
+                     'node_put_fsm_time_mean', 'node_put_fsm_time_95', 'node_put_fsm_time_99', 'node_put_fsm_time_100']
+
 result = "OK | "
 for k, v in resp.iteritems():
     if k not in exclude_list:
-        result += str(k) + '=' + str(v) + ';;;; '
+            if k in micro_second_list:
+                result += str(k) + '=' + str(v/1000) + 'ms;;;; '
+            else:
+                result += str(k) + '=' + str(v) + ';;;; '
 
 print result
 sys.exit(0)
