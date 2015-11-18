@@ -1,8 +1,0 @@
-title: Nginx
-author: Dataloop.IO
-version: 1.0.0
-description: Status page and access log monitoring that returns performance data including requests per second in addition to http exit codes and response times.
-icon:
-    name: nginx
-    background: "#009733"
-    foreground: white

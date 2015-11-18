@@ -1,8 +1,0 @@
-title: RabbitMQ
-author: Dataloop.IO
-version: 1.0.0
-description: Message, queue and object statistics from your RabbitMQ server(s).
-icon:
-    name: rabbitmq
-    background: "#FF6600"
-    foreground: white
