@@ -1,0 +1,8 @@
+title: Mongo
+author: Dataloop.IO
+version: 1.0.0
+description: Every metric from mongostat
+icon:
+    name: mongo
+    background: white
+    foreground: green

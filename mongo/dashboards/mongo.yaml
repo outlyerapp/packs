@@ -1,0 +1,279 @@
+title: Mongo
+period: 3600
+positions:
+  - type: number
+    color: aqua
+    row: 1
+    col: 1
+    size_x: 1
+    size_y: 1
+    symbol: random
+    legend: false
+    icon: true
+    filter: max
+    series:
+      - metric: mongodb.connections
+        scope:
+          tag: mongo
+  - type: number
+    color: yellow
+    row: 1
+    col: 2
+    size_x: 1
+    size_y: 1
+    symbol: question
+    legend: false
+    icon: true
+    filter: max
+    series:
+      - metric: mongodb.query
+        scope:
+          tag: mongo
+  - type: number
+    color: yellow
+    row: 1
+    col: 3
+    size_x: 1
+    size_y: 1
+    symbol: gavel
+    legend: false
+    icon: true
+    filter: max
+    series:
+      - metric: mongodb.command
+        scope:
+          tag: mongo
+  - type: number
+    color: yellow
+    row: 1
+    col: 4
+    size_x: 1
+    size_y: 1
+    symbol: exchange
+    legend: false
+    icon: true
+    filter: sum
+    series:
+      - metric: mongodb.getmore
+        scope:
+          tag: mongo
+  - type: number
+    color: yellow
+    row: 1
+    col: 5
+    size_x: 1
+    size_y: 1
+    symbol: spinner
+    legend: false
+    icon: true
+    filter: max
+    series:
+      - metric: mongodb.update
+        scope:
+          tag: mongo
+  - title: 'current locked %'
+    data_type: number
+    type: number
+    color: orange
+    row: 1
+    col: 6
+    size_x: 1
+    size_y: 2
+    filter: max
+    symbol: lock
+    legend: false
+    icon: true
+    series:
+      - metric: mongodb.locked
+        scope:
+          tag: mongo
+  - type: number
+    color: green
+    row: 2
+    col: 1
+    size_x: 1
+    size_y: 1
+    symbol: angle-double-right
+    legend: false
+    icon: true
+    filter: max
+    series:
+      - metric: mongodb.araw
+        scope:
+          tag: mongo
+  - type: number
+    color: green
+    row: 2
+    col: 2
+    size_x: 1
+    size_y: 1
+    symbol: angle-double-left
+    legend: false
+    icon: true
+    filter: max
+    series:
+      - metric: mongodb.qrqw
+        scope:
+          tag: mongo
+  - type: number
+    color: blue
+    row: 2
+    col: 3
+    size_x: 1
+    size_y: 1
+    symbol: arrow-circle-o-down
+    legend: false
+    icon: true
+    filter: max
+    series:
+      - metric: mongodb.net_in
+        scope:
+          tag: mongo
+  - type: number
+    color: blue
+    row: 2
+    col: 4
+    size_x: 1
+    size_y: 1
+    symbol: arrow-circle-o-up
+    legend: false
+    icon: true
+    filter: max
+    series:
+      - metric: mongodb.net_out
+        scope:
+          tag: mongo
+  - type: number
+    color: purple
+    row: 2
+    col: 5
+    size_x: 1
+    size_y: 1
+    symbol: archive
+    legend: false
+    icon: true
+    filter: max
+    series:
+      - metric: mongodb.res
+        scope:
+          tag: mongo
+  - type: stacked-chart
+    color: blue
+    row: 3
+    col: 1
+    size_x: 2
+    size_y: 1
+    legend: false
+    icon: true
+    series:
+      - metric: base.load_1_min
+        scope:
+          tag: mongo
+  - type: stacked-chart
+    color: navy
+    row: 3
+    col: 3
+    size_x: 3
+    size_y: 1
+    legend: false
+    icon: true
+    series:
+      - metric: base.cpu
+        scope:
+          tag: mongo
+  - type: number
+    color: yellow
+    row: 3
+    col: 6
+    size_x: 1
+    size_y: 1
+    symbol: plus
+    legend: false
+    icon: true
+    filter: sum
+    series:
+      - metric: mongodb.insert
+        scope:
+          tag: mongo
+  - title: fractional load
+    data_type: number
+    type: detailed-chart
+    color: yellow
+    row: 4
+    col: 1
+    size_x: 5
+    size_y: 1
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: base.load_fractional
+        scope:
+          tag: mongo
+  - type: number
+    color: purple
+    row: 4
+    col: 6
+    size_x: 1
+    size_y: 1
+    symbol: bolt
+    legend: false
+    icon: true
+    filter: max
+    series:
+      - metric: mongodb.vsize
+        scope:
+          tag: mongo
+  - title: '% locked'
+    data_type: number
+    type: detailed-chart
+    color: red
+    row: 5
+    col: 1
+    size_x: 5
+    size_y: 1
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: mongodb.locked
+        scope:
+          tag: mongo
+  - type: number
+    color: purple
+    row: 5
+    col: 6
+    size_x: 1
+    size_y: 1
+    symbol: lightbulb-o
+    legend: false
+    icon: true
+    filter: sum
+    series:
+      - metric: base.memory
+        scope:
+          tag: mongo
+  - type: stacked-chart
+    color: blue
+    row: 6
+    col: 1
+    size_x: 3
+    size_y: 1
+    legend: false
+    icon: true
+    series:
+      - metric: base.net_download
+        scope:
+          tag: mongo
+  - type: stacked-chart
+    color: green
+    row: 6
+    col: 4
+    size_x: 3
+    size_y: 1
+    legend: false
+    icon: true
+    series:
+      - metric: base.net_upload
+        scope:
+          tag: mongo
