@@ -4,5 +4,5 @@ version: 1.0.0
 description: Capacity and throughput metrics showing memory use, instantaneous operations and keyspace information.
 icon:
     name: redis
-    background: #DA2A12
+    background: "#DA2A12"
     foreground: white
