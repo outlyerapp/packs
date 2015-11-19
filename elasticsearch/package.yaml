@@ -4,5 +4,5 @@ version: 1.0.0
 description: Queries the stats and health endpoints for all Elastic Search metrics
 icon:
     name: elasticsearch
-    background: light green
+    background: "#31beb1"
     foreground: white
