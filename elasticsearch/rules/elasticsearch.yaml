@@ -1,0 +1,11 @@
+title: ElasticSearch
+criteria:
+  - metric: elasticsearch.status
+    scope:
+      tag: elasticsearch
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails:
+    message: ''
