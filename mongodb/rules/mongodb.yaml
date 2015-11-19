@@ -1,0 +1,17 @@
+title: MongoDB
+criteria:
+  - metric: mongodb.locked
+    scope:
+      tag: mongo
+    condition:
+      timeout: 120
+      threshold: 90
+  - metric: mongodb.status
+    scope:
+      tag: mongo
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails:
+    message: ''
