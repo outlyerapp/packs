@@ -1,5 +1,5 @@
-title: Redis
-period: 3600
+title: Production Redis
+period: 86400
 positions:
   - title: 'redis.used_memory, redis.used_memory_rss'
     data_type: number
@@ -11,14 +11,15 @@ positions:
     size_y: 2
     icon: true
     legend: false
+    filter: avg
     series:
-      - scope:
+      - metric: redis.used_memory
+        scope:
           tag: redis
-        metric: redis.used_memory
-      - scope:
+      - metric: redis.used_memory_rss
+        scope:
           tag: redis
-        metric: redis.used_memory_rss
-  - title: redis.used_memory
+  - title: Mem Available
     data_type: number
     type: number
     color: navy
@@ -30,9 +31,9 @@ positions:
     icon: false
     legend: false
     series:
-      - scope:
+      - metric: base.vmem.available_gb
+        scope:
           tag: redis
-        metric: redis.used_memory
   - title: redis.keys
     data_type: number
     type: detailed-chart
@@ -44,9 +45,9 @@ positions:
     icon: true
     legend: false
     series:
-      - scope:
+      - metric: redis.keys
+        scope:
           tag: redis
-        metric: redis.keys
   - title: redis.keys
     data_type: number
     type: number
@@ -59,9 +60,9 @@ positions:
     icon: false
     legend: false
     series:
-      - scope:
+      - metric: redis.keys
+        scope:
           tag: redis
-        metric: redis.keys
   - title: 'redis.client_biggest_input_buf, redis.client_longest_output_list'
     data_type: number
     type: detailed-chart
@@ -73,12 +74,12 @@ positions:
     icon: true
     legend: false
     series:
-      - scope:
+      - metric: redis.client_biggest_input_buf
+        scope:
           tag: redis
-        metric: redis.client_biggest_input_buf
-      - scope:
+      - metric: redis.client_longest_output_list
+        scope:
           tag: redis
-        metric: redis.client_longest_output_list
   - title: redis.status
     data_type: nagios
     type: status
@@ -90,9 +91,9 @@ positions:
     icon: true
     legend: false
     series:
-      - scope:
+      - metric: redis.status
+        scope:
           tag: redis
-        metric: redis.status
   - title: instanteneous ops
     data_type: number
     type: detailed-chart
@@ -104,15 +105,15 @@ positions:
     icon: true
     legend: true
     series:
-      - scope:
+      - metric: redis.instantaneous_input_kbps
+        scope:
           tag: redis
-        metric: redis.instantaneous_input_kbps
-      - scope:
+      - metric: redis.instantaneous_ops_per_sec
+        scope:
           tag: redis
-        metric: redis.instantaneous_ops_per_sec
-      - scope:
+      - metric: redis.instantaneous_output_kbps
+        scope:
           tag: redis
-        metric: redis.instantaneous_output_kbps
   - title: connected clients
     data_type: number
     type: number
@@ -125,9 +126,9 @@ positions:
     icon: false
     legend: false
     series:
-      - scope:
+      - metric: redis.connected_clients
+        scope:
           tag: redis
-        metric: redis.connected_clients
   - title: 'redis.keyspace_hits, redis.keyspace_misses'
     data_type: number
     type: detailed-chart
@@ -139,12 +140,12 @@ positions:
     icon: true
     legend: false
     series:
-      - scope:
+      - metric: redis.keyspace_hits
+        scope:
           tag: redis
-        metric: redis.keyspace_hits
-      - scope:
+      - metric: redis.keyspace_misses
+        scope:
           tag: redis
-        metric: redis.keyspace_misses
   - title: evicted + expired keys
     data_type: number
     type: number
@@ -157,9 +158,57 @@ positions:
     icon: false
     legend: false
     series:
-      - scope:
+      - metric: redis.evicted_keys
+        scope:
           tag: redis
-        metric: redis.evicted_keys
-      - scope:
+      - metric: redis.expired_keys
+        scope:
           tag: redis
-        metric: redis.expired_keys
+  - title: cpu and iowait
+    data_type: number
+    type: detailed-chart
+    color: lime
+    row: 10
+    col: 1
+    size_x: 4
+    size_y: 1
+    filter: avg
+    icon: true
+    legend: false
+    series:
+      - metric: base.cpu
+        scope:
+          tag: redis
+      - metric: base.cpu.iowait
+        scope:
+          tag: redis
+  - title: base.load_5_min
+    data_type: number
+    type: detailed-chart
+    color: fuchsia
+    row: 11
+    col: 1
+    size_x: 6
+    size_y: 1
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: base.load_5_min
+        scope:
+          tag: redis
+  - title: base.memory
+    data_type: number
+    type: detailed-chart
+    color: navy
+    row: 12
+    col: 1
+    size_x: 6
+    size_y: 1
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: base.memory
+        scope:
+          tag: redis
