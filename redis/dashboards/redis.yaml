@@ -1,4 +1,4 @@
-title: Production Redis
+title: Redis
 period: 86400
 positions:
   - title: 'redis.used_memory, redis.used_memory_rss'
