@@ -5,4 +5,4 @@ description: Metrics from Microsoft Internet Information Services
 icon:
     name: website
     background: lightgray
-    foreground: darkgray
+    foreground: white

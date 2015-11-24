@@ -4,5 +4,5 @@ version: 1.0.0
 description: Microsoft SQL Server metrics
 icon:
     name: windows
-    background: crimson
-    foreground: lightgray
+    background: white
+    foreground: crimson
