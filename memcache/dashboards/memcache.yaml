@@ -1,0 +1,136 @@
+title: Memcache
+period: 600
+positions:
+  - title: connections
+    data_type: number
+    type: stacked-chart
+    color: blue
+    row: 1
+    col: 1
+    size_x: 3
+    size_y: 4
+    legend: true
+    icon: true
+    series:
+      - metric: memcache.accepting_conns
+        scope:
+          tag: memcache
+      - metric: memcache.curr_connections
+        scope:
+          tag: memcache
+      - metric: memcache.connection_structures
+        scope:
+          tag: memcache
+      - metric: memcache.conn_yields
+        scope:
+          tag: memcache
+  - title: auth
+    data_type: number
+    type: detailed-chart
+    color: purple
+    row: 1
+    col: 4
+    size_x: 2
+    size_y: 2
+    legend: true
+    icon: true
+    filter: avg
+    series:
+      - metric: memcache.auth_cmds
+        scope:
+          tag: memcache
+      - metric: memcache.auth_errors
+        scope:
+          tag: memcache
+  - title: memcache status
+    data_type: nagios
+    type: status
+    color: lime
+    row: 1
+    col: 6
+    size_x: 1
+    size_y: 2
+    legend: false
+    icon: true
+    series:
+      - metric: memcache.status
+        scope:
+          tag: memcache
+  - title: cas
+    data_type: number
+    type: detailed-chart
+    color: aqua
+    row: 3
+    col: 4
+    size_x: 2
+    size_y: 2
+    legend: true
+    icon: true
+    filter: avg
+    series:
+      - metric: memcache.cas_badval
+        scope:
+          tag: memcache
+      - metric: memcache.cas_hits
+        scope:
+          tag: memcache
+      - metric: memcache.cas_misses
+        scope:
+          tag: memcache
+  - title: available memory
+    data_type: number
+    type: number
+    color: orange
+    row: 3
+    col: 6
+    size_x: 1
+    size_y: 2
+    legend: false
+    icon: false
+    filter: min
+    series:
+      - metric: base.vmem.available_gb
+        scope:
+          tag: memcache
+  - title: cmd
+    data_type: number
+    type: detailed-chart
+    color: fuchsia
+    row: 5
+    col: 1
+    size_x: 3
+    size_y: 2
+    legend: true
+    icon: true
+    filter: avg
+    series:
+      - metric: memcache.cmd_flush
+        scope:
+          tag: memcache
+      - metric: memcache.cmd_get
+        scope:
+          tag: memcache
+      - metric: memcache.cmd_set
+        scope:
+          tag: memcache
+      - metric: memcache.cmd_touch
+        scope:
+          tag: memcache
+  - title: touch
+    data_type: number
+    type: detailed-chart
+    color: maroon
+    row: 5
+    col: 4
+    size_x: 3
+    size_y: 2
+    legend: true
+    icon: true
+    filter: avg
+    series:
+      - metric: memcache.touch_hits
+        scope:
+          tag: memcache
+      - metric: memcache.touch_misses
+        scope:
+          tag: memcache
