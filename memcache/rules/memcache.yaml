@@ -1,0 +1,11 @@
+title: Memcache
+criteria:
+  - metric: 'memcache.status'
+    scope:
+      tag: memcache
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails: []
+    message: ''

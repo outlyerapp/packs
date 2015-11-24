@@ -1,0 +1,8 @@
+title: Memcache
+author: Dataloop.IO
+version: 1.0.0
+description: Capacity and throughput metrics showing memory use, instantaneous operations and keyspace information.
+icon:
+    name: memcache
+    background: lightslategray
+    foreground: lightseagreen
