@@ -1,14 +1,28 @@
 title: IIS Servers
 period: 3600
 positions:
+  - title: status
+    data_type: nagios
+    type: status
+    color: olive
+    row: 1
+    col: 1
+    size_x: 1
+    size_y: 1
+    legend: false
+    icon: true
+    series:
+      - metric: iis.status
+        scope:
+          tag: iis
   - title: max connections
     data_type: number
     type: number
     color: green
     row: 1
-    col: 1
+    col: 2
     size_x: 1
-    size_y: 1
+    size_y: 2
     filter: max
     symbol: exchange
     legend: false
@@ -16,16 +30,15 @@ positions:
     series:
       - metric: iis.current_connections
         scope:
-          tag:
-            - iis
+          tag: iis
   - title: max nonanon users
     data_type: number
     type: number
     color: orange
     row: 1
-    col: 2
+    col: 3
     size_x: 1
-    size_y: 1
+    size_y: 2
     symbol: users
     legend: false
     icon: true
@@ -33,16 +46,15 @@ positions:
     series:
       - metric: iis.current_nonanonymous_users
         scope:
-          tag:
-            - iis
+          tag: iis
   - title: max anon users
     data_type: number
     type: number
     color: orange
     row: 1
-    col: 3
+    col: 4
     size_x: 1
-    size_y: 1
+    size_y: 2
     filter: max
     symbol: question-circle
     legend: false
@@ -50,16 +62,15 @@ positions:
     series:
       - metric: iis.current_anonymous_users
         scope:
-          tag:
-            - iis
+          tag: iis
   - title: max put requests /sec
     data_type: number
     type: number
     color: navy
     row: 1
-    col: 4
+    col: 5
     size_x: 1
-    size_y: 1
+    size_y: 2
     symbol: arrow-circle-o-up
     legend: false
     icon: true
@@ -67,16 +78,15 @@ positions:
     series:
       - metric: iis.put_requests_sec
         scope:
-          tag:
-            - iis
+          tag: iis
   - title: max get requests /sec
     data_type: number
     type: number
     color: navy
     row: 1
-    col: 5
+    col: 6
     size_x: 1
-    size_y: 1
+    size_y: 2
     symbol: arrow-circle-o-down
     legend: false
     icon: true
@@ -84,16 +94,15 @@ positions:
     series:
       - metric: iis.get_requests_sec
         scope:
-          tag:
-            - iis
+          tag: iis
   - title: max post request /sec
     data_type: number
     type: number
     color: navy
     row: 1
-    col: 6
+    col: 7
     size_x: 1
-    size_y: 1
+    size_y: 2
     symbol: arrow-circle-o-right
     legend: false
     icon: true
@@ -101,85 +110,122 @@ positions:
     series:
       - metric: iis.post_requests_sec
         scope:
-          tag:
-            - iis
-  - title: cpu used
+          tag: iis
+  - title: servers
     data_type: number
-    type: chart
-    color: yellow
+    type: number
+    color: green
     row: 2
     col: 1
-    size_x: 5
+    size_x: 1
+    size_y: 1
+    filter: sum
+    series:
+      - metric: base.count
+        scope:
+          tag: iis
+  - title: connections
+    data_type: number
+    type: stacked-chart
+    color: green
+    row: 3
+    col: 1
+    size_x: 2
     size_y: 2
-    filter: max
     legend: false
     icon: true
+    series:
+      - metric: iis.current_anonymous_users
+        scope:
+          tag: iis
+      - metric: iis.current_connections
+        scope:
+          tag: iis
+      - metric: iis.current_nonanonymous_users
+        scope:
+          tag: iis
+  - title: users
+    data_type: number
+    type: detailed-chart
+    color: orange
+    row: 3
+    col: 3
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: iis.current_anonymous_users
+        scope:
+          tag: iis
+      - metric: iis.current_nonanonymous_users
+        scope:
+          tag: iis
+  - title: requests per second
+    data_type: number
+    type: stacked-chart
+    color: navy
+    row: 3
+    col: 5
+    size_x: 3
+    size_y: 2
+    legend: false
+    icon: true
+    series:
+      - metric: iis.get_requests_sec
+        scope:
+          tag: iis
+      - metric: iis.post_requests_sec
+        scope:
+          tag: iis
+      - metric: iis.put_requests_sec
+        scope:
+          tag: iis
+  - title: cpu used
+    data_type: number
+    type: detailed-chart
+    color: blue
+    row: 5
+    col: 1
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
     series:
       - metric: base.cpu
         scope:
-          tag:
-            - iis
-  - title: system
+          tag: iis
+  - title: memory used
     data_type: number
-    type: chart
-    color: yellow
-    row: 2
-    col: 6
-    size_x: 1
-    size_y: 1
-    filter: max
-    legend: false
-    icon: true
-    series:
-      - metric: base.cpu.system
-        scope:
-          tag:
-            - iis
-  - title: user
-    data_type: number
-    type: chart
-    color: yellow
-    row: 3
-    col: 6
-    size_x: 1
-    size_y: 1
-    filter: max
-    legend: false
-    icon: true
-    series:
-      - metric: base.cpu.user
-        scope:
-          tag:
-            - iis
-  - title: network upload
-    data_type: number
-    type: chart
-    color: red
-    row: 4
-    col: 1
-    size_x: 6
-    size_y: 1
-    filter: max
-    legend: false
-    icon: true
-    series:
-      - metric: base.net_upload
-        scope:
-          tag:
-            - iis
-  - title: network download
-    data_type: number
-    type: chart
-    color: navy
+    type: detailed-chart
+    color: olive
     row: 5
-    col: 1
-    size_x: 6
-    size_y: 1
-    filter: max
+    col: 3
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: base.memory
+        scope:
+          tag: iis
+  - title: network upload / download
+    data_type: number
+    type: stacked-chart
+    color: maroon
+    row: 5
+    col: 5
+    size_x: 3
+    size_y: 2
     legend: false
     icon: true
     series:
       - metric: base.net_download
         scope:
-          tag:
-            - iis
+          tag: iis
+      - metric: base.net_upload
+        scope:
+          tag: iis
