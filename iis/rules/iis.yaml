@@ -1,0 +1,12 @@
+title: IIS
+criteria:
+  - metric: 'iis.status'
+    scope:
+      tag: iis
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails: []
+    message: ''
+
