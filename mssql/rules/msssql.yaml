@@ -1,0 +1,12 @@
+title: MSSQL
+criteria:
+  - metric: 'mssql.status'
+    scope:
+      tag: redis
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails: []
+    message: ''
+

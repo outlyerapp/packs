@@ -1,0 +1,165 @@
+title: MSSQL
+period: 600
+positions:
+  - title: mssql.buffer_cache_hit_ratio
+    data_type: number
+    type: detailed-chart
+    color: green
+    row: 1
+    col: 1
+    size_x: 2
+    size_y: 2
+    icon: true
+    legend: false
+    series:
+      - metric: mssql.buffer_cache_hit_ratio
+        scope:
+          tag: mssql
+  - title: mssql.sql_compilations_sec
+    data_type: number
+    type: detailed-chart
+    color: green
+    row: 1
+    col: 3
+    size_x: 2
+    size_y: 2
+    icon: true
+    legend: false
+    series:
+      - metric: mssql.sql_compilations_sec
+        scope:
+          tag: mssql
+  - title: mssql.user_connections
+    data_type: number
+    type: detailed-chart
+    color: navy
+    row: 3
+    col: 1
+    size_x: 2
+    size_y: 2
+    icon: true
+    legend: false
+    series:
+      - metric: mssql.user_connections
+        scope:
+          tag: mssql
+  - type: new
+    color: teal
+    row: 3
+    col: 3
+    size_x: 2
+    size_y: 2
+    icon: true
+    legend: false
+    filter: new
+    series: []
+  - title: mssql.lock_timeouts_sec
+    data_type: number
+    type: detailed-chart
+    color: orange
+    row: 5
+    col: 1
+    size_x: 2
+    size_y: 2
+    icon: true
+    legend: false
+    series:
+      - metric: mssql.lock_timeouts_sec
+        scope:
+          tag: mssql
+  - title: mssql.full_scans_sec
+    data_type: number
+    type: detailed-chart
+    color: aqua
+    row: 5
+    col: 3
+    size_x: 2
+    size_y: 2
+    icon: true
+    legend: false
+    series:
+      - metric: mssql.full_scans_sec
+        scope:
+          tag: mssql
+  - type: new
+    color: green
+    row: 7
+    col: 1
+    size_x: 2
+    size_y: 2
+    icon: true
+    legend: false
+    filter: new
+    series: []
+  - title: mssql.lock_wait_time_ms_
+    data_type: number
+    type: detailed-chart
+    color: aqua
+    row: 7
+    col: 3
+    size_x: 2
+    size_y: 2
+    icon: true
+    legend: false
+    series:
+      - metric: mssql.lock_wait_time_ms_
+        scope:
+          tag: mssql
+  - title: mssql.page_life_expectancy
+    data_type: number
+    type: detailed-chart
+    color: fuchsia
+    row: 9
+    col: 1
+    size_x: 2
+    size_y: 2
+    icon: true
+    legend: false
+    series:
+      - metric: mssql.page_life_expectancy
+        scope:
+          tag: mssql
+  - type: new
+    color: orange
+    row: 9
+    col: 3
+    size_x: 2
+    size_y: 2
+    icon: true
+    legend: false
+    filter: new
+    series: []
+  - type: new
+    color: green
+    row: 11
+    col: 1
+    size_x: 2
+    size_y: 2
+    icon: true
+    legend: false
+    filter: new
+    series: []
+  - title: mssql.batch_requests_sec
+    data_type: number
+    type: detailed-chart
+    color: olive
+    row: 11
+    col: 3
+    size_x: 2
+    size_y: 2
+    icon: true
+    legend: false
+    series:
+      - metric: mssql.batch_requests_sec
+        scope:
+          tag: mssql
+  - type: new
+    color: blue
+    row: 13
+    col: 1
+    size_x: 2
+    size_y: 2
+    icon: true
+    legend: false
+    filter: new
+    series: []
