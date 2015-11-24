@@ -4,5 +4,5 @@ version: 1.0.0
 description: Metrics from Microsoft Exchange Server
 icon:
     name: windows
-    background: grey
-    foreground: orange
+    background: orange
+    foreground: lightgray
