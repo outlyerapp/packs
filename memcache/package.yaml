@@ -1,8 +1,8 @@
 title: Memcache
 author: Dataloop.IO
 version: 1.0.0
-description: Capacity and throughput metrics showing memory use, instantaneous operations and keyspace information.
+description: high-performance, distributed memory object caching system metrics
 icon:
     name: memcache
-    background: lightslategray
+    background: dimgray
     foreground: lightseagreen
