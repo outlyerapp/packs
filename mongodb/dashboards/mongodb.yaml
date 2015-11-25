@@ -14,7 +14,7 @@ positions:
     series:
       - metric: mongodb.connections
         scope:
-          tag: mongo
+          tag: mongodb
   - type: number
     color: yellow
     row: 1
@@ -28,7 +28,7 @@ positions:
     series:
       - metric: mongodb.query
         scope:
-          tag: mongo
+          tag: mongodb
   - type: number
     color: yellow
     row: 1
@@ -42,7 +42,7 @@ positions:
     series:
       - metric: mongodb.command
         scope:
-          tag: mongo
+          tag: mongodb
   - type: number
     color: yellow
     row: 1
@@ -56,7 +56,7 @@ positions:
     series:
       - metric: mongodb.getmore
         scope:
-          tag: mongo
+          tag: mongodb
   - type: number
     color: yellow
     row: 1
@@ -70,7 +70,7 @@ positions:
     series:
       - metric: mongodb.update
         scope:
-          tag: mongo
+          tag: mongodb
   - title: 'current locked %'
     data_type: number
     type: number
@@ -86,7 +86,7 @@ positions:
     series:
       - metric: mongodb.locked
         scope:
-          tag: mongo
+          tag: mongodb
   - type: number
     color: green
     row: 2
@@ -100,7 +100,7 @@ positions:
     series:
       - metric: mongodb.araw
         scope:
-          tag: mongo
+          tag: mongodb
   - type: number
     color: green
     row: 2
@@ -114,7 +114,7 @@ positions:
     series:
       - metric: mongodb.qrqw
         scope:
-          tag: mongo
+          tag: mongodb
   - type: number
     color: blue
     row: 2
@@ -128,7 +128,7 @@ positions:
     series:
       - metric: mongodb.net_in
         scope:
-          tag: mongo
+          tag: mongodb
   - type: number
     color: blue
     row: 2
@@ -142,7 +142,7 @@ positions:
     series:
       - metric: mongodb.net_out
         scope:
-          tag: mongo
+          tag: mongodb
   - type: number
     color: purple
     row: 2
@@ -156,7 +156,7 @@ positions:
     series:
       - metric: mongodb.res
         scope:
-          tag: mongo
+          tag: mongodb
   - type: stacked-chart
     color: blue
     row: 3
@@ -168,7 +168,7 @@ positions:
     series:
       - metric: base.load_1_min
         scope:
-          tag: mongo
+          tag: mongodb
   - type: stacked-chart
     color: navy
     row: 3
@@ -180,7 +180,7 @@ positions:
     series:
       - metric: base.cpu
         scope:
-          tag: mongo
+          tag: mongodb
   - type: number
     color: yellow
     row: 3
@@ -194,7 +194,7 @@ positions:
     series:
       - metric: mongodb.insert
         scope:
-          tag: mongo
+          tag: mongodb
   - title: fractional load
     data_type: number
     type: detailed-chart
@@ -209,7 +209,7 @@ positions:
     series:
       - metric: base.load_fractional
         scope:
-          tag: mongo
+          tag: mongodb
   - type: number
     color: purple
     row: 4
@@ -223,7 +223,7 @@ positions:
     series:
       - metric: mongodb.vsize
         scope:
-          tag: mongo
+          tag: mongodb
   - title: '% locked'
     data_type: number
     type: detailed-chart
@@ -238,7 +238,7 @@ positions:
     series:
       - metric: mongodb.locked
         scope:
-          tag: mongo
+          tag: mongodb
   - type: number
     color: purple
     row: 5
@@ -252,7 +252,7 @@ positions:
     series:
       - metric: base.memory
         scope:
-          tag: mongo
+          tag: mongodb
   - type: stacked-chart
     color: blue
     row: 6
@@ -264,7 +264,7 @@ positions:
     series:
       - metric: base.net_download
         scope:
-          tag: mongo
+          tag: mongodb
   - type: stacked-chart
     color: green
     row: 6
@@ -276,4 +276,4 @@ positions:
     series:
       - metric: base.net_upload
         scope:
-          tag: mongo
+          tag: mongodb
