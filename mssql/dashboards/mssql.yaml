@@ -1,165 +1,223 @@
 title: MSSQL
 period: 600
 positions:
-  - title: mssql.buffer_cache_hit_ratio
-    data_type: number
-    type: detailed-chart
-    color: green
+  - title: mssql
+    data_type: nagios
+    type: status
+    color: purple
     row: 1
     col: 1
-    size_x: 2
-    size_y: 2
-    icon: true
+    size_x: 1
+    size_y: 1
     legend: false
+    icon: true
     series:
-      - metric: mssql.buffer_cache_hit_ratio
+      - metric: mssql.status
         scope:
           tag: mssql
-  - title: mssql.sql_compilations_sec
+  - title: compilations and recompilations per second
     data_type: number
     type: detailed-chart
-    color: green
+    color: orange
     row: 1
-    col: 3
-    size_x: 2
-    size_y: 2
-    icon: true
+    col: 2
+    size_x: 3
+    size_y: 3
     legend: false
+    icon: true
+    filter: avg
     series:
       - metric: mssql.sql_compilations_sec
         scope:
           tag: mssql
-  - title: mssql.user_connections
+      - metric: mssql.sql_re_compilations_sec
+        scope:
+          tag: mssql
+  - title: buffer cache hit ratio
     data_type: number
     type: detailed-chart
-    color: navy
+    color: blue
+    row: 1
+    col: 5
+    size_x: 3
+    size_y: 3
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: mssql.buffer_cache_hit_ratio
+        scope:
+          tag: mssql
+  - title: cpu usage
+    data_type: number
+    type: detailed-chart
+    color: yellow
+    row: 1
+    col: 8
+    size_x: 2
+    size_y: 3
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: base.cpu
+        scope:
+          tag: mssql
+  - title: total servers
+    data_type: number
+    type: number
+    color: green
+    row: 2
+    col: 1
+    size_x: 1
+    size_y: 1
+    legend: false
+    icon: false
+    filter: sum
+    series:
+      - metric: base.count
+        scope:
+          tag: mssql
+  - title: total user connections
+    data_type: number
+    type: number
+    color: green
     row: 3
     col: 1
-    size_x: 2
-    size_y: 2
-    icon: true
+    size_x: 1
+    size_y: 1
     legend: false
+    icon: false
+    filter: sum
     series:
       - metric: mssql.user_connections
         scope:
           tag: mssql
-  - type: new
-    color: teal
-    row: 3
-    col: 3
-    size_x: 2
-    size_y: 2
-    icon: true
-    legend: false
-    filter: new
-    series: []
-  - title: mssql.lock_timeouts_sec
+  - title: lock timeouts and waits
     data_type: number
     type: detailed-chart
-    color: orange
-    row: 5
+    color: red
+    row: 4
     col: 1
     size_x: 2
-    size_y: 2
-    icon: true
+    size_y: 3
     legend: false
+    icon: true
+    filter: avg
     series:
       - metric: mssql.lock_timeouts_sec
         scope:
           tag: mssql
-  - title: mssql.full_scans_sec
-    data_type: number
-    type: detailed-chart
-    color: aqua
-    row: 5
-    col: 3
-    size_x: 2
-    size_y: 2
-    icon: true
-    legend: false
-    series:
-      - metric: mssql.full_scans_sec
+      - metric: mssql.lock_wait_time_ms
         scope:
           tag: mssql
-  - type: new
-    color: green
-    row: 7
-    col: 1
-    size_x: 2
-    size_y: 2
-    icon: true
-    legend: false
-    filter: new
-    series: []
-  - title: mssql.lock_wait_time_ms_
-    data_type: number
-    type: detailed-chart
-    color: aqua
-    row: 7
-    col: 3
-    size_x: 2
-    size_y: 2
-    icon: true
-    legend: false
-    series:
-      - metric: mssql.lock_wait_time_ms_
-        scope:
-          tag: mssql
-  - title: mssql.page_life_expectancy
+  - title: batch requests per second
     data_type: number
     type: detailed-chart
     color: fuchsia
-    row: 9
-    col: 1
-    size_x: 2
-    size_y: 2
-    icon: true
-    legend: false
-    series:
-      - metric: mssql.page_life_expectancy
-        scope:
-          tag: mssql
-  - type: new
-    color: orange
-    row: 9
+    row: 4
     col: 3
     size_x: 2
-    size_y: 2
-    icon: true
+    size_y: 3
     legend: false
-    filter: new
-    series: []
-  - type: new
-    color: green
-    row: 11
-    col: 1
-    size_x: 2
-    size_y: 2
     icon: true
-    legend: false
-    filter: new
-    series: []
-  - title: mssql.batch_requests_sec
-    data_type: number
-    type: detailed-chart
-    color: olive
-    row: 11
-    col: 3
-    size_x: 2
-    size_y: 2
-    icon: true
-    legend: false
+    filter: avg
     series:
       - metric: mssql.batch_requests_sec
         scope:
           tag: mssql
-  - type: new
-    color: blue
-    row: 13
+  - title: freespace and full scans per second
+    data_type: number
+    type: detailed-chart
+    color: purple
+    row: 4
+    col: 5
+    size_x: 3
+    size_y: 3
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: mssql.freespace_scans_sec
+        scope:
+          tag: mssql
+      - metric: mssql.full_scans_sec
+        scope:
+          tag: mssql
+  - title: memory usage
+    data_type: number
+    type: detailed-chart
+    color: olive
+    row: 4
+    col: 8
+    size_x: 2
+    size_y: 3
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: base.memory
+        scope:
+          tag: mssql
+  - title: memory grants pending
+    data_type: number
+    type: detailed-chart
+    color: navy
+    row: 7
     col: 1
     size_x: 2
     size_y: 2
-    icon: true
     legend: false
-    filter: new
-    series: []
+    icon: true
+    filter: avg
+    series:
+      - metric: mssql.memory_grants_pending
+        scope:
+          tag: mssql
+  - title: deadlocks per second
+    data_type: number
+    type: detailed-chart
+    color: red
+    row: 7
+    col: 3
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: mssql.number_of_deadlocks_sec
+        scope:
+          tag: mssql
+  - title: total latch wait time (ms)
+    data_type: number
+    type: detailed-chart
+    color: maroon
+    row: 7
+    col: 5
+    size_x: 3
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: mssql.total_latch_wait_time_ms
+        scope:
+          tag: mssql
+  - title: network upload and download
+    data_type: number
+    type: stacked-chart
+    color: lime
+    row: 7
+    col: 8
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    series:
+      - metric: base.net_download
+        scope:
+          tag: mssql
+      - metric: base.net_upload
+        scope:
+          tag: mssql
