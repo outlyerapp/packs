@@ -109,9 +109,9 @@ positions:
       - metric: base.load_fractional
         scope:
           tag: all
-  - title: iowait
+  - title: cpu
     data_type: number
-    type: stacked-chart
+    type: detailed-chart
     color: purple
     row: 4
     col: 1
@@ -120,7 +120,7 @@ positions:
     legend: false
     icon: true
     series:
-      - metric: base.cpu.iowait
+      - metric: base.cpu
         scope:
           tag: all
   - title: download
