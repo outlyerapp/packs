@@ -2,7 +2,7 @@ title: MSSQL
 criteria:
   - metric: 'mssql.status'
     scope:
-      tag: redis
+      tag: mssql
     condition:
       timeout: 120
       threshold: false
