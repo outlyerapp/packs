@@ -1,8 +1,0 @@
-title: Exchange
-author: Dataloop.IO
-version: 1.0.0
-description: Metrics from Microsoft Exchange Server
-icon:
-    name: windows
-    background: orange
-    foreground: white
