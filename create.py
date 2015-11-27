@@ -36,6 +36,7 @@ if __name__ == "__main__":
     create_tree(home, {})
 
     content = {
+        '': ['package.yaml', 'README.md'],
         'plugins': [pack_name + '.py'],
         'dashboards': [pack_name + '.yaml'],
         'rules': [pack_name + '.yaml']
