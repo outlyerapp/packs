@@ -7,7 +7,7 @@ To create a new Pack fork this repo and then run:
 
 ```./create.py <pack name>```
 
-Where <pack name> is whatever you want your pack to be called. For now just single words please.
+Where `<pack name>` is whatever you want your pack to be called. For now just single words please.
 
 This will create a directory structure like this:
 
@@ -23,15 +23,15 @@ example
     └── example.yaml
 ```
 
-When installed in Dataloop this will automatically creates a Tag based on the <pack name>. In the example above it would
+When installed in Dataloop this will automatically creates a Tag based on the `<pack name>`. In the example above it would
 create a Tag called 'example'. It then automatically creates a link between that tag and all of the plugins in the
 plugins directory.
 
 The README.md is the help file. Use markdown to describe any configuration changes that need to be in place to get your
 pack working. You may also want to describe what the metrics mean on the dashboards and rules.
 
-Paste your exported dashboard yaml content into dashboards/<pack name>.yaml but ensure that the scope for every widget
-is set to a tag that matches the <pack name>.
+Paste your exported dashboard yaml content into dashboards/`<pack name>`.yaml but ensure that the scope for every widget
+is set to a tag that matches the `<pack name>`.
 
 Update the package.yaml with the following information:
 
@@ -52,11 +52,11 @@ http://dataloop.github.io/icons/
 
 Just ignore the .di- in the name.
 
-Paste your plugin content into the plugins/<pack name>.py. For now every plugin needs to be written in Python as they
+Paste your plugin content into the plugins/`<pack name>`.py. For now every plugin needs to be written in Python as they
 get executed by the Dataloop agent's built Python 2.7 interpreter.
 
-Paste your exported rules yaml content into rules/<pack name>.yaml but ensure that the scope for every criteria
-is set to a tag that matches the <pack name>.
+Paste your exported rules yaml content into rules/`<pack name>`.yaml but ensure that the scope for every criteria
+is set to a tag that matches the `<pack name>`.
 
 You can add multiple plugins, dashboards and rules to a pack if you'd like to split stuff out a bit.
 
