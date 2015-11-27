@@ -1,9 +1,9 @@
 # Dataloop Packs
 
-Each pack is comprised of a Nagios plugin, exported dashboard yaml file, exported rules yaml file, a package description
-and some help.
+Each pack is comprised of a plugin (Nagios check script), exported dashboard yaml file, exported rules yaml file, a package description
+and some help. Each directory in this repo appears as a separate pack in the Dataloop 'Packs Store' under the Setup page.
 
-To create a new Pack fork this repo and then run:
+To create a new pack fork this repo and then run:
 
 ```./create.py <pack name>```
 
@@ -23,7 +23,7 @@ example
     └── example.yaml
 ```
 
-When installed in Dataloop this will automatically creates a Tag based on the `<pack name>`. In the example above it would
+When installed in Dataloop this will automatically create a Tag based on the `<pack name>`. In the example above it would
 create a Tag called 'example'. It then automatically creates a link between that tag and all of the plugins in the
 plugins directory.
 
