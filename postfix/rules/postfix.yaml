@@ -1,0 +1,11 @@
+title: Postfix
+criteria:
+  - metric: postfix.status
+    scope:
+      tag: postfix
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails: []
+    message: ''

@@ -1,0 +1,122 @@
+title: Postfix
+period: 600
+positions:
+  - title: postfix.status
+    data_type: nagios
+    type: status
+    color: navy
+    row: 1
+    col: 1
+    size_x: 1
+    size_y: 1
+    legend: false
+    icon: true
+    series:
+      - metric: postfix.status
+        scope:
+          tag: postfix
+  - title: mail queue size
+    data_type: number
+    type: detailed-chart
+    color: green
+    row: 1
+    col: 2
+    size_x: 6
+    size_y: 3
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: postfix.queue_size
+        scope:
+          tag: postfix
+  - title: qmgr processes
+    data_type: number
+    type: number
+    color: green
+    row: 2
+    col: 1
+    size_x: 1
+    size_y: 1
+    legend: false
+    icon: false
+    filter: sum
+    series:
+      - metric: postfix.qmgr.count
+        scope:
+          tag: postfix
+  - title: postfix processes
+    data_type: number
+    type: number
+    color: green
+    row: 3
+    col: 1
+    size_x: 1
+    size_y: 1
+    legend: false
+    icon: false
+    filter: sum
+    series:
+      - metric: postfix.smtpd.count
+        scope:
+          tag: postfix
+  - title: smtpd cpu
+    data_type: number
+    type: detailed-chart
+    color: purple
+    row: 4
+    col: 1
+    size_x: 4
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: postfix.smtpd.cpu_percent
+        scope:
+          tag: postfix
+  - title: smtpd memory
+    data_type: number
+    type: detailed-chart
+    color: yellow
+    row: 4
+    col: 5
+    size_x: 3
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: postfix.smtpd.mem_percent
+        scope:
+          tag: postfix
+  - title: qmgr cpu
+    data_type: number
+    type: detailed-chart
+    color: aqua
+    row: 6
+    col: 1
+    size_x: 4
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: postfix.qmgr.cpu_percent
+        scope:
+          tag: postfix
+  - title: qmgr memory
+    data_type: number
+    type: detailed-chart
+    color: blue
+    row: 6
+    col: 5
+    size_x: 3
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: postfix.qmgr.mem_percent
+        scope:
+          tag: postfix
