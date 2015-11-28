@@ -18,7 +18,7 @@ To setup a dataloop user with the password set to password (change this to somet
 MYSQL_USER = 'root'
 MYSQL_PASSWORD = ''
 
-
+# metrics collection
 
 TMPDIR = '/opt/dataloop/tmp'
 TMPFILE = 'mysql.json'
@@ -26,20 +26,33 @@ TIMESTAMP = datetime.now().strftime('%s')
 status = {}
 
 
-# metrics collection
+def is_int(input):
+    try:
+        num = int(input)
+    except ValueError:
+        return False
+    return True
+
+
+def is_float(input):
+    try:
+        num = float(input)
+    except ValueError:
+        return False
+    return True
+
+
 def get_mysql_status():
     command = ['/usr/bin/mysql', '-s', '-N', '-s', '-e', 'show global status']
     if MYSQL_USER:
         command.append('-u%s' % MYSQL_USER)
     if MYSQL_PASSWORD:
         command.append('-p%s' % MYSQL_PASSWORD)
-
     try:
         resp = subprocess.check_output(command)
     except Exception, e:
         print "connection failure: %s" % e
         sys.exit(2)
-
     metric_list = resp.split('\n')
     metric_list.sort()
     for line in metric_list:
@@ -48,7 +61,7 @@ def get_mysql_status():
             k =  metric[0].strip().lower()
             k = k.replace('com_', '',1)
             v = metric[1]
-            if isinstance(v, int) or isinstance(v, float):
+            if is_int(v) or is_float(v):
                 status[k] = v
     return status
 
@@ -89,11 +102,19 @@ def cleanse_cache(cache):
     except:
         os.remove(TMPDIR + '/' + TMPFILE)
 
+def delete_cache():
+    try:
+        os.remove(TMPDIR + '/' + TMPFILE)
+    except:
+        print "failed to delete cache file"
+
 
 def calculate_rates(data_now, json_data, rateme):
     if len(json_data) > 1:
         try:
             history = json_data[0]
+            if len(history < 20):
+                delete_cache()
             seconds_diff = int(TIMESTAMP) - int(history['timestamp'])
             rate_diff = float(data_now[rateme]) - float(history[rateme])
             data_per_second = "{0:.2f}".format(rate_diff / seconds_diff)
@@ -102,16 +123,13 @@ def calculate_rates(data_now, json_data, rateme):
             return None
 
 tmp_file()
-
 json_data = get_cache()
 
 if len(json_data) > 0:
     json_data = cleanse_cache(json_data)
 
 result = get_mysql_status()
-
-all_rates = list(result.keys())
-rates = list(set(all_rates) - set(no_rates))
+rates = list(result.keys())
 
 for rate in rates:
     _ = calculate_rates(result, json_data, rate)
