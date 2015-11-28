@@ -88,7 +88,7 @@ def write_cache(cache):
     with open(TMPDIR + '/' + TMPFILE, 'w') as json_fp:
         try:
             json.dump(cache, json_fp)
-        except:
+        except Exception, e:
             print "unable to write cache file, future rates will be hard to calculate"
 
 
@@ -99,27 +99,28 @@ def cleanse_cache(cache):
         while len(cache) >= 120:
             cache.pop(0)
         return cache
-    except:
+    except Exception, e:
         os.remove(TMPDIR + '/' + TMPFILE)
+
 
 def delete_cache():
     try:
         os.remove(TMPDIR + '/' + TMPFILE)
-    except:
-        print "failed to delete cache file"
+    except Exception, e:
+        print "failed to delete cache file: %s" % e
 
 
 def calculate_rates(data_now, json_data, rateme):
     if len(json_data) > 1:
         try:
             history = json_data[0]
-            if len(history < 20):
+            if len(history) < 20:
                 delete_cache()
             seconds_diff = int(TIMESTAMP) - int(history['timestamp'])
             rate_diff = float(data_now[rateme]) - float(history[rateme])
             data_per_second = "{0:.2f}".format(rate_diff / seconds_diff)
             return data_per_second
-        except:
+        except Exception, e:
             return None
 
 tmp_file()
