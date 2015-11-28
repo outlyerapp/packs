@@ -1,0 +1,11 @@
+title: MySQL
+criteria:
+  - metric: mysql.status
+    scope:
+      tag: mysql
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails: []
+    message: ''
