@@ -4,5 +4,5 @@ version: 1.0.0
 description: Nginx http codes and response times. You will need to follow the instructions in nginx.py for setup.
 icon:
     name: nginx
-    background: spring
+    background: green
     foreground: white
