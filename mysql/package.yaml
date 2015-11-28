@@ -4,5 +4,5 @@ version: 1.0.0
 description: MySQL monitoring. You may need to edit the mysql.py plugin to set username and password.
 icon:
     name: mysql
-    background: darkblue
-    foreground: orange
+    background: orange
+    foreground: darkblue
