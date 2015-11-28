@@ -1,0 +1,11 @@
+title: Nginx
+criteria:
+  - metric: nginx.status
+    scope:
+      tag: mysql
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails: []
+    message: ''

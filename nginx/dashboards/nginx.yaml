@@ -1,0 +1,167 @@
+title: Nginx
+period: 3600
+positions:
+  - title: 5xx errors
+    data_type: number
+    type: detailed-chart
+    color: red
+    row: 1
+    col: 1
+    size_x: 4
+    size_y: 1
+    legend: false
+    icon: true
+    series:
+      - metric: nginx.5xx
+        scope:
+          tag: nginx
+  - title: 5xx codes / 30 secs
+    data_type: number
+    type: number
+    color: red
+    row: 1
+    col: 5
+    size_x: 2
+    size_y: 2
+    symbol: exclamation-circle
+    legend: false
+    icon: true
+    filter: sum
+    series:
+      - metric: nginx.5xx
+        scope:
+          tag: nginx
+  - title: 4xx errors
+    data_type: number
+    type: detailed-chart
+    color: red
+    row: 2
+    col: 1
+    size_x: 4
+    size_y: 1
+    legend: false
+    icon: true
+    series:
+      - metric: nginx.4xx
+        scope:
+          tag: nginx
+  - title: max request times
+    data_type: number
+    type: stacked-chart
+    color: red
+    row: 3
+    col: 1
+    size_x: 4
+    size_y: 1
+    legend: false
+    icon: true
+    series:
+      - metric: nginx.max_time
+        scope:
+          tag: nginx
+  - title: 4xx codes / 30secs
+    data_type: number
+    type: number
+    color: red
+    row: 3
+    col: 5
+    size_x: 2
+    size_y: 1
+    filter: sum
+    symbol: exclamation
+    legend: false
+    icon: true
+    series:
+      - metric: nginx.4xx
+        scope:
+          tag: nginx
+  - title: min request times
+    data_type: number
+    type: stacked-chart
+    color: green
+    row: 4
+    col: 1
+    size_x: 4
+    size_y: 1
+    legend: false
+    icon: true
+    series:
+      - metric: nginx.min_time
+        scope:
+          tag: nginx
+  - title: max request time
+    data_type: number
+    type: number
+    color: red
+    row: 4
+    col: 5
+    size_x: 2
+    size_y: 1
+    symbol: frown-o
+    filter: max
+    legend: false
+    icon: true
+    series:
+      - metric: nginx.max_time
+        scope:
+          tag: nginx
+  - title: avg request times
+    data_type: number
+    type: detailed-chart
+    color: green
+    row: 5
+    col: 1
+    size_x: 4
+    size_y: 1
+    legend: false
+    icon: true
+    series:
+      - metric: nginx.2xx
+        scope:
+          tag: nginx
+  - title: min request time
+    data_type: number
+    type: number
+    color: green
+    row: 5
+    col: 5
+    size_x: 2
+    size_y: 1
+    filter: min
+    symbol: smile-o
+    legend: false
+    icon: true
+    series:
+      - metric: nginx.min_time
+        scope:
+          tag: nginx
+  - title: redirections
+    data_type: number
+    type: stacked-chart
+    color: green
+    row: 6
+    col: 1
+    size_x: 4
+    size_y: 1
+    legend: false
+    icon: true
+    series:
+      - metric: nginx.3xx
+        scope:
+          tag: nginx
+  - title: avg request time
+    data_type: number
+    type: number
+    color: green
+    row: 6
+    col: 5
+    size_x: 2
+    size_y: 1
+    filter: avg
+    symbol: meh-o
+    legend: false
+    icon: true
+    series:
+      - metric: nginx.avg_time
+        scope:
+          tag: nginx
