@@ -211,8 +211,6 @@ positions:
         scope:
           tag:
             - mysql
-            - prod
-            - mysql_local
   - title: Threads Running
     data_type: number
     type: detailed-chart
@@ -228,8 +226,6 @@ positions:
         scope:
           tag:
             - mysql
-            - prod
-            - mysql_local
   - title: Replication Lag
     data_type: number
     type: detailed-chart
@@ -275,8 +271,6 @@ positions:
         scope:
           tag:
             - mysql
-            - prod
-            - mysql_local
   - title: Temp Disk Tables / s
     data_type: number
     type: detailed-chart
