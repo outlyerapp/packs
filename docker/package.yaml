@@ -1,0 +1,8 @@
+title: Docker
+author: Dataloop.IO
+version: 1.0.0
+description: This pack requires the dataloop/dataloop-docker container to be started on each docker host.
+icon:
+    name: docker
+    background: lightblue
+    foreground: white

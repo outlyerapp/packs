@@ -1,0 +1,12 @@
+title: Docker
+criteria:
+  - metric: 'agent.status'
+    scope:
+      tag: docker
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails: []
+    message: ''
+

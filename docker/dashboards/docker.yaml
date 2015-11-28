@@ -1,0 +1,158 @@
+title: Docker
+period: 600
+positions:
+  - title: status
+    data_type: boolean
+    type: status
+    color: green
+    row: 1
+    col: 1
+    size_x: 1
+    size_y: 2
+    legend: false
+    icon: true
+    series:
+      - metric: 'source:status'
+        scope:
+          tag: docker
+  - title: running containers
+    data_type: number
+    type: number
+    color: green
+    row: 1
+    col: 2
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: false
+    filter: sum
+    series:
+      - metric: base.count
+        scope:
+          tag: docker
+  - title: percent memory memory
+    data_type: number
+    type: detailed-chart
+    color: navy
+    row: 1
+    col: 4
+    size_x: 3
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: base.memory
+        scope:
+          tag: docker
+  - title: network transmit and receive errors
+    data_type: number
+    type: detailed-chart
+    color: purple
+    row: 1
+    col: 7
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: network.rx_errors
+        scope:
+          tag: docker
+      - metric: network.tx_errors
+        scope:
+          tag: docker
+  - title: percent cpu used
+    data_type: number
+    type: detailed-chart
+    color: blue
+    row: 3
+    col: 1
+    size_x: 3
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: base.cpu
+        scope:
+          tag: docker
+  - title: memory working set
+    data_type: number
+    type: detailed-chart
+    color: olive
+    row: 3
+    col: 4
+    size_x: 3
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: memory.working_set
+        scope:
+          tag: docker
+  - title: network transmit and received dropped
+    data_type: number
+    type: detailed-chart
+    color: green
+    row: 3
+    col: 7
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: network.rx_dropped
+        scope:
+          tag: docker
+      - metric: network.tx_dropped
+        scope:
+          tag: docker
+  - title: cpu load average
+    data_type: number
+    type: detailed-chart
+    color: olive
+    row: 5
+    col: 1
+    size_x: 3
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: cpu.load_average
+        scope:
+          tag: docker
+  - title: network download (kps)
+    data_type: number
+    type: detailed-chart
+    color: fuchsia
+    row: 5
+    col: 4
+    size_x: 3
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: base.net_download
+        scope:
+          tag: docker
+  - title: network upload (kps)
+    data_type: number
+    type: detailed-chart
+    color: purple
+    row: 5
+    col: 7
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: base.net_upload
+        scope:
+          tag: docker
