@@ -1,0 +1,320 @@
+title: Varnish
+period: 600
+positions:
+  - title: Varnish
+    data_type: nagios
+    type: status
+    color: orange
+    row: 1
+    col: 1
+    size_x: 1
+    size_y: 2
+    legend: false
+    icon: true
+    series:
+      - metric: varnish.status
+        scope:
+          tag: varnish
+  - title: cpu
+    data_type: number
+    type: detailed-chart
+    color: aqua
+    row: 1
+    col: 2
+    size_x: 1
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: base.cpu
+        scope:
+          tag: varnish
+  - title: memory
+    data_type: number
+    type: detailed-chart
+    color: green
+    row: 1
+    col: 3
+    size_x: 1
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: base.memory
+        scope:
+          tag: varnish
+  - title: cache hits per second
+    data_type: number
+    type: detailed-chart
+    color: green
+    row: 1
+    col: 4
+    size_x: 3
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: varnish.main.cache_hit_per_sec
+        scope:
+          tag: varnish
+  - title: client requests per second
+    data_type: number
+    type: detailed-chart
+    color: orange
+    row: 1
+    col: 7
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: varnish.main.client_req_per_sec
+        scope:
+          tag: varnish
+  - title: backend unhealthy per second
+    data_type: number
+    type: detailed-chart
+    color: red
+    row: 1
+    col: 9
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: varnish.main.backend_unhealthy_per_sec
+        scope:
+          tag: varnish
+  - title: threads
+    data_type: number
+    type: detailed-chart
+    color: green
+    row: 3
+    col: 1
+    size_x: 1
+    size_y: 2
+    legend: false
+    icon: false
+    filter: avg
+    series:
+      - metric: varnish.main.threads
+        scope:
+          tag: varnish
+  - title: threads per second
+    data_type: number
+    type: detailed-chart
+    color: maroon
+    row: 3
+    col: 2
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: varnish.main.n_expired_per_sec
+        scope:
+          tag: varnish
+  - title: cache hitpass per second
+    data_type: number
+    type: detailed-chart
+    color: olive
+    row: 3
+    col: 4
+    size_x: 3
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: varnish.main.cache_hitpass_per_sec
+        scope:
+          tag: varnish
+  - title: cache miss per second
+    data_type: number
+    type: detailed-chart
+    color: fuchsia
+    row: 3
+    col: 7
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: varnish.main.cache_miss_per_sec
+        scope:
+          tag: varnish
+  - title: backend fail per second
+    data_type: number
+    type: detailed-chart
+    color: red
+    row: 3
+    col: 9
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: varnish.main.backend_fail_per_sec
+        scope:
+          tag: varnish
+  - title: load average
+    data_type: number
+    type: detailed-chart
+    color: red
+    row: 5
+    col: 1
+    size_x: 1
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: base.load_1_min
+        scope:
+          tag: varnish
+  - title: session connects per second
+    data_type: number
+    type: detailed-chart
+    color: navy
+    row: 5
+    col: 2
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: varnish.main.sess_conn_per_sec
+        scope:
+          tag: varnish
+  - title: backend connections per second
+    data_type: number
+    type: detailed-chart
+    color: navy
+    row: 5
+    col: 4
+    size_x: 3
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: varnish.main.backend_conn_per_sec
+        scope:
+          tag: varnish
+  - title: backend requests per second
+    data_type: number
+    type: detailed-chart
+    color: navy
+    row: 5
+    col: 7
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: varnish.main.backend_req_per_sec
+        scope:
+          tag: varnish
+  - title: backend toolate per second
+    data_type: number
+    type: detailed-chart
+    color: olive
+    row: 5
+    col: 9
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: varnish.main.backend_toolate_per_sec
+        scope:
+          tag: varnish
+  - title: network
+    data_type: number
+    type: detailed-chart
+    color: green
+    row: 7
+    col: 1
+    size_x: 1
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: base.net_download
+        scope:
+          tag: varnish
+      - metric: base.net_upload
+        scope:
+          tag: varnish
+  - title: backend recycle per second
+    data_type: number
+    type: detailed-chart
+    color: orange
+    row: 7
+    col: 2
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: varnish.main.backend_recycle_per_sec
+        scope:
+          tag: varnish
+  - title: backend busy per second
+    data_type: number
+    type: detailed-chart
+    color: orange
+    row: 7
+    col: 4
+    size_x: 3
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: varnish.main.backend_busy_per_sec
+        scope:
+          tag: varnish
+  - title: backend reuse per second
+    data_type: number
+    type: detailed-chart
+    color: yellow
+    row: 7
+    col: 7
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: varnish.main.backend_reuse_per_sec
+        scope:
+          tag: varnish
+  - title: backend retry per second
+    data_type: number
+    type: detailed-chart
+    color: aqua
+    row: 7
+    col: 9
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: varnish.main.backend_retry_per_sec
+        scope:
+          tag: varnish

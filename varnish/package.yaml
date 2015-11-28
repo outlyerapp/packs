@@ -1,0 +1,8 @@
+title: Varnish
+author: Dataloop.IO
+version: 1.0.0
+description: All of the metrics from the varnishstat command.
+icon:
+    name: linux
+    background: white
+    foreground: lightblue

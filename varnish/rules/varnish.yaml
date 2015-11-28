@@ -1,0 +1,11 @@
+title: Varnish
+criteria:
+  - metric: varnish.status
+    scope:
+      tag: varnish
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails: []
+    message: ''
