@@ -2,7 +2,7 @@ title: Nginx
 criteria:
   - metric: nginx.status
     scope:
-      tag: mysql
+      tag: nginx
     condition:
       timeout: 120
       threshold: false
