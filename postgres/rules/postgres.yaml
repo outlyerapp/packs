@@ -1,0 +1,11 @@
+title: Postgres
+criteria:
+  - metric: postgres.status
+    scope:
+      tag: postgres
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails: []
+    message: ''
