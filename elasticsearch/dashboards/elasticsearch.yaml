@@ -17,7 +17,7 @@ positions:
           tag: elasticsearch
   - title: Document Count
     data_type: number
-    type: stacked-chart
+    type: chart
     color: orange
     row: 1
     col: 2
@@ -25,13 +25,14 @@ positions:
     size_y: 2
     legend: false
     icon: true
+    filter: avg
     series:
       - metric: elasticsearch.indices.docs.count
         scope:
           tag: elasticsearch
   - title: Deleted Documents
     data_type: number
-    type: detailed-chart
+    type: chart
     color: red
     row: 1
     col: 4
@@ -46,7 +47,7 @@ positions:
           tag: elasticsearch
   - title: Get Time (ms)
     data_type: number
-    type: stacked-chart
+    type: chart
     color: orange
     row: 1
     col: 6
@@ -54,6 +55,7 @@ positions:
     size_y: 2
     legend: false
     icon: true
+    filter: avg
     series:
       - metric: elasticsearch.indices.get.time_in_millis
         scope:
@@ -90,7 +92,7 @@ positions:
           tag: elasticsearch
   - title: Total Document Merges
     data_type: number
-    type: detailed-chart
+    type: chart
     color: teal
     row: 3
     col: 2
@@ -105,7 +107,7 @@ positions:
           tag: elasticsearch
   - title: Delete Time (ms)
     data_type: number
-    type: stacked-chart
+    type: chart
     color: olive
     row: 3
     col: 4
@@ -113,13 +115,14 @@ positions:
     size_y: 2
     legend: false
     icon: true
+    filter: avg
     series:
       - metric: elasticsearch.indices.indexing.delete_time_in_millis
         scope:
           tag: elasticsearch
   - title: Search Query Time (ms)
     data_type: number
-    type: stacked-chart
+    type: chart
     color: teal
     row: 3
     col: 6
@@ -127,6 +130,7 @@ positions:
     size_y: 2
     legend: false
     icon: true
+    filter: avg
     series:
       - metric: elasticsearch.indices.search.query_time_in_millis
         scope:
@@ -148,7 +152,7 @@ positions:
           tag: elasticsearch
   - title: 'JVM Heap Used (%)'
     data_type: number
-    type: stacked-chart
+    type: chart
     color: maroon
     row: 5
     col: 1
@@ -156,13 +160,14 @@ positions:
     size_y: 1
     legend: false
     icon: true
+    filter: avg
     series:
       - metric: elasticsearch.jvm.mem.heap_used_percent
         scope:
           tag: elasticsearch
   - title: elasticsearch.os.mem.free_percent
     data_type: number
-    type: stacked-chart
+    type: chart
     color: fuchsia
     row: 5
     col: 4
@@ -170,6 +175,7 @@ positions:
     size_y: 1
     legend: false
     icon: true
+    filter: avg
     series:
       - metric: elasticsearch.os.mem.free_percent
         scope:
@@ -191,7 +197,7 @@ positions:
           tag: elasticsearch
   - title: JVM GC Young CollectionTime (ms)
     data_type: number
-    type: stacked-chart
+    type: chart
     color: fuchsia
     row: 6
     col: 1
@@ -199,13 +205,14 @@ positions:
     size_y: 1
     legend: false
     icon: true
+    filter: avg
     series:
       - metric: elasticsearch.jvm.gc.collectors.young.collection_time_in_millis
         scope:
           tag: elasticsearch
   - title: JVM GC Old Collection Time (ms)
     data_type: number
-    type: stacked-chart
+    type: chart
     color: maroon
     row: 6
     col: 4
@@ -213,6 +220,7 @@ positions:
     size_y: 1
     legend: false
     icon: true
+    filter: avg
     series:
       - metric: elasticsearch.jvm.gc.collectors.old.collection_time_in_millis
         scope:
@@ -265,7 +273,7 @@ positions:
           tag: elasticsearch
   - title: Load Average
     data_type: number
-    type: stacked-chart
+    type: chart
     color: red
     row: 7
     col: 3
@@ -273,6 +281,7 @@ positions:
     size_y: 2
     legend: false
     icon: true
+    filter: avg
     series:
       - metric: elasticsearch.os.load_average
         scope:
