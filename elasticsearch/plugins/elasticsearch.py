@@ -61,7 +61,7 @@ try:
     # Lazily remove non-numeric values
     for k, v in node_stats.iteritems():
         if isinstance(v, int) or isinstance(v, float):
-            perf_data += str(k) + "=" + str(v) + ";;;;\n "
+            perf_data += str(k) + "=" + str(v) + ";;;; "
 
     print(perf_data)
 
