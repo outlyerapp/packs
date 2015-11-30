@@ -1,27 +1,26 @@
 #!/usr/bin/env python
+
 import sys
 import requests
 import collections
 
 """
-Hit up the nodes stats url and pull back all the metrics for that node
-TODO: clean up some of the kv pairs coming back and exclude the non-numeric
-values (some come back as mb and have a byte equiv key
+Hit up the local node's stats url
+https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-stats.html
+Any failure will give the health of the node
 """
+
 HOST = 'localhost'
 PORT = 9200
 BASE_URL = "http://%s:%s" % (HOST, PORT)
-LOCAL_URL = "/_nodes/_local"
-HEALTH_URL = "/_cluster/health"
+NODE_STATS_URL = "/_nodes/_local/stats/"
 
-# Choose the elasticsearch stats to return
-# Any of settings,os,process,jvm,thread_pool,network,transport,http,plugins
-# OR leave empty for all statistics
-STATS = ""
-STATS_URL = "/_nodes/_local/stats/%s" % STATS
-CLUSTER_STATS_URL = "/_cluster/stats"
 
-def _get_es_stats(url):
+cluster_metrics = [
+          ]
+
+
+def _query_es(url):
     """ Get the node stats
     """
     data = requests.get(url)
@@ -29,7 +28,7 @@ def _get_es_stats(url):
         stats = data.json()
         return stats
     else:
-        raise Exception("Cannot get Elasticsearch version")
+        raise Exception("CRITICAL - Unable to return elasticsearch stats")
 
 
 def flatten(d, parent_key='', sep='.'):
@@ -41,40 +40,32 @@ def flatten(d, parent_key='', sep='.'):
         if isinstance(value, collections.MutableMapping):
             items.extend(flatten(value, new_key, sep=sep).items())
         else:
+            # hack out leading 'nodes.<nodename>
+            new_key = '.'.join(new_key.split('.')[2::])
             items.append((new_key, value))
     return dict(items)
 
-exit_code = 0
+
 try:
-    es_stats = flatten(_get_es_stats(BASE_URL + STATS_URL))
-    es_health = flatten(_get_es_stats(BASE_URL + HEALTH_URL))
-    cluster_stats = flatten(_get_es_stats(BASE_URL + CLUSTER_STATS_URL))
+    node_stats = flatten(_query_es(BASE_URL + NODE_STATS_URL))
 
+    # exclude a pointless metric
+    if 'timestamp' in node_stats.keys():
+        node_stats.pop('timestamp', None)
+
+    # define exit status based on the cluster health
     perf_data = "OK | "
-    for k, v in es_stats.iteritems():
-        if str(v)[0].isdigit():
-            k = k.rsplit('.')[2::]
-            perf_data += '.'.join(k) + '=' + str(v) + ';;;; '
+    exit_code = 0
 
-    for k, v in es_health.iteritems():
-        if str(v)[0].isdigit():
-            perf_data += str(k) + "=" + str(v) + ';;;; '
-
-    if es_health['status'] == 'green':
-        exit_status = 0
-    elif es_health['status'] == 'yellow':
-        exit_status = 1
-    elif es_health['status'] == 'red':
-        exit_status = 2
-
-    for k, v in cluster_stats.iteritems():
-        if str(v)[0].isdigit():
-            perf_data += str(k) + "=" + str(v) + ';;;; '
-
+    # Deal with the node stats
+    # Lazily remove non-numeric values
+    for k, v in node_stats.iteritems():
+        if isinstance(v, int) or isinstance(v, float):
+            perf_data += str(k) + "=" + str(v) + ";;;;\n "
 
     print(perf_data)
-    sys.exit(exit_code)
 
 except Exception as e:
-    print("Plugin Failed! Exception: " + str(e))
+    print("CRITICAL - Plugin Failed! Exception: " + str(e))
     sys.exit(2)
+
