@@ -242,7 +242,7 @@ positions:
     size_x: 1
     size_y: 1
     legend: false
-    icon: true
+    icon: false
     filter: max
     series:
       - metric: elasticsearch.thread_pool.get.active
@@ -257,7 +257,7 @@ positions:
     size_x: 1
     size_y: 1
     legend: false
-    icon: true
+    icon: false
     filter: max
     series:
       - metric: elasticsearch.thread_pool.get.queue
@@ -286,7 +286,7 @@ positions:
     size_x: 1
     size_y: 1
     legend: false
-    icon: true
+    icon: false
     filter: max
     series:
       - metric: elasticsearch.thread_pool.search.active
@@ -301,7 +301,7 @@ positions:
     size_x: 1
     size_y: 1
     legend: false
-    icon: true
+    icon: false
     filter: max
     series:
       - metric: elasticsearch.thread_pool.search.queue
@@ -316,7 +316,7 @@ positions:
     size_x: 1
     size_y: 1
     legend: false
-    icon: true
+    icon: false
     filter: max
     series:
       - metric: elasticsearch.thread_pool.get.rejected
@@ -331,7 +331,7 @@ positions:
     size_x: 1
     size_y: 1
     legend: false
-    icon: true
+    icon: false
     filter: max
     series:
       - metric: elasticsearch.thread_pool.get.completed
@@ -346,7 +346,7 @@ positions:
     size_x: 1
     size_y: 1
     legend: false
-    icon: true
+    icon: false
     filter: max
     series:
       - metric: elasticsearch.thread_pool.search.rejected
@@ -361,7 +361,7 @@ positions:
     size_x: 1
     size_y: 1
     legend: false
-    icon: true
+    icon: false
     filter: max
     series:
       - metric: elasticsearch.thread_pool.search.completed
