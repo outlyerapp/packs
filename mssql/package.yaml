@@ -3,6 +3,6 @@ author: Dataloop.IO
 version: 1.0.0
 description: Microsoft SQL Server metrics
 icon:
-    name: windows
+    name: mssql
     background: white
     foreground: crimson
