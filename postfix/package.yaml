@@ -3,6 +3,6 @@ author: Dataloop.IO
 version: 1.0.0
 description: Postfix status, mail queue size and cpu / memory stats for core processes
 icon:
-    name: linux
-    background: white
-    foreground: black
+    name: postfix
+    background: moccasin 
+    foreground: gray
