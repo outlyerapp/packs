@@ -3,6 +3,6 @@ author: Dataloop.IO
 version: 1.0.0
 description: Metrics from Microsoft Internet Information Services
 icon:
-    name: website
-    background: lightgray
+    name: iis
+    background: midnightblue
     foreground: white
