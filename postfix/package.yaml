@@ -4,5 +4,5 @@ version: 1.0.0
 description: Postfix status, mail queue size and cpu / memory stats for core processes
 icon:
     name: postfix
-    background: moccasin 
-    foreground: gray
+    background: gray
+    foreground: white
