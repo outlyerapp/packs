@@ -1,1 +1,1 @@
-This is the base pack
+This is the base pack instructions
