@@ -1,19 +1,9 @@
 #!/usr/bin/env python
 import os
-import re
 import subprocess
 import sys
-import time
 import json
 from datetime import datetime
-
-"""
-Change the user name and password below to match one already setup or run:
-
-GRANT USAGE ON *.* TO 'dataloop'@'localhost' IDENTIFIED BY PASSWORD 'password'
-
-To setup a dataloop user with the password set to password (change this to something more suitable).
-"""
 
 MYSQL_USER = 'root'
 MYSQL_PASSWORD = ''

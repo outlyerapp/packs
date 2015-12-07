@@ -6,17 +6,6 @@ import time
 import sys
 from time import sleep
 
-"""
-Update the settings block below.
-
-If you want to create a non priviledged user to run this script use:
-
-CREATE ROLE dataloop WITH LOGIN ENCRYPTED PASSWORD 'changeme';
-GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO dataloop;
-
-And set the settings block below to use the dataloop user.
-"""
-
 # settings
 HOST = 'localhost'
 PORT = '5432'
