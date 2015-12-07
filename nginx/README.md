@@ -1,4 +1,4 @@
-# Nginx
+# Nginx Pack
 
 
 This pack deploys a plugin called nginx.py that reads through an access log file and extracts a count of http status codes.
