@@ -1,3 +1,6 @@
+# Nginx
+
+
 This pack deploys a plugin called nginx.py that reads through an access log file and extracts a count of http status codes.
 
 To enable calculation of response times you need to enable more logging in Nginx. Add this to `nginx.conf` in the http block:
