@@ -1,0 +1,182 @@
+title: Couchbase
+period: 600
+positions:
+  - title: couchbase
+    data_type: nagios
+    type: status
+    color: teal
+    row: 1
+    col: 1
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    series:
+      - metric: couchbase.status
+        scope:
+          tag: couchbase
+  - title: hdd used
+    data_type: number
+    type: detailed-chart
+    color: green
+    row: 1
+    col: 3
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: couchbase.storage.totals.hdd.used_gb
+        scope:
+          tag: couchbase
+  - title: ram used
+    data_type: number
+    type: detailed-chart
+    color: green
+    row: 1
+    col: 5
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: couchbase.storage.totals.ram.used_gb
+        scope:
+          tag: couchbase
+  - title: cpu utilisation rate
+    data_type: number
+    type: detailed-chart
+    color: green
+    row: 1
+    col: 7
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: couchbase.node.stats.systemstats.cpu_utilization_rate
+        scope:
+          tag: couchbase
+  - title: interesting stats cmd get
+    data_type: number
+    type: detailed-chart
+    color: navy
+    row: 3
+    col: 1
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: couchbase.node.stats.interestingstats.cmd_get
+        scope:
+          tag: couchbase
+  - title: interesting stats docs size
+    data_type: number
+    type: detailed-chart
+    color: navy
+    row: 3
+    col: 3
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: couchbase.node.stats.interestingstats.couch_docs_actual_disk_size
+        scope:
+          tag: couchbase
+  - title: interesting stats views size
+    data_type: number
+    type: detailed-chart
+    color: navy
+    row: 3
+    col: 5
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: couchbase.node.stats.interestingstats.couch_views_actual_disk_size
+        scope:
+          tag: couchbase
+  - title: interesting stats current items
+    data_type: number
+    type: detailed-chart
+    color: navy
+    row: 3
+    col: 7
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: couchbase.node.stats.interestingstats.curr_items
+        scope:
+          tag: couchbase
+  - title: interesting stats ep bg fetched
+    data_type: number
+    type: detailed-chart
+    color: fuchsia
+    row: 5
+    col: 1
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: couchbase.node.stats.interestingstats.ep_bg_fetched
+        scope:
+          tag: couchbase
+  - title: interesting stats get hits
+    data_type: number
+    type: detailed-chart
+    color: orange
+    row: 5
+    col: 3
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: couchbase.node.stats.interestingstats.get_hits
+        scope:
+          tag: couchbase
+  - title: interesting stats ops
+    data_type: number
+    type: detailed-chart
+    color: yellow
+    row: 5
+    col: 5
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: couchbase.node.stats.interestingstats.ops
+        scope:
+          tag: couchbase
+  - title: interesting stats vb replica current items
+    data_type: number
+    type: detailed-chart
+    color: teal
+    row: 5
+    col: 7
+    size_x: 2
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: couchbase.node.stats.interestingstats.vb_replica_curr_items
+        scope:
+          tag: couchbase

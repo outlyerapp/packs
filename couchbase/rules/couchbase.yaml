@@ -1,0 +1,11 @@
+title: Couchbase
+criteria:
+  - metric: couchbase.status
+    scope:
+      tag: couchbase
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails: []
+    message: ''
