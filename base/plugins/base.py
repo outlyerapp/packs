@@ -227,7 +227,7 @@ for present_key, present_value in present_output.iteritems():
     if present_key in past_output:
         if 'per_sec' not in present_key:
             try:
-                raw_output[present_key + '_per_sec'] = (float(present_value) - float(past_output[present_key])) / RATE_INTERVAL
+                raw_output[present_key + '_per_sec'] = round((float(present_value) - float(past_output[present_key])) / RATE_INTERVAL, 2)
             except TypeError:
                 raw_output[present_key + '_per_sec'] = (_string_to_float(present_value) - _string_to_float(past_output[present_key])) / RATE_INTERVAL
 
