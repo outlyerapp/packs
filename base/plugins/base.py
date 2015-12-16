@@ -243,4 +243,3 @@ output = "OK | "
 for k, v in raw_output.iteritems():
     output += "%s=%s;;;; " % (k, v)
 print output + 'count=1;;;;'
-
