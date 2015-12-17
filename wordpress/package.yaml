@@ -2,6 +2,7 @@ title: Wordpress
 author: Dataloop.IO
 version: 1.0.0
 description: Monitors a Wordpress site and pulls out key stats.
+instructions_required: true
 icon:
     name: wordpress
     background: "#21759b"
