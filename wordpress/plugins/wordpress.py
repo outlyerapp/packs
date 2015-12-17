@@ -1,20 +1,17 @@
 #!/usr/bin/env python
-
 import requests
-from requests.auth import HTTPBasicAuth
 import sys
-import pprint
+
 
 """
-    This module requires the Wordpress Rest API V2 Module installed on your Wordpress Site to work. You can download
-    it here: http://v2.wp-api.org/
+This module requires the Wordpress Rest API V2 Module installed on your Wordpress Site to work. You can download
+it here: http://v2.wp-api.org/
 """
 
-HOST = ''
+# settings
+HOST = ''          # e.g. https://blog.company.com
 
-'''
-    Handles REST API Requests and returns JSON response object if successful
-'''
+
 def _make_request(path):
     url = HOST + '/wp-json/wp/v2/' + path
     try:
