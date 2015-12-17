@@ -1,0 +1,82 @@
+title: Wordpress
+period: 600
+positions:
+  - title: Site Status
+    data_type: nagios
+    type: status
+    color: teal
+    row: 1
+    col: 1
+    size_x: 1
+    size_y: 1
+    legend: false
+    icon: true
+    series:
+      - metric: wordpress.status
+        scope:
+          tag: wordpress
+  - title: Total Users
+    data_type: number
+    type: number
+    color: blue
+    row: 1
+    col: 2
+    size_x: 1
+    size_y: 1
+    legend: false
+    icon: true
+    filter: max
+    symbol: users
+    series:
+      - metric: wordpress.users
+        scope:
+          tag: wordpress
+  - title: Total Posts
+    data_type: number
+    type: number
+    color: maroon
+    row: 1
+    col: 3
+    size_x: 1
+    size_y: 1
+    legend: false
+    icon: true
+    filter: max
+    symbol: sitemap
+    series:
+      - metric: wordpress.posts
+        scope:
+          tag: wordpress
+  - title: Total Comments
+    data_type: number
+    type: number
+    color: teal
+    row: 1
+    col: 4
+    size_x: 1
+    size_y: 1
+    legend: false
+    icon: true
+    filter: max
+    symbol: comment
+    series:
+      - metric: wordpress.comments
+        scope:
+          tag: wordpress
+  - title: Comments and Posts Timeline
+    data_type: number
+    type: stacked-chart
+    color: orange
+    row: 2
+    col: 1
+    size_x: 4
+    size_y: 4
+    legend: true
+    icon: true
+    series:
+      - metric: wordpress.comments
+        scope:
+          tag: wordpress
+      - metric: wordpress.posts
+        scope:
+          tag: wordpress

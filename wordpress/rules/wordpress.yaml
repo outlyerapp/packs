@@ -1,0 +1,11 @@
+title: Wordpress
+criteria:
+  - metric: wordpress.status
+    scope:
+      tag: wordpress
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails: []
+    message: ''
