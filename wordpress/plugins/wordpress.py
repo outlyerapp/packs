@@ -10,7 +10,7 @@ import pprint
     it here: http://v2.wp-api.org/
 """
 
-HOST = 'http://dataloop.wpengine.com'
+HOST = ''
 
 '''
     Handles REST API Requests and returns JSON response object if successful
