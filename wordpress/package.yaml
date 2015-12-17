@@ -4,5 +4,5 @@ version: 1.0.0
 description: Monitors a Wordpress site and pulls out key stats.
 icon:
     name: wordpress
-    background: "#595C61"
-    foreground: "#F88A00"
+    background: "#21759b"
+    foreground: "#EEEEEE"
