@@ -1,0 +1,197 @@
+title: PHP FPM
+period: 604800
+positions:
+  - title: Status
+    data_type: nagios
+    type: status
+    color: blue
+    row: 1
+    col: 1
+    size_x: 1
+    size_y: 1
+    legend: false
+    icon: true
+    series:
+      - metric: php-fpm.status
+        scope:
+          tag: php-fpm
+  - title: active processes
+    data_type: number
+    type: number
+    color: green
+    row: 1
+    col: 2
+    size_x: 1
+    size_y: 1
+    filter: max
+    legend: false
+    icon: false
+    series:
+      - metric: php-fpm.active_processes
+        scope:
+          tag: php-fpm
+  - title: total processes
+    data_type: number
+    type: number
+    color: green
+    row: 1
+    col: 3
+    size_x: 1
+    size_y: 1
+    filter: max
+    legend: false
+    icon: false
+    series:
+      - metric: php-fpm.total_processes
+        scope:
+          tag: php-fpm
+  - title: max active processes
+    data_type: number
+    type: number
+    color: green
+    row: 1
+    col: 4
+    size_x: 1
+    size_y: 1
+    filter: max
+    legend: false
+    icon: false
+    series:
+      - metric: php-fpm.max_active_processes
+        scope:
+          tag: php-fpm
+  - title: slow requests
+    data_type: number
+    type: number
+    color: red
+    row: 1
+    col: 5
+    size_x: 2
+    size_y: 1
+    filter: max
+    legend: false
+    icon: false
+    series:
+      - metric: php-fpm.slow_requests
+        scope:
+          tag: php-fpm
+  - title: accepted conn
+    data_type: number
+    type: number
+    color: green
+    row: 2
+    col: 1
+    size_x: 1
+    size_y: 1
+    filter: max
+    legend: false
+    icon: false
+    series:
+      - metric: php-fpm.accepted_conn
+        scope:
+          tag: php-fpm
+  - title: max listen queue
+    data_type: number
+    type: number
+    color: green
+    row: 2
+    col: 2
+    size_x: 1
+    size_y: 1
+    filter: max
+    legend: false
+    icon: false
+    series:
+      - metric: php-fpm.max_listen_queue
+        scope:
+          tag: php-fpm
+  - title: max children
+    data_type: number
+    type: number
+    color: green
+    row: 2
+    col: 3
+    size_x: 1
+    size_y: 1
+    filter: max
+    legend: false
+    icon: false
+    series:
+      - metric: php-fpm.max_children_reached
+        scope:
+          tag: php-fpm
+  - title: listen queue len
+    data_type: number
+    type: number
+    color: green
+    row: 2
+    col: 4
+    size_x: 1
+    size_y: 1
+    filter: max
+    legend: false
+    icon: false
+    series:
+      - metric: php-fpm.listen_queue_len
+        scope:
+          tag: php-fpm
+  - title: idle processes
+    data_type: number
+    type: number
+    color: green
+    row: 2
+    col: 5
+    size_x: 1
+    size_y: 1
+    filter: max
+    legend: false
+    icon: false
+    series:
+      - metric: php-fpm.idle_processes
+        scope:
+          tag: php-fpm
+  - title: listen queue
+    data_type: number
+    type: number
+    color: green
+    row: 2
+    col: 6
+    size_x: 1
+    size_y: 1
+    filter: max
+    legend: false
+    icon: false
+    series:
+      - metric: php-fpm.listen_queue
+        scope:
+          tag: php-fpm
+  - title: accepted connections per second
+    data_type: number
+    type: detailed-chart
+    color: olive
+    row: 3
+    col: 1
+    size_x: 6
+    size_y: 2
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: php-fpm.accepted_conn_per_sec
+        scope:
+          tag: php-fpm
+  - title: slow requests per second
+    data_type: number
+    type: detailed-chart
+    color: red
+    row: 5
+    col: 1
+    size_x: 6
+    size_y: 1
+    legend: false
+    icon: true
+    filter: avg
+    series:
+      - metric: php-fpm.slow_requests_per_sec
+        scope:
+          tag: php-fpm

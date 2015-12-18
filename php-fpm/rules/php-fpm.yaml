@@ -1,0 +1,11 @@
+title: PHP-FPM
+criteria:
+  - metric: php-fpm.status
+    scope:
+      tag: php-fpm
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails: []
+    message: ''

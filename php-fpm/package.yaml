@@ -1,0 +1,9 @@
+title: php-fpm
+author: Dataloop.IO
+version: 1.0.0
+description:
+instructions_required: true
+icon:
+    name: process
+    background: blue
+    foreground: white
