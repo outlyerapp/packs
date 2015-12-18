@@ -1,7 +1,7 @@
 title: php-fpm
 author: Dataloop.IO
 version: 1.0.0
-description:
+description: Scrapes the php-fpm status page for metrics
 instructions_required: true
 icon:
     name: process
