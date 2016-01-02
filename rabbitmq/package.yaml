@@ -1,7 +1,7 @@
 title: RabbitMQ
 author: Dataloop.IO
 version: 1.0.0
-description:
+description: Scrapes the management plugin to return overview statistics. Optionally returns queue and exchange level statistics.
 instructions_required: true
 icon:
     name: rabbitmq
