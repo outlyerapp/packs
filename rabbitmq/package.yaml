@@ -1,0 +1,9 @@
+title: RabbitMQ
+author: Dataloop.IO
+version: 1.0.0
+description:
+instructions_required: true
+icon:
+    name: rabbitmq
+    background: orange
+    foreground: white

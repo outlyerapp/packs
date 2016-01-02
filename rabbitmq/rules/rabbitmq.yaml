@@ -1,0 +1,11 @@
+title: RabbitMQ
+criteria:
+  - metric: rabbitmq.status
+    scope:
+      tag: rabbitmq
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails: []
+    message: ''
