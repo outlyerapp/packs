@@ -1,0 +1,9 @@
+title: GitHub
+author: DevOps Guys ltd.
+version: 1.0.0
+description: GitHub Platform Status Monitoring
+instructions_required: true
+icon:
+    name: git
+    background: white
+    foreground: black
