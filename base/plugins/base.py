@@ -65,6 +65,8 @@ def check_disks():
         disk_usage['disk.' + disk + '.used_gb'] = "%sGb" % used_gb
         free_gb = _bytes_to_gb(usage.free)
         disk_usage['disk.' + disk + '.free_gb'] = "%sGb" % free_gb
+        total_gb = _bytes_to_gb(usage.total)
+        disk_usage['disk.' + disk + '.total_gb'] = "%sGb" % total_gb
     return disk_usage
 
 
