@@ -28,7 +28,7 @@ positions:
     icon: false
     filter: sum
     series:
-      - metric: rabbitmq.object_totals.connections
+      - metric: rabbitmq.overview.object_totals.connections
         scope:
           tag: rabbitmq
   - title: consumers
