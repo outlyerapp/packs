@@ -3,7 +3,7 @@ import sys
 import subprocess
 
 try:
-    output = subprocess.check_output(('/usr/bin/redis-cli', 'info'))
+    output = subprocess.check_output(('redis-cli', 'info'))
 except Exception, e:
     print "Plugin Failed! %s" % e
     sys.exit(2)
