@@ -41,6 +41,7 @@ title: example
 author: steven
 version: 1.0.0
 description: this is just an example pack
+instructions_required: false
 icon:
     name: linux
     background: white
