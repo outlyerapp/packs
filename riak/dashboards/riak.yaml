@@ -85,9 +85,6 @@ positions:
     legend: false
     icon: true
     series:
-      - metric: memory.memory-used
-        scope:
-          tag: riak
       - metric: base.memory
         scope:
           tag: riak
