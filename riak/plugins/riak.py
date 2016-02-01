@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 import sys
 import requests
-from socket import gethostname
 
-URL = 'http://%s:8098/stats' % gethostname()
+URL = 'http://127.0.0.1:8098/stats'
 
 try:
     resp = requests.get(URL).json()
