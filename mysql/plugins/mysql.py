@@ -5,8 +5,9 @@ import sys
 import json
 from datetime import datetime
 
-MYSQL_USER = 'root'
+MYSQL_USER = 'dataloop'
 MYSQL_PASSWORD = ''
+MYSQL_HOST = ''
 
 # metrics collection
 
@@ -38,6 +39,8 @@ def get_mysql_status():
         command.append('-u%s' % MYSQL_USER)
     if MYSQL_PASSWORD:
         command.append('-p%s' % MYSQL_PASSWORD)
+    if MYSQL_HOST:
+        command.append('-h%s' % MYSQL_HOST)
     try:
         resp = subprocess.check_output(command)
     except Exception, e:
@@ -143,3 +146,4 @@ for k, v in result.iteritems():
 
 print perf_data
 sys.exit(0)
+
