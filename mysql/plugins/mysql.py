@@ -5,7 +5,7 @@ import sys
 import json
 from datetime import datetime
 
-MYSQL_USER = 'dataloop'
+MYSQL_USER = 'root'
 MYSQL_PASSWORD = ''
 MYSQL_HOST = ''
 
