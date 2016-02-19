@@ -9,10 +9,6 @@ import datetime
 
 RATE_INTERVAL = 5
 
-if os.name == 'nt':
-    import wmi
-    c = wmi.WMI()
-
 
 def _bytes_to_gb(num):
     return round(float(num) / 1024 / 1024 / 1024, 2)
@@ -90,14 +86,13 @@ def check_load():
     cores = psutil.cpu_count()
     load_avg = {}
     if os.name == 'nt':
-        cpu_queue_length = sum([int(cpu.ProcessorQueueLength) for cpu in c.Win32_PerfRawData_PerfOS_System()])
-        load_avg['load_1_min'] = str(cpu_queue_length)
+        load_avg['load_1_min'] = 0
     else:
         load = os.getloadavg()
         load_avg['load_1_min'] = str(load[0])
         load_avg['load_5_min'] = str(load[1])
         load_avg['load_15_min'] = str(load[2])
-    load_avg['load_fractional'] = float(load_avg['load_1_min']) / int(cores)
+    load_avg['load_fractional'] = round(float(load_avg['load_1_min']) / int(cores), 2)
     return load_avg
 
 
@@ -110,8 +105,10 @@ def check_netio():
     # per net io counters
     net_per_nic = psutil.net_io_counters(pernic=True)
     for device, details in net_per_nic.iteritems():
-        for k, v in net_per_nic[device]._asdict().iteritems():
-            net_map["network." + device.replace(' ', '_').lower() + "." + k] = v
+        net_excludes = ['teredo', 'isatap', 'loopback']
+        if not any(x in device.lower() for x in net_excludes):
+            for k, v in net_per_nic[device]._asdict().iteritems():
+                net_map["network." + device.replace(' ', '_').lower() + "." + k] = v
     return net_map
 
 
@@ -150,15 +147,6 @@ def check_diskio():
     for device, details in diskio_per_disk.iteritems():
         for k, v in diskio_per_disk[device]._asdict().iteritems():
             disk_map["disk." + device.lower() + "." + k] = v
-    # per windows volume counters
-    if os.name == 'nt':
-        for disk in c.Win32_PerfFormattedData_PerfDisk_LogicalDisk():
-            if len(disk.Name) < 3:
-                ln = disk.Name.replace(':', '').lower()
-                disk_map["disk." + ln + ".reads_per_sec"] = disk.DiskReadsPerSec
-                disk_map["disk." + ln + ".writes_per_sec"] = disk.DiskWritesPerSec
-                disk_map["disk." + ln + ".transfers_per_sec"] = disk.DiskTransfersPerSec
-                disk_map["disk." + ln + ".current_disk_queue_length"] = disk.CurrentDiskQueueLength
     # check for any device mapper partitions
     for partition in psutil.disk_partitions():
         if '/dev/mapper' in partition.device:
@@ -187,12 +175,6 @@ def check_virtmem():
     return virt_map
 
 
-def check_ctxswitch():
-    proc = psutil.Process(os.getpid())
-    ctx_switch = proc.get_num_ctx_switches()._asdict()
-    return dict(("ctx-switch." + k, v) for k,v in ctx_switch.items())
-
-
 def check_uptime():
     boot_time = datetime.datetime.fromtimestamp(psutil.boot_time())
     now_time = datetime.datetime.now()
@@ -209,7 +191,6 @@ checks = [
     check_netio,
     check_diskio,
     check_virtmem,
-    check_ctxswitch,
     check_uptime
 ]
 
@@ -218,37 +199,36 @@ rates = [
     check_netio
 ]
 
-past_output = {}
-for check in checks:
-    try:
+try:
+    past_output = {}
+    for check in checks:
         past_output.update(check())
-    except Exception, e:
-        continue
 
-time.sleep(RATE_INTERVAL)
+    time.sleep(RATE_INTERVAL)
 
-present_output = {}
-for check in rates:
-    try:
+    present_output = {}
+    for check in rates:
         present_output.update(check())
-    except Exception, e:
-        continue
 
-raw_output = {}
-for present_key, present_value in present_output.iteritems():
-    if present_key in past_output:
-        if 'per_sec' not in present_key:
-            raw_output[present_key + '_per_sec'] = calculate_rate(present_value, past_output[present_key])
+    raw_output = {}
+    for present_key, present_value in present_output.iteritems():
+        if present_key in past_output:
+            if 'per_sec' not in present_key:
+                raw_output[present_key + '_per_sec'] = calculate_rate(present_value, past_output[present_key])
 
-        if exact_match(present_key, 'network.bytes_sent'):
-            raw_output['net_upload'] = str((_get_counter_increment(past_output[present_key], present_value) / 1024) / RATE_INTERVAL) + 'Kps'
+            if exact_match(present_key, 'network.bytes_sent'):
+                raw_output['net_upload'] = str((_get_counter_increment(past_output[present_key], present_value) / 1024) / RATE_INTERVAL) + 'Kps'
 
-        if exact_match(present_key, 'network.bytes_recv'):
-            raw_output['net_download'] = str((_get_counter_increment(past_output[present_key], present_value) / 1024) / RATE_INTERVAL) + 'Kps'
+            if exact_match(present_key, 'network.bytes_recv'):
+                raw_output['net_download'] = str((_get_counter_increment(past_output[present_key], present_value) / 1024) / RATE_INTERVAL) + 'Kps'
 
-raw_output.update(past_output)
+    raw_output.update(past_output)
+    output = "OK | "
+    for k, v in raw_output.iteritems():
+        output += "%s=%s;;;; " % (k, v)
+    print output + 'count=1;;;;'
+    sys.exit(0)
 
-output = "OK | "
-for k, v in raw_output.iteritems():
-    output += "%s=%s;;;; " % (k, v)
-print output + 'count=1;;;;'
+except Exception, e:
+    print "Plugin failed %s check with error: %s" % (check, e)
+    sys.exit(2)
