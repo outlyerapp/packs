@@ -138,15 +138,18 @@ def check_cputime():
 def check_diskio():
     dm = False
     disk_map = {}
-    # total io counters
-    diskio_all = psutil.disk_io_counters()
-    for k, v in diskio_all._asdict().iteritems():
-        disk_map["disk." + k] = v
-    # per disk io counters
-    diskio_per_disk = psutil.disk_io_counters(perdisk=True)
-    for device, details in diskio_per_disk.iteritems():
-        for k, v in diskio_per_disk[device]._asdict().iteritems():
-            disk_map["disk." + device.lower() + "." + k] = v
+    try:
+        # total io counters
+        diskio_all = psutil.disk_io_counters()
+        for k, v in diskio_all._asdict().iteritems():
+            disk_map["disk." + k] = v
+        # per disk io counters
+        diskio_per_disk = psutil.disk_io_counters(perdisk=True)
+        for device, details in diskio_per_disk.iteritems():
+            for k, v in diskio_per_disk[device]._asdict().iteritems():
+                disk_map["disk." + device.lower() + "." + k] = v
+    except RuntimeError:  # Windows needs disk stats turned on with 'diskperf -y'
+        pass
     # check for any device mapper partitions
     for partition in psutil.disk_partitions():
         if '/dev/mapper' in partition.device:
