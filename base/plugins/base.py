@@ -43,29 +43,44 @@ def calculate_rate(present, past):
 
 def check_disks():
     disk_usage = {}
+    counters = {}
     for partition in psutil.disk_partitions(all=False):
-        if os.name == 'nt':
-            if 'cdrom' in partition.opts or partition.fstype == '':
-                continue
-        if 'Volumes' in partition.mountpoint:
-            continue
-        if 'libc.so' in partition.mountpoint:
-            continue
         try:
             usage = psutil.disk_usage(partition.mountpoint)
+            disk = re.sub(" ", "_", partition.mountpoint).replace(':', '').replace('\\', '').lower()
+            if os.name == 'nt':
+                counters[disk] = "LogicalDisk(%s)\Current Disk Queue Length" % partition.device.replace('\\', '')
+            if 'cdrom' in partition.opts or partition.fstype == '':
+                continue
+            if 'Volumes' in partition.mountpoint:
+                continue
+            if 'libc.so' in partition.mountpoint:
+                continue
+            disk_usage['disk.' + disk + '.percent_used'] = "%d%%" % int(usage.percent)
+            disk_usage['disk.' + disk + '.percent_free'] = "%d%%" % int(100 - usage.percent)
+            disk_usage['disk.' + disk + '.free'] = "%sb" % usage.free
+            disk_usage['disk.' + disk + '.used'] = "%sb" % usage.used
+            used_gb = _bytes_to_gb(usage.used)
+            disk_usage['disk.' + disk + '.used_gb'] = "%sGb" % used_gb
+            free_gb = _bytes_to_gb(usage.free)
+            disk_usage['disk.' + disk + '.free_gb'] = "%sGb" % free_gb
+            total_gb = _bytes_to_gb(usage.total)
+            disk_usage['disk.' + disk + '.total_gb'] = "%sGb" % total_gb
+    
+            if os.name == 'nt':
+                command = ['typeperf.exe', '-sc', '1']
+                counters_list = counters.values()
+                p = psutil.Popen(command + counters_list, stdout=subprocess.PIPE)
+                output = p.communicate()[0]
+                i = 1
+                for disk, counter in counters.iteritems():
+                    value = output.splitlines()[2].split(',')[i].replace('"','').strip()
+                    disk_usage['disk.' + disk + '.current_disk_queue_length'] = round(float(value), 2)
+                    i += 1
+        
         except OSError:
             continue
-        disk = re.sub(" ", "_", partition.mountpoint).replace(':', '').replace('\\', '').lower()
-        disk_usage['disk.' + disk + '.percent_used'] = "%d%%" % int(usage.percent)
-        disk_usage['disk.' + disk + '.percent_free'] = "%d%%" % int(100 - usage.percent)
-        disk_usage['disk.' + disk + '.free'] = "%sb" % usage.free
-        disk_usage['disk.' + disk + '.used'] = "%sb" % usage.used
-        used_gb = _bytes_to_gb(usage.used)
-        disk_usage['disk.' + disk + '.used_gb'] = "%sGb" % used_gb
-        free_gb = _bytes_to_gb(usage.free)
-        disk_usage['disk.' + disk + '.free_gb'] = "%sGb" % free_gb
-        total_gb = _bytes_to_gb(usage.total)
-        disk_usage['disk.' + disk + '.total_gb'] = "%sGb" % total_gb
+    
     return disk_usage
 
 
@@ -228,7 +243,7 @@ try:
     raw_output.update(past_output)
     output = "OK | "
     for k, v in raw_output.iteritems():
-        output += "%s=%s;;;; " % (k, v)
+        output += "%s=%s;;;; " % (k.lower(), v)
     print output + 'count=1;;;;'
     sys.exit(0)
 
