@@ -66,21 +66,20 @@ def check_disks():
             disk_usage['disk.' + disk + '.free_gb'] = "%sGb" % free_gb
             total_gb = _bytes_to_gb(usage.total)
             disk_usage['disk.' + disk + '.total_gb'] = "%sGb" % total_gb
-    
-            if os.name == 'nt':
-                command = ['typeperf.exe', '-sc', '1']
-                counters_list = counters.values()
-                p = psutil.Popen(command + counters_list, stdout=subprocess.PIPE)
-                output = p.communicate()[0]
-                i = 1
-                for disk, counter in counters.iteritems():
-                    value = output.splitlines()[2].split(',')[i].replace('"','').strip()
-                    disk_usage['disk.' + disk + '.current_disk_queue_length'] = round(float(value), 2)
-                    i += 1
         
         except OSError:
             continue
-    
+        
+    if os.name == 'nt':
+        command = ['typeperf.exe', '-sc', '1']
+        counters_list = counters.values()
+        p = psutil.Popen(command + counters_list, stdout=subprocess.PIPE)
+        output = p.communicate()[0]
+        i = 1
+        for disk, counter in counters.iteritems():
+            value = output.splitlines()[2].split(',')[i].replace('"','').strip()
+            disk_usage['disk.' + disk + '.current_disk_queue_length'] = round(float(value), 2)
+            i += 1
     return disk_usage
 
 
