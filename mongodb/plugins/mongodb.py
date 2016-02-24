@@ -90,6 +90,6 @@ for k, v in second_run.iteritems():
 
 output = "OK | "
 for k, v in metrics.iteritems():
-        output += str(k) + '=' + str(v) + ';;;; '
+    output += str(k) + '=' + str(v) + ';;;; '
 print output
 sys.exit(0)
