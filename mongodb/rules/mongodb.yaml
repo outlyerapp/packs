@@ -1,11 +1,5 @@
 title: MongoDB
 criteria:
-  - metric: mongodb.locked
-    scope:
-      tag: mongodb
-    condition:
-      timeout: 120
-      threshold: 90
   - metric: mongodb.status
     scope:
       tag: mongodb
