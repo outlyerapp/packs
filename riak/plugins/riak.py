@@ -14,7 +14,7 @@ except Exception, e:
 result = "OK | "
 for k, v in resp.iteritems():
     if isinstance(v, int) or isinstance(v, float):
-            if 'time' in k:
+            if 'time' in k or 'latency' in k:
                 result += str(k) + '=' + str(v/1000) + 'ms;;;; '
             else:
                 result += str(k) + '=' + str(v) + ';;;; '
