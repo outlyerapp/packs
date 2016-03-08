@@ -105,6 +105,7 @@ positions:
     size_y: 2
     legend: true
     icon: true
+    filter: avg
     series:
       - metric: base.load_fractional
         scope:
@@ -119,6 +120,7 @@ positions:
     size_y: 2
     legend: false
     icon: true
+    filter: avg
     series:
       - metric: base.cpu
         scope:
@@ -133,7 +135,7 @@ positions:
     size_y: 1
     legend: false
     icon: true
-    filter: max
+    filter: avg
     series:
       - metric: base.net_download
         scope:
@@ -148,7 +150,7 @@ positions:
     size_y: 1
     legend: false
     icon: true
-    filter: max
+    filter: avg
     series:
       - metric: base.net_upload
         scope:
