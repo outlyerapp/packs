@@ -1,5 +1,6 @@
 title: Wordpress
 period: 600
+locked: false
 positions:
   - title: Site Status
     data_type: nagios
@@ -7,10 +8,11 @@ positions:
     color: teal
     row: 1
     col: 1
-    size_x: 1
+    size_x: 4
     size_y: 1
     legend: false
     icon: true
+    filter: avg
     series:
       - metric: wordpress.status
         scope:
@@ -19,8 +21,8 @@ positions:
     data_type: number
     type: number
     color: blue
-    row: 1
-    col: 2
+    row: 2
+    col: 1
     size_x: 1
     size_y: 1
     legend: false
@@ -31,11 +33,26 @@ positions:
       - metric: wordpress.users
         scope:
           tag: wordpress
+  - title: Total Pages
+    data_type: number
+    type: number
+    color: orange
+    row: 2
+    col: 2
+    size_x: 1
+    size_y: 1
+    filter: max
+    legend: false
+    icon: true
+    series:
+      - metric: wordpress.pages
+        scope:
+          tag: wordpress
   - title: Total Posts
     data_type: number
     type: number
     color: maroon
-    row: 1
+    row: 2
     col: 3
     size_x: 1
     size_y: 1
@@ -51,7 +68,7 @@ positions:
     data_type: number
     type: number
     color: teal
-    row: 1
+    row: 2
     col: 4
     size_x: 1
     size_y: 1
@@ -63,20 +80,24 @@ positions:
       - metric: wordpress.comments
         scope:
           tag: wordpress
-  - title: Comments and Posts Timeline
+  - title: 'Total Pages, Posts & Comments'
     data_type: number
     type: stacked-chart
-    color: orange
-    row: 2
+    color: navy
+    row: 3
     col: 1
     size_x: 4
     size_y: 4
     legend: true
     icon: true
+    filter: avg
     series:
       - metric: wordpress.comments
         scope:
           tag: wordpress
       - metric: wordpress.posts
+        scope:
+          tag: wordpress
+      - metric: wordpress.pages
         scope:
           tag: wordpress
