@@ -27,8 +27,9 @@ def _make_request(path):
         sys.exit(2)
 
 totalUsers = len(_make_request('users'))
-totalPosts = len(_make_request('posts?per_page=1000'))
-totalComments = len(_make_request('comments?per_page=1000'))
+totalPages = len(_make_request('pages?per_page=100'))
+totalPosts = len(_make_request('posts?per_page=100'))
+totalComments = len(_make_request('comments?per_page=100'))
 
-print 'OK | users=' + str(totalUsers) + ';;;; posts=' + str(totalPosts) + ';;;; comments=' + str(totalComments) + ';;;;'
+print 'OK | users=' + str(totalUsers) + ';;;; pages=' + str(totalPages) + ';;;; posts=' + str(totalPosts) + ';;;; comments=' + str(totalComments) + ';;;;'
 sys.exit(0)
