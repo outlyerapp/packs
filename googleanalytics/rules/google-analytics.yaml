@@ -1,0 +1,14 @@
+title: Google Analytics
+criteria:
+  - metric: googleanalytics.avgpageloadtime
+    scope:
+      tag: googleanalytics
+    condition:
+      timeout: 60
+      threshold: 2
+      operator: gt
+actions:
+  - type: EMAIL
+    details:
+      message: ''
+      emails: []

@@ -1,0 +1,64 @@
+title: Google Analytics
+period: 600
+locked: false
+positions:
+  - title: Total Visitors Today
+    data_type: number
+    type: chart
+    color: navy
+    row: 1
+    col: 1
+    size_x: 3
+    size_y: 4
+    filter: avg
+    legend: false
+    icon: true
+    series:
+      - metric: googleanalytics.visitors
+        scope:
+          tag: googleanalytics
+  - title: GA API Status
+    data_type: nagios
+    type: status
+    color: maroon
+    row: 1
+    col: 4
+    size_x: 1
+    size_y: 2
+    filter: avg
+    legend: false
+    icon: true
+    series:
+      - metric: googleanalytics.status
+        scope:
+          tag: googleanalytics
+  - title: Total Visitors Today
+    data_type: number
+    type: number
+    color: olive
+    row: 3
+    col: 4
+    size_x: 1
+    size_y: 1
+    filter: max
+    legend: false
+    icon: true
+    series:
+      - metric: googleanalytics.visitors
+        scope:
+          tag: googleanalytics
+  - title: Average Page Load Time
+    data_type: number
+    type: number
+    color: maroon
+    row: 4
+    col: 4
+    size_x: 1
+    size_y: 1
+    filter: max
+    legend: false
+    icon: true
+    series:
+      - metric: googleanalytics.avgpageloadtime
+        scope:
+          tag: googleanalytics
