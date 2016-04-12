@@ -1,11 +1,13 @@
 # Google Anayltics Pack
 
 ## Description:
-Uses a Google Analytics service account to grab GA metrics via the GA API. The following metrics are returned by default:
+Uses a Google Analytics service account to grab Google Analytics metrics via the Google Analytics API. The following metrics are returned by default:
 
 * Unique Visitors
 * Page Load Time
-* Event Counts
+
+It intended as a starter plugin to be edited to read any metrics you want from Google Analytics into Dataloop.IO. See
+Editing section below for more details on what metrics are available.
 
 ## Setup:
 
