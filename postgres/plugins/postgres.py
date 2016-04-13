@@ -106,14 +106,14 @@ def pg_metrics_queries():
         buffers_backend, buffers_alloc from pg_stat_bgwriter;')
     results = db_curs.fetchall()
     bgwriter_values = results[0]
-    checkpoints_timed = int(bgwriter_values[0])
-    checkpoints_req = int(bgwriter_values[1])
-    checkpoint_write_time = int(bgwriter_values[2])
-    checkpoint_sync_time = int(bgwriter_values[3])
-    buffers_checkpoint = int(bgwriter_values[4])
-    buffers_clean = int(bgwriter_values[5])
-    buffers_backend = int(bgwriter_values[6])
-    buffers_alloc = int(bgwriter_values[7])
+    checkpoints_timed = int(bgwriter_values[0] or 0)
+    checkpoints_req = int(bgwriter_values[1] or 0)
+    checkpoint_write_time = int(bgwriter_values[2] or 0)
+    checkpoint_sync_time = int(bgwriter_values[3] or 0)
+    buffers_checkpoint = int(bgwriter_values[4] or 0)
+    buffers_clean = int(bgwriter_values[5] or 0)
+    buffers_backend = int(bgwriter_values[6] or 0)
+    buffers_alloc = int(bgwriter_values[7] or 0)
     pg_metrics.update(
         {'Pypg_bgwriter_checkpoints_timed':checkpoints_timed,
          'Pypg_bgwriter_checkpoints_req':checkpoints_req,
@@ -143,20 +143,20 @@ def pg_metrics_queries():
 
     pg_stat_past_db_values = results_past[0]
     pg_stat_db_values = results_present[0]
-    transactions = int(pg_stat_db_values[0])
-    transactions_per_sec = (transactions - int(pg_stat_past_db_values[0])) / time_between
+    transactions = int(pg_stat_db_values[0] or 0)
+    transactions_per_sec = (transactions - int(pg_stat_past_db_values[0] or 0)) / time_between
     inserts = int(pg_stat_db_values[1])
-    inserts_per_sec = (inserts - int(pg_stat_past_db_values[1])) / time_between
+    inserts_per_sec = (inserts - int(pg_stat_past_db_values[1] or 0)) / time_between
     updates = int(pg_stat_db_values[2])
-    updates_per_sec = (updates - int(pg_stat_past_db_values[2])) / time_between
+    updates_per_sec = (updates - int(pg_stat_past_db_values[2] or 0)) / time_between
     deletes = int(pg_stat_db_values[3])
-    deletes_per_sec = (deletes - int(pg_stat_past_db_values[3])) / time_between
+    deletes_per_sec = (deletes - int(pg_stat_past_db_values[3] or 0)) / time_between
     reads = int(pg_stat_db_values[4])
-    reads_per_sec = (reads - int(pg_stat_past_db_values[4])) / time_between
+    reads_per_sec = (reads - int(pg_stat_past_db_values[4] or 0)) / time_between
     blksdisk = int(pg_stat_db_values[5])
-    blksdisk_per_sec = (blksdisk - int(pg_stat_past_db_values[5])) / time_between
+    blksdisk_per_sec = (blksdisk - int(pg_stat_past_db_values[5] or 0)) / time_between
     blksmem = int(pg_stat_db_values[6])
-    blksmem_per_sec = (blksmem - int(pg_stat_past_db_values[6])) / time_between
+    blksmem_per_sec = (blksmem - int(pg_stat_past_db_values[6] or 0)) / time_between
 
     pg_metrics.update(
         {'Pypg_transactions':transactions,
@@ -183,8 +183,8 @@ def pg_metrics_queries():
         from pg_stat_all_tables;')
     results = db_curs.fetchall()
     pg_stat_table_values = results[0]
-    seqscan = int(pg_stat_table_values[0])
-    idxfetch = int(pg_stat_table_values[1])
+    seqscan = int(pg_stat_table_values[0] or 0)
+    idxfetch = int(pg_stat_table_values[1] or 0)
     hours_since_vacuum = int(pg_stat_table_values[2]) if pg_stat_table_values[2] != None else -1
     hours_since_analyze = int(pg_stat_table_values[3]) if pg_stat_table_values[3] != None else -1
     pg_metrics.update(
@@ -257,8 +257,8 @@ try:
     for d in descriptors:
         v = d['call_back'](d['name'])
         message += str(d['name'].lower()) + '=' + str(v) + ';;;; '
-except Exception, e:
-    print "Plugin Failed!: %s" % e
+except Exception as E:
+    print "Plugin Failed!: %s" % E
     sys.exit(2)
 
 print message
