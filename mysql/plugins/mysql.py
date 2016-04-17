@@ -5,7 +5,9 @@ import sys
 import json
 from datetime import datetime
 
-MYSQL_USER = 'root'
+# configure these settings
+
+MYSQL_USER = ''
 MYSQL_PASSWORD = ''
 MYSQL_HOST = ''
 
@@ -68,7 +70,7 @@ def is_float(input):
 
 
 def get_mysql_status(version):
-    command = ['/usr/bin/mysql', '-s', '-N', '-s', '-e', 'show global status']
+    command = ['/usr/bin/mysql', '-s', '-N']
     status['innodb_mem_total'] = 0
     if MYSQL_USER:
         command.append('-u%s' % MYSQL_USER)
@@ -76,10 +78,11 @@ def get_mysql_status(version):
         command.append('-p%s' % MYSQL_PASSWORD)
     if MYSQL_HOST:
         command.append('-h%s' % MYSQL_HOST)
+    command += ['-e', 'show global status']
     try:
         resp = subprocess.check_output(command)
     except Exception, e:
-        print "connection failure: %s" % e
+        print "connection failure for show global status: %s" % e
         sys.exit(2)
     metric_list = resp.split('\n')
     metric_list.sort()
@@ -101,16 +104,21 @@ def get_mysql_status(version):
 # Determine MySQL version
 #
 
+
 def get_version():
-    command = ['/usr/bin/mysql', '-N', '-s', '-e', "show global variables like 'version'"]
+    instance_version = 0
+    command = ['/usr/bin/mysql', '-N', '-s']
     if MYSQL_USER:
         command.append('-u%s' % MYSQL_USER)
     if MYSQL_PASSWORD:
         command.append('-p%s' % MYSQL_PASSWORD)
+    if MYSQL_HOST:
+        command.append('-h%s' % MYSQL_HOST)
+    command += ['-e', "show global variables like 'version'"]
     try:
         resp = subprocess.check_output(command)
-    except:
-        print "connection failure"
+    except Exception, e:
+        print "connection failure for show global versions: %s" % e
         sys.exit(2)
 
     metric_list = resp.split('\n')
@@ -154,8 +162,8 @@ def get_cache():
     with open(TMPDIR + '/' + TMPFILE, 'r') as json_fp:
         try:
             json_data = json.load(json_fp)
-        except:
-            print "not a valid json file. rates calculations impossible"
+        except Exception, e:
+            print "Not a valid json file. rates calculations impossible: %s" % e
             json_data = []
     return json_data
 
@@ -165,7 +173,7 @@ def write_cache(cache):
         try:
             json.dump(cache, json_fp)
         except Exception, e:
-            print "unable to write cache file, future rates will be hard to calculate"
+            print "Unable to write cache file, future rates will be hard to calculate: %s" % e
 
 
 def cleanse_cache(cache):
@@ -175,7 +183,7 @@ def cleanse_cache(cache):
         while len(cache) >= 120:
             cache.pop(0)
         return cache
-    except Exception, e:
+    except:
         os.remove(TMPDIR + '/' + TMPFILE)
 
 
@@ -216,7 +224,7 @@ for k, v in result.iteritems():
         convert_sizes_from_bytes(k, v)
 result.update(size_metrics)
 
-# Only calculate rates for metics that have rates
+# Only calculate rates for metrics that have rates
 
 all_rates = list(result.keys())
 rates = list(set(all_rates) - set(no_rates))
@@ -242,4 +250,3 @@ for k, v in result.iteritems():
 
 print perf_data
 sys.exit(0)
-
