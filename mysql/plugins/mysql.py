@@ -7,7 +7,7 @@ from datetime import datetime
 
 # configure these settings
 
-MYSQL_USER = ''
+MYSQL_USER = 'root'
 MYSQL_PASSWORD = ''
 MYSQL_HOST = ''
 
