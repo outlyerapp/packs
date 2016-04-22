@@ -49,7 +49,7 @@ def flatten(d, parent_key='', sep='.'):
 exit_code = 0
 try:
     es_health = flatten(_get_es_stats(BASE_URL + HEALTH_URL))
-    cluster_stats= flatten(_get_es_stats(BASE_URL + CLUSTER_STATS_URL))
+    cluster_stats = flatten(_get_es_stats(BASE_URL + CLUSTER_STATS_URL))
 
     # stats collected twice for rate calculation
     es_stats_before = flatten(_get_es_stats(BASE_URL + STATS_URL))

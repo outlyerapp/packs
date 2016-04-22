@@ -48,7 +48,6 @@ positions:
         scope:
           tag:
             - elasticsearch
-            - data
   - title: no. of nodes
     type: number
     color: green
