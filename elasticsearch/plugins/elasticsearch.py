@@ -46,7 +46,6 @@ def flatten(d, parent_key='', sep='.'):
             items.append((new_key, value))
     return dict(items)
 
-exit_code = 0
 try:
     es_health = flatten(_get_es_stats(BASE_URL + HEALTH_URL))
     cluster_stats = flatten(_get_es_stats(BASE_URL + CLUSTER_STATS_URL))
@@ -137,4 +136,4 @@ for k, v in cluster_stats.iteritems():
 
 
 print(perf_data)
-sys.exit(exit_code)
+sys.exit(exit_status)
