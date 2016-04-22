@@ -2,6 +2,7 @@
 import sys
 import requests
 import collections
+import time
 
 """
 Hit up the nodes stats url and pull back all the metrics for that node
@@ -13,6 +14,7 @@ PORT = 9200
 BASE_URL = "http://%s:%s" % (HOST, PORT)
 LOCAL_URL = "/_nodes/_local"
 HEALTH_URL = "/_cluster/health"
+INTERVAL = 5
 
 # Choose the elasticsearch stats to return
 # Any of settings,os,process,jvm,thread_pool,network,transport,http,plugins
@@ -46,35 +48,93 @@ def flatten(d, parent_key='', sep='.'):
 
 exit_code = 0
 try:
-    es_stats = flatten(_get_es_stats(BASE_URL + STATS_URL))
     es_health = flatten(_get_es_stats(BASE_URL + HEALTH_URL))
-    cluster_stats = flatten(_get_es_stats(BASE_URL + CLUSTER_STATS_URL))
+    cluster_stats= flatten(_get_es_stats(BASE_URL + CLUSTER_STATS_URL))
+
+    # stats collected twice for rate calculation
+    es_stats_before = flatten(_get_es_stats(BASE_URL + STATS_URL))
+    time.sleep(INTERVAL)
+    es_stats_after = flatten(_get_es_stats(BASE_URL + STATS_URL))
 
     perf_data = "OK | "
-    for k, v in es_stats.iteritems():
+    es_stats = {}
+    for k, v in es_stats_before.iteritems():
         if str(v)[0].isdigit():
             k = k.rsplit('.')[2::]
-            perf_data += '.'.join(k) + '=' + str(v) + ';;;; '
+            es_stats['.'.join(k)] = v
 
-    for k, v in es_health.iteritems():
-        if str(v)[0].isdigit():
-            perf_data += str(k) + "=" + str(v) + ';;;; '
+        if 'query_total' in k:
+            for k2, v2, in es_stats_after.iteritems():
+                if 'query_total' in k2:
+                    k2 = k2.rsplit('.')[2::]
+                    k2[2] = 'queries_per_second'
+                    es_stats['.'.join(k2)] = str((v2 - v) / INTERVAL)
+                    k2[2] = 'query_total_diff'
+                    es_stats['.'.join(k2)] = str((v2 - v))
 
-    if es_health['status'] == 'green':
-        exit_status = 0
-    elif es_health['status'] == 'yellow':
-        exit_status = 1
-    elif es_health['status'] == 'red':
-        exit_status = 2
+        if 'index_total' in k:
+            for k2, v2, in es_stats_after.iteritems():
+                if 'index_total' in k2:
+                    k2 = k2.rsplit('.')[2::]
+                    k2[2] = 'index_per_second'
+                    es_stats['.'.join(k2)] = str((v2 - v) / INTERVAL)
+                    k2[2] = 'index_total_diff'
+                    es_stats['.'.join(k2)] = str((v2 - v))
 
-    for k, v in cluster_stats.iteritems():
-        if str(v)[0].isdigit():
-            perf_data += str(k) + "=" + str(v) + ';;;; '
+        if 'query_time_in_millis' in k:
+            for k2, v2, in es_stats_after.iteritems():
+                if 'query_time_in_millis' in k2:
+                    k2 = k2.rsplit('.')[2::]
+                    k2[2] = 'query_time_in_millis_diff'
+                    es_stats['.'.join(k2)] = str((v2 - v))
 
-
-    print(perf_data)
-    sys.exit(exit_code)
+        if 'index_time_in_millis' in k:
+            for k2, v2, in es_stats_after.iteritems():
+                if 'index_time_in_millis' in k2:
+                    k2 = k2.rsplit('.')[2::]
+                    k2[2] = 'index_time_in_millis_diff'
+                    es_stats['.'.join(k2)] = str((v2 - v))
 
 except Exception as e:
     print("Plugin Failed! Exception: " + str(e))
     sys.exit(2)
+
+
+# calculate some additional metrics
+try:
+    es_stats['indices.search.query_time_avg_in_millis'] = round(float(es_stats['indices.search.query_time_in_millis_diff']) / float(es_stats['indices.search.query_total_diff']), 2)
+except ZeroDivisionError, e:
+    es_stats['indices.search.query_time_avg_in_millis'] = 0
+except KeyError, e:
+    pass
+
+try:
+    es_stats['indices.indexing.index_time_avg_in_millis'] = round(float(es_stats['indices.indexing.index_time_in_millis_diff']) / float(es_stats['indices.indexing.index_total_diff']), 2)
+except ZeroDivisionError:
+    es_stats['indices.indexing.index_time_avg_in_millis'] = 0
+except KeyError, e:
+    pass
+
+
+for k, v in es_stats.iteritems():
+    if str(v)[0].isdigit():
+        perf_data += str(k) + "=" + str(v) + ';;;; '
+
+for k, v in es_health.iteritems():
+    if str(v)[0].isdigit():
+        perf_data += str(k) + "=" + str(v) + ';;;; '
+
+if es_health['status'] == 'green':
+    exit_status = 0
+elif es_health['status'] == 'yellow':
+    exit_status = 1
+elif es_health['status'] == 'red':
+    exit_status = 2
+
+for k, v in cluster_stats.iteritems():
+    if str(v)[0].isdigit():
+        perf_data += 'cluster.' + str(k) + "=" + str(v) + ';;;; '
+
+
+print(perf_data)
+sys.exit(exit_code)

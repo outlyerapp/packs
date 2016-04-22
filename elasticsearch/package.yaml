@@ -1,6 +1,6 @@
 title: ElasticSearch
 author: Dataloop.IO
-version: 1.0.0
+version: 1.0.1
 description: Queries the stats and health endpoints for all Elastic Search metrics
 icon:
     name: elasticsearch
