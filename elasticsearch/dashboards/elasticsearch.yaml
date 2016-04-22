@@ -32,7 +32,7 @@ positions:
       - metric: elasticsearch.indices.indexing.index_time_avg_in_millis
         scope:
           tag: elasticsearch
-  - title: elasticsearch.indices.search.query_time_avg_in_millis
+  - title: average search time in millis
     data_type: number
     type: stacked-chart
     color: fuchsia
