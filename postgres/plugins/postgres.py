@@ -134,9 +134,7 @@ db_curs.execute("select pg_stat_clear_snapshot();")
 results_present = query_post(db_curs, q_stats)
 
 pg_stat_past_db_values = results_past[0]
-print pg_stat_past_db_values
 pg_stat_db_values = results_present[0]
-print pg_stat_db_values
 
 transactions = int(pg_stat_db_values[0] or 0)
 transactions_per_sec = (transactions - int(pg_stat_past_db_values[0]) or 0) / time_between
