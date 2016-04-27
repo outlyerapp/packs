@@ -13,12 +13,12 @@ PASSWORD = ''
 
 
 def query_post(curs, query):
-	try:
-		curs.execute(query)
-		return curs.fetchall()
-	except Exception as E:
-		print "Failed to execute query: %s" % E
-		sys.exit(2)
+    try:
+        curs.execute(query)
+        return curs.fetchall()
+    except Exception as E:
+        print "Failed to execute query: %s" % E
+        sys.exit(2)
 
 # blank metrics dictionary
 pg_metrics = {}
@@ -26,10 +26,10 @@ pgdsn = "dbname=%s host=%s user=%s port=%s password=%s" % (DB, HOST, USER, PORT,
 
 # Open a connection to DB
 try:
-	db_conn = psycopg2.connect(pgdsn)
+    db_conn = psycopg2.connect(pgdsn)
 except Exception as E:
-	print "Unable to connect to database: %s" %E
-	sys.exit(2)
+    print "Unable to connect to database: %s" %E
+    sys.exit(2)
 
 # Open a database cursor
 db_curs = db_conn.cursor()
@@ -97,8 +97,8 @@ pg_metrics.update(
 
 # background writer query returns one row that needs to be parsed
 q_bgwriter = 'select checkpoints_timed, checkpoints_req, checkpoint_write_time, \
-		      checkpoint_sync_time, buffers_checkpoint, buffers_clean, \
-    		  buffers_backend, buffers_alloc from pg_stat_bgwriter;'
+              checkpoint_sync_time, buffers_checkpoint, buffers_clean, \
+              buffers_backend, buffers_alloc from pg_stat_bgwriter;'
 results = query_post(db_curs, q_bgwriter)
 bgwriter_values = results[0]
 checkpoints_timed = int(bgwriter_values[0] or 0)
@@ -125,8 +125,8 @@ pg_metrics.update(
 
 time_between = 5
 q_stats = 'select (sum(xact_commit) + sum(xact_rollback)), sum(tup_inserted), \
-    	   sum(tup_updated), sum(tup_deleted), (sum(tup_returned) + sum(tup_fetched)), \
-    	   sum(blks_read), sum(blks_hit) from pg_stat_database;'
+           sum(tup_updated), sum(tup_deleted), (sum(tup_returned) + sum(tup_fetched)), \
+           sum(blks_read), sum(blks_hit) from pg_stat_database;'
 results_past = query_post(db_curs, q_stats)
 sleep(time_between)
 # clear the stats
@@ -178,9 +178,9 @@ pg_metrics.update(
 
 # table statistics returns one row that needs to be parsed
 q_table_stats = 'select sum(seq_tup_read), sum(idx_tup_fetch), \
-			     extract(epoch from now() - min(last_vacuum))::int/60/60, \
-    			 extract(epoch from now() - min(last_analyze))::int/60/60 \
-				 from pg_stat_all_tables;'
+                 extract(epoch from now() - min(last_vacuum))::int/60/60, \
+                 extract(epoch from now() - min(last_analyze))::int/60/60 \
+                 from pg_stat_all_tables;'
 results = query_post(db_curs, q_table_stats)
 pg_stat_table_values = results[0]
 seqscan = int(pg_stat_table_values[0] or 0)
@@ -199,7 +199,7 @@ db_curs.close()
 # print out all the metrics, nagios style
 message = "OK | "
 for metric, value in pg_metrics.iteritems():
-	message += str(metric.lower()) + '=' + str(value) + ';;;; '
+    message += str(metric.lower()) + '=' + str(value) + ';;;; '
 
 print message
 sys.exit(0)
