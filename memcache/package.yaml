@@ -1,6 +1,8 @@
 title: Memcache
 author: Dataloop.IO
 version: 1.0.0
+processes:
+    - elasticsearch
 description: high-performance, distributed memory object caching system metrics
 icon:
     name: memcache
