@@ -1,6 +1,8 @@
 title: Couchbase
 author: Dataloop.IO
 version: 1.0.0
+processes:
+    - couchbase
 description: Cluster health, node metrics and bucket stats.
 instructions_required: true
 icon:
