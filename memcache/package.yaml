@@ -2,7 +2,7 @@ title: Memcache
 author: Dataloop.IO
 version: 1.0.0
 processes:
-    - memcached
+    - /usr/bin/memcached
 description: high-performance, distributed memory object caching system metrics
 icon:
     name: memcache
