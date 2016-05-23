@@ -1,6 +1,8 @@
 title: Docker
 author: Dataloop.IO
 version: 1.0.0
+processes:
+    - /opt/dataloop/embedded/bin/discover.py
 description: This pack requires the dataloop/dataloop-docker container to be started on each docker host.
 instructions_required: true
 icon:
