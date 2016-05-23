@@ -1,6 +1,9 @@
 title: Postfix
 author: Dataloop.IO
 version: 1.0.0
+processes:
+    - smtpd
+    - qmqpd
 description: Postfix status, mail queue size and cpu / memory stats for core processes
 icon:
     name: postfix
