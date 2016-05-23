@@ -5,8 +5,8 @@ from requests.auth import HTTPBasicAuth
 
 # settings
 
-USER = ''
-PASSWORD = ''
+USER = 'Administrator'
+PASSWORD = 'password'
 URL = 'http://localhost:8091'
 
 # constants
@@ -21,7 +21,10 @@ auth = HTTPBasicAuth(USER, PASSWORD)
 
 
 def average_list(l):
-    return reduce(lambda x, y: x + y, l) / float(len(l))
+    try:
+        return reduce(lambda x, y: x + y, l) / float(len(l))
+    except TypeError:
+        pass
 
 
 def flatten(structure, key="", path="", flattened=None):
