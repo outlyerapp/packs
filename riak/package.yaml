@@ -1,6 +1,8 @@
 title: Riak
 author: Dataloop.IO
 version: 1.0.0
+processes:
+    - riak
 description: Every metric from riak-admin status including fsm put and get times along with operations per second.
 icon:
     name: riak

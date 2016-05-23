@@ -1,6 +1,8 @@
 title: Postgres
 author: Dataloop.IO
 version: 1.0.2
+processes:
+    - postgres
 description: Postgres availability and performance monitoring. You will need to edit the postgres.py plugin to specify settings.
 icon:
     name: postgres
