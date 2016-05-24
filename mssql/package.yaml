@@ -1,6 +1,8 @@
 title: MSSQL
 author: Dataloop.IO
 version: 1.0.0
+processes:
+    - sqlservr.exe
 description: Microsoft SQL Server metrics
 icon:
     name: mssql
