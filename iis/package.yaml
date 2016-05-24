@@ -1,6 +1,8 @@
 title: IIS
 author: Dataloop.IO
 version: 1.0.0
+processes:
+    - W3SVC
 description: Metrics from Microsoft Internet Information Services
 icon:
     name: iis
