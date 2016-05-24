@@ -32,6 +32,8 @@ metric_rates = {}
 for metric, value in metrics.iteritems():
     if value > metrics_before[metric]:
         metric_rates[metric + '_per_sec'] = (int(value) - int(metrics_before[metric])) / time_between
+    else:
+        metric_rates[metric + '_per_sec'] = 0
 
 metrics.update(metric_rates)
 
