@@ -6,3 +6,5 @@ icon:
     name: mssql
     background: white
     foreground: crimson
+processes:
+    - sqlservr.exe
