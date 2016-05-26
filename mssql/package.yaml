@@ -6,3 +6,4 @@ icon:
     name: mssql
     background: white
     foreground: crimson
+processes: []
