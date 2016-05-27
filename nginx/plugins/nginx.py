@@ -112,7 +112,7 @@ for line in reverse_read(LOGFILE):
                 pass
         else:
             break
-    except AttributeError:
+    except (AttributeError, ValueError):
         continue
 
 
