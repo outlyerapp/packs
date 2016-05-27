@@ -72,45 +72,48 @@ def reverse_read(fname, separator=os.linesep):
             yield a_line
 
 for line in reverse_read(LOGFILE):
-    regex = ''.join('(?P<' + g + '>.*?)' if g else re.escape(c) for g, c in re.findall(r'\$(\w+)|(.)', timed_combined))
-    m = re.match(regex, line)
-    if not m:
-        regex = ''.join('(?P<' + g + '>.*?)' if g else re.escape(c) for g, c in re.findall(r'\$(\w+)|(.)', combined))
+    try:
+        regex = ''.join('(?P<' + g + '>.*?)' if g else re.escape(c) for g, c in re.findall(r'\$(\w+)|(.)', timed_combined))
         m = re.match(regex, line)
-    data = m.groupdict()
+        if not m:
+            regex = ''.join('(?P<' + g + '>.*?)' if g else re.escape(c) for g, c in re.findall(r'\$(\w+)|(.)', combined))
+            m = re.match(regex, line)
+        data = m.groupdict()
 
-    line_time = datetime.strptime(data['time_local'], '%d/%b/%Y:%H:%M:%S '+ timezone)
-    delta = start_time - line_time
-    if delta.seconds < 30:
-        code = data['status']
-        if code not in status_codes.keys():
-            status_codes[code] = 1
+        line_time = datetime.strptime(data['time_local'], '%d/%b/%Y:%H:%M:%S '+ timezone)
+        delta = start_time - line_time
+        if delta.seconds < 30:
+            code = data['status']
+            if code not in status_codes.keys():
+                status_codes[code] = 1
+            else:
+                status_codes[code] += 1
+            if code.startswith('2'):
+                status_codes['2xx'] += 1
+            if code.startswith('3'):
+                status_codes['3xx'] += 1
+            if code.startswith('4'):
+                status_codes['4xx'] += 1
+            if code.startswith('5'):
+                status_codes['5xx'] += 1
+            try:
+                if 'request_time' in data.iterkeys():
+                    time_taken = data['request_time']
+                    if 'min' not in times.iterkeys():
+                        times['min'] = time_taken
+                    times['count'] += 1
+                    times['total'] += float(time_taken)
+                    if time_taken > times['max']:
+                        times['max'] = time_taken
+                    if time_taken < times['min']:
+                        times['min'] = time_taken
+            except ValueError:
+                # Request time not castable to float (like '-')
+                pass
         else:
-            status_codes[code] += 1
-        if code.startswith('2'):
-            status_codes['2xx'] += 1
-        if code.startswith('3'):
-            status_codes['3xx'] += 1
-        if code.startswith('4'):
-            status_codes['4xx'] += 1
-        if code.startswith('5'):
-            status_codes['5xx'] += 1
-        try:
-            if 'request_time' in data.iterkeys():
-                time_taken = data['request_time']
-                if 'min' not in times.iterkeys():
-                    times['min'] = time_taken
-                times['count'] += 1
-                times['total'] += float(time_taken)
-                if time_taken > times['max']:
-                    times['max'] = time_taken
-                if time_taken < times['min']:
-                    times['min'] = time_taken
-        except ValueError:
-            # Request time not castable to float (like '-')
-            pass
-    else:
-        break
+            break
+    except AttributeError:
+        continue
 
 
 message = "OK | "
