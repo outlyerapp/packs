@@ -2,13 +2,11 @@
 
 import httplib2
 import time
-import shelve
 import traceback
 from apiclient.discovery import build
 from apiclient.errors import HttpError
 from oauth2client.client import SignedJwtAssertionCredentials
 from oauth2client.client import AccessTokenRefreshError
-from datetime import date, timedelta
 
 """
 Google Analytics Plugin
@@ -21,47 +19,52 @@ plugin for additional metrics
 # Set Variables to access Google Analytics
 
 # Service Account Email address given in Google Developer Console
-SERVICE_ACCOUNT_EMAIL = "....@developer.gserviceaccount.com"
+SERVICE_ACCOUNT_EMAIL = "......@developer.gserviceaccount.com"
 # Cut and paste your private key here
-OAUTH2_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----\n.......-----END PRIVATE KEY-----\n"
-# Profile ID - this is the profile ID of the web property beginning with UA-
-PROFILE_ID = "UA-....."
+OAUTH2_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----\n............\n-----END PRIVATE KEY-----\n"
+# Profile IDs - dictionary of profile IDs of each of the web properties you want to query beginning with UA-
+PROFILES = { "profile1": "UA-XXXXXXXX-1", "profile2": "UA-XXXXXXXX-2" }
 
 # Main method
 def main():
 
-    # Open tmpDB file via shelve. This will be used to store values between plugin runs
-    tmpdb = _open_tmpdb()
+    metrics = {}
 
     try:
 
         # Initialise API client
         service = _get_ga_service()
-        # Get internal system profile ID from UA-... ID
-        profileId = _get_profile_id(service, PROFILE_ID)
-
-        # Exit if no valid profileId found
-        if profileId is None:
-            print 'No valid profile was found. Exiting.'
-            exit(2)
 
         # Get today's date, must be in YYYY-MM-DD Format
         todaysDate = time.strftime("%Y-%m-%d")
-        last_week = date.today() - timedelta(days=7)
-        last_week = last_week.strftime("%Y-%m-%d")
 
-        uniqueVisitors = get_total_metric(service, profileId, last_week, todaysDate, 'ga:visitors')
-        avgPageLoadTime = get_total_metric(service, profileId, todaysDate, todaysDate, 'ga:avgPageLoadTime')
+        for profile in PROFILES:
 
-        # Write latest values to tmpdb
-        tmpdb['uniqueVisitors'] = uniqueVisitors
-        tmpdb['avgPageLoadTime'] = avgPageLoadTime
-        tmpdb.sync()
+            # Get internal system profile ID from UA-... ID
+            profileId = _get_profile_id(service, PROFILES[profile])
 
-        # Print Nagios Format Output
-        print 'OK | ' + 'visitors=' + uniqueVisitors + ';;;;' \
-              + ' avgPageLoadTime=' + avgPageLoadTime + 's;;;;'
-        exit(0)
+            # Exit if no valid profileId found
+            if profileId is None:
+                print 'No valid profile was found for ' + PROFILES[profile] + '. Exiting.'
+                exit(2)
+
+            '''
+                CUSTOMISE METRICS HERE
+            '''
+
+            metrics["users." + profile] = get_total_metric(service, profileId, todaysDate, todaysDate, 'ga:users')
+            metrics["newusers." + profile] = get_total_metric(service, profileId, todaysDate, todaysDate, 'ga:newUsers')
+            metrics["percentNewSessions." + profile] = str(round(float(get_total_metric(service, profileId, todaysDate, todaysDate, 'ga:percentNewSessions')),2)) + "%"
+            metrics["sessions." + profile] = get_total_metric(service, profileId, todaysDate, todaysDate, 'ga:sessions')
+            metrics["avgSessionDuration." + profile] = str(round(float(get_total_metric(service, profileId, todaysDate, todaysDate, 'ga:avgSessionDuration')),0)) + "s"
+            metrics["bounceRate." + profile] = str(round(float(get_total_metric(service, profileId, todaysDate, todaysDate, 'ga:bounceRate')),2)) + "%"
+            metrics["avgPageLoadTime." + profile] = get_total_metric(service, profileId, todaysDate, todaysDate, 'ga:avgPageLoadTime') + "s"
+
+            '''
+                / CUSTOMISE METRICS HERE
+            '''
+
+        print_output(metrics)
 
     except TypeError, error:
         # Handle errors in constructing a query.
@@ -87,10 +90,6 @@ def main():
         print 'There was an error opening a file: %s' % error
         traceback.print_exc()
         exit(2)
-
-    finally:
-        # Close tmpdb file and save changes back
-        tmpdb.close()
 
 # Helper method to get a total metric value for a given metric from API with optional filters
 def get_total_metric(service, profileId, start_date, end_date, metric, filters=None):
@@ -152,38 +151,15 @@ def _get_profile_id(service, profileId):
         print 'No Web Properties found for Service User Account. Check Service Account has permissions to access web properties.'
         return None
 
+# Print collected metrics in Nagios STDOUT Format and exit cleanly (Status code 0)
+def print_output(metrics):
+    # Print Nagios Format Output
+    output = 'OK | '
+    for metric in metrics:
+        output += metric + '=' + metrics[metric] + ';;;; '
 
-# Creates/opens a tmpdb, will clear all data if date has changed since last run so file is only
-# storing current days values
-def _open_tmpdb():
+    print output
+    exit(0)
 
-    # Open/Create tmpdb file
-    tmpdb = shelve.open(__file__ + ".tmpDB")
-    todaysDate = time.strftime("%Y-%m-%d")
-
-    if tmpdb.get('date') is not None:
-        dbDate = tmpdb.get('date')
-        if dbDate != todaysDate:
-            tmpdb.clear()
-            tmpdb.sync()
-    else:
-        tmpdb['date'] = todaysDate
-        tmpdb.sync()
-
-    return tmpdb
-
-
-# Helper function to return the difference between a value in tmpdb and another value for a key
-def _get_tmpdb_difference(key, currentValue, tmpdb):
-
-    prevvalue = 0
-    if tmpdb.has_key(key):
-        prevvalue = tmpdb[key]
-    else:
-        # Assume plugin is being run first time so shouldn't alert
-        prevvalue = currentValue
-
-    return int(currentValue) - int(prevvalue)
-
-# Run Main
+# Run Main()
 main()

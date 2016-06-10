@@ -1,64 +1,111 @@
 title: Google Analytics
-period: 600
+period: 86400
 locked: false
 positions:
-  - title: Total Visitors Today
+  - title: Unique Users
     data_type: number
-    type: chart
-    color: navy
+    type: stacked-chart
+    color: maroon
+    icon: true
+    filter: avg
+    legend: true
     row: 1
     col: 1
-    size_x: 3
+    size_x: 4
     size_y: 4
-    filter: avg
-    legend: false
-    icon: true
+    metrics:
+      - 'googleanalytics.users.*'
     series:
-      - metric: googleanalytics.visitors
+      - metric: 'googleanalytics.users.*'
         scope:
           tag: googleanalytics
-  - title: GA API Status
-    data_type: nagios
-    type: status
-    color: maroon
-    row: 1
-    col: 4
-    size_x: 1
-    size_y: 2
-    filter: avg
-    legend: false
-    icon: true
-    series:
-      - metric: googleanalytics.status
-        scope:
-          tag: googleanalytics
-  - title: Total Visitors Today
+  - title: Total Unique Users
     data_type: number
     type: number
-    color: olive
-    row: 3
-    col: 4
-    size_x: 1
-    size_y: 1
-    filter: max
-    legend: false
+    color: maroon
     icon: true
+    symbol: users
+    filter: sum
+    legend: false
+    row: 1
+    col: 5
+    size_x: 1
+    size_y: 4
+    metrics:
+      - 'googleanalytics.users.*'
     series:
-      - metric: googleanalytics.visitors
+      - metric: 'googleanalytics.users.*'
+        scope:
+          tag: googleanalytics
+  - title: Total NEW Users
+    data_type: number
+    type: number
+    color: purple
+    icon: true
+    symbol: user-md
+    filter: sum
+    legend: false
+    row: 1
+    col: 6
+    size_x: 1
+    size_y: 4
+    metrics:
+      - 'googleanalytics.newusers.*'
+    series:
+      - metric: 'googleanalytics.newusers.*'
+        scope:
+          tag: googleanalytics
+  - title: Average Session Duration
+    data_type: number
+    type: number
+    color: green
+    icon: true
+    symbol: clock-o
+    filter: avg
+    legend: false
+    row: 5
+    col: 1
+    size_x: 2
+    size_y: 2
+    metrics:
+      - 'googleanalytics.avgsessionduration.*'
+    series:
+      - metric: 'googleanalytics.avgsessionduration.*'
         scope:
           tag: googleanalytics
   - title: Average Page Load Time
     data_type: number
     type: number
-    color: maroon
-    row: 4
-    col: 4
-    size_x: 1
-    size_y: 1
+    color: orange
+    icon: true
+    symbol: clock-o
+    filter: avg
+    legend: false
+    row: 5
+    col: 3
+    size_x: 2
+    size_y: 2
+    metrics:
+      - 'googleanalytics.avgpageloadtime.*'
+    series:
+      - metric: 'googleanalytics.avgpageloadtime.*'
+        scope:
+          tag: googleanalytics
+  - title: Highest Bounce Rate
+    data_type: number
+    type: number
+    color: navy
+    icon: true
+    symbol: thumbs-down
     filter: max
     legend: false
-    icon: true
+    row: 5
+    col: 5
+    size_x: 2
+    size_y: 2
+    metrics:
+      - 'googleanalytics.bouncerate.*'
     series:
-      - metric: googleanalytics.avgpageloadtime
+      - metric: 'googleanalytics.bouncerate.*'
         scope:
           tag: googleanalytics

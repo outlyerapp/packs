@@ -1,13 +1,23 @@
 # Google Anayltics Pack
 
 ## Description:
-Uses a Google Analytics service account to grab Google Analytics metrics via the Google Analytics API. The following metrics are returned by default:
+Uses a Google Analytics service account to grab Google Analytics metrics via the Google Analytics API. 
+You can specify multiple web properties and for each, the following metrics are returned by default
+for today's date:
 
-* Unique Visitors
-* Page Load Time
+* Total Users (Unique Visitors)
+* Total New Users (Unique New Visitors)
+* Total Percent New Sessions (%)
+* Total Sessions
+* Average Session Duration (secs)
+* Bounce Rate (%)
+* Average Page Load Time (secs)
 
 It intended as a starter plugin to be edited to read any metrics you want from Google Analytics into Dataloop.IO. See
 Editing section below for more details on what metrics are available.
+
+_NOTE: FOR NOW PLEASE CHANGE PLUGIN INTERVAL TO 1HR IN PLUGIN SETTINGS PAGE_
+This will ensure you don't max out your API usage limits on Google Analytics
 
 ## Setup:
 
@@ -21,7 +31,7 @@ You will need to create a Service account that has permissions to access the Goo
 6. Download the JSON file and get the following details to edit the following variables at the top of the googleanalytics.py plugin:
     1. SERVICE_ACCOUNT_EMAIL: Copy and paste the email address (e.g. 123456789-....@developer.gserviceaccount.com)
     2. OAUTH2_PRIVATE_KEY: Copy and paste the private key found in the downloaded JSON file beginning with "-----BEGIN PRIVATE KEY-----" and ending with "-----END PRIVATE KEY-----\n"
-    3. PROFILE_ID: Copy and paste the UA- ID of the Google Analytics profile you want to get metrics from
+    3. PROFILES: List all the website UA- profile ids with a memorable name so your metrics are segmented by profile in Dataloop
 7. Add the email address to your Google Analytics users under Admin->Account->User Management with 'Read & Analyse' permissions. It may take a few minutes until the user is enabled
 
 ## Editing:
