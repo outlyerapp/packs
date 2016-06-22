@@ -1,9 +1,9 @@
-title: ElasticSearch
+title: Elasticsearch
 author: Dataloop.IO
 version: 1.0.1
 processes:
     - elasticsearch
-description: Queries the stats and health endpoints for all Elastic Search metrics
+description: Queries the stats and health endpoints for all Elasticsearch metrics
 icon:
     name: elasticsearch
     background: "#31beb1"
