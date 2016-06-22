@@ -1,4 +1,4 @@
-title: ElasticSearch
+title: Elasticsearch
 criteria:
   - metric: elasticsearch.status
     scope:
