@@ -1,6 +1,6 @@
 title: RabbitMQ
 author: Dataloop.IO
-version: 1.0.0
+version: 1.1.0
 processes:
     - rabbitmq-server
 description: Scrapes the management plugin to return overview statistics. Optionally returns queue and exchange level statistics.
