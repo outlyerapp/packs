@@ -14,6 +14,9 @@ QUEUE_STATS = False
 EXCHANGE_STATS = False
 VERIFY_SSL = True
 
+EXIT = 0
+E_MESSAGE = "OK | "
+
 
 def request_data(path):
     if not VERIFY_SSL: requests.packages.urllib3.disable_warnings()
@@ -111,10 +114,19 @@ def get_exchanges(vhost):
         exchange_names.append(exchange['name'])
     return exchange_names
 
+def get_partitions(node):
+    resp = request_data("/api/nodes/%s" % node)
+    return len(resp['partitions'])
+
+
 try:
     # overview metrics
     metrics = {}
     metrics.update(get_overview())
+    node_name= metrics['overview.node']
+    if get_partitions(node_name) > 0:
+        EXIT = 2
+        E_MESSAGE = "CRITICAL - Rabbit cluster has a partition | "
 
     if QUEUE_STATS or EXCHANGE_STATS:
         vhosts = get_vhosts()
@@ -134,12 +146,12 @@ try:
                 if exchange: metrics.update(get_exchange_stats(vhost, exchange))
 
     # nagios format output
-    perf_data = "OK | "
+    perf_data = E_MESSAGE
     for k, v in metrics.iteritems():
         if is_digit(v): perf_data += "%s=%s;;;; " % (k, round(v, 2))
     print perf_data
-    sys.exit(0)
+    sys.exit(EXIT)
 
 except Exception, e:
-    print "Plugin Failed! %s" % e
+    print "CRITICAL - Plugin Failed! %s" % e
     sys.exit(2)
