@@ -97,7 +97,7 @@ def check_cpu():
 
 
 def check_load():
-    cores = psutil.cpu_count()
+    cores = psutil.cpu_count(logical=False)
     load_avg = {}
     if os.name == 'nt':
         load_avg['load_1_min'] = 0
