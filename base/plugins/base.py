@@ -199,6 +199,16 @@ def check_uptime():
     uptime_hours = (uptime.days * 24) + (uptime.seconds // 3600)
     return {'uptime.hours': uptime_hours}
 
+def check_processes():
+    process_map = {}
+    process_map['total_procs'] = len(psutil.pids())
+    process_map['zombie_procs'] = 0
+    for proc in psutil.process_iter():
+        process = psutil.Process(proc.pid)
+        if process.status() == psutil.STATUS_ZOMBIE:
+            process_map['zombie_procs'] += 1
+    return process_map
+
 checks = [
     check_disks,
     check_cpu,
@@ -208,6 +218,7 @@ checks = [
     check_netio,
     check_diskio,
     check_virtmem,
+    check_processes,
     check_uptime
 ]
 
