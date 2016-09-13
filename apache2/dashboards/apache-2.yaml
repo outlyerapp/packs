@@ -1,0 +1,350 @@
+title: apache2
+annotations: []
+period: 600
+locked: false
+positions:
+  - title: apache2.status
+    data_type: nagios
+    type: status
+    color: lime
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 1
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.status
+        scope:
+          tag: apache2
+  - title: Total Kbytes
+    data_type: number
+    type: number
+    color: purple
+    icon: false
+    filter: max
+    legend: false
+    row: 1
+    col: 2
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.total_kbytes
+        scope:
+          tag: apache2
+  - title: Total Accessess
+    data_type: number
+    type: number
+    color: purple
+    icon: false
+    filter: max
+    legend: false
+    row: 1
+    col: 3
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.total_accesses
+        scope:
+          tag: apache2
+  - title: Total Connections
+    data_type: number
+    type: number
+    color: purple
+    icon: false
+    filter: max
+    legend: false
+    row: 1
+    col: 4
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.connstotal
+        scope:
+          tag: apache2
+  - title: Uptime (seconds)
+    data_type: number
+    type: number
+    color: teal
+    icon: false
+    filter: max
+    legend: false
+    row: 1
+    col: 5
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.serveruptimeseconds
+        scope:
+          tag: apache2
+  - title: 1 Minute Load
+    data_type: number
+    type: detailed-chart
+    color: teal
+    icon: false
+    filter: avg
+    legend: false
+    row: 2
+    col: 1
+    size_x: 2
+    size_y: 1
+    series:
+      - metric: apache2.load1
+        scope:
+          tag: apache2
+  - title: Bytes Per Request
+    data_type: number
+    type: detailed-chart
+    color: fuchsia
+    icon: true
+    filter: avg
+    legend: false
+    row: 2
+    col: 3
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: apache2.bytesperreq
+        scope:
+          tag: apache2
+  - title: Bytes Per Second
+    data_type: number
+    type: detailed-chart
+    color: fuchsia
+    icon: true
+    filter: avg
+    legend: false
+    row: 2
+    col: 5
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: apache2.bytespersec
+        scope:
+          tag: apache2
+  - title: Requests Per Second
+    data_type: number
+    type: detailed-chart
+    color: fuchsia
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 1
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: apache2.reqpersec
+        scope:
+          tag: apache2
+  - title: Scoreboard Waiting
+    data_type: number
+    type: number
+    color: navy
+    icon: false
+    filter: max
+    legend: false
+    row: 4
+    col: 3
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.stats.waiting
+        scope:
+          tag: apache2
+  - title: Scoreboard Total
+    data_type: number
+    type: number
+    color: navy
+    icon: false
+    filter: max
+    legend: false
+    row: 4
+    col: 4
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.stats.total
+        scope:
+          tag: apache2
+  - title: Scoreboard Reading
+    data_type: number
+    type: number
+    color: navy
+    icon: false
+    filter: max
+    legend: false
+    row: 4
+    col: 5
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.stats.reading
+        scope:
+          tag: apache2
+  - title: Scoreboard Closing
+    data_type: number
+    type: number
+    color: navy
+    icon: false
+    filter: max
+    legend: false
+    row: 4
+    col: 6
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.stats.closing
+        scope:
+          tag: apache2
+  - title: Scoreboard Keepalive(read)
+    data_type: number
+    type: number
+    color: navy
+    icon: false
+    filter: max
+    legend: false
+    row: 5
+    col: 1
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.stats.keepalive
+        scope:
+          tag: apache2
+  - title: Scoreboard DNSLookUp
+    data_type: number
+    type: number
+    color: navy
+    icon: false
+    filter: max
+    legend: false
+    row: 5
+    col: 2
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.stats.dnslookup
+        scope:
+          tag: apache2
+  - title: Scoreboard Sending
+    data_type: number
+    type: number
+    color: blue
+    icon: false
+    filter: max
+    legend: false
+    row: 5
+    col: 3
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.stats.sending
+        scope:
+          tag: apache2
+  - title: Scoreboard Finishing
+    data_type: number
+    type: number
+    color: blue
+    icon: false
+    filter: max
+    legend: false
+    row: 5
+    col: 4
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.stats.finishing
+        scope:
+          tag: apache2
+  - title: Scoreboard Starting
+    data_type: number
+    type: number
+    color: blue
+    icon: false
+    filter: max
+    legend: false
+    row: 5
+    col: 5
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.stats.starting
+        scope:
+          tag: apache2
+  - title: Scoreboard Idle Cleanup
+    data_type: number
+    type: number
+    color: blue
+    icon: false
+    filter: max
+    legend: false
+    row: 5
+    col: 6
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.stats.idle_cleanup
+        scope:
+          tag: apache2
+  - title: Scoreboard Logging
+    data_type: number
+    type: number
+    color: blue
+    icon: false
+    filter: max
+    legend: false
+    row: 6
+    col: 1
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.stats.logging
+        scope:
+          tag: apache2
+  - title: Scoreboard Open
+    data_type: number
+    type: number
+    color: blue
+    icon: false
+    filter: max
+    legend: false
+    row: 6
+    col: 2
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.stats.open
+        scope:
+          tag: apache2
+  - title: Idle Workers
+    data_type: number
+    type: number
+    color: maroon
+    icon: false
+    filter: max
+    legend: false
+    row: 7
+    col: 1
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.idleworkers
+        scope:
+          tag: apache2
+  - title: apache2.busyworkers
+    data_type: number
+    type: number
+    color: maroon
+    icon: false
+    filter: max
+    legend: false
+    row: 7
+    col: 2
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.busyworkers
+        scope:
+          tag: apache2

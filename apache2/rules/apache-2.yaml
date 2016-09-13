@@ -1,0 +1,11 @@
+title: apache2
+description: ''
+criteria:
+  - metric: apache2.status
+    scope:
+      tag: apache2
+    condition:
+      timeout: 120
+      threshold: false
+      operator: gt
+actions: []
