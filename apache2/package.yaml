@@ -1,0 +1,12 @@
+title: Apache2
+author: Dataloop.IO
+version: 1.0.0
+processes:
+    - apache2
+description: Apache2 metrics from mod-status. You will need to follow the instructions in apache2.py for setup.
+instructions_required: true
+icon:
+    name: apache
+    background: red
+    foreground: white
+
