@@ -3,7 +3,7 @@ annotations: []
 period: 600
 locked: false
 positions:
-  - title: apache2.status
+  - title: status
     data_type: nagios
     type: status
     color: lime
@@ -18,7 +18,7 @@ positions:
       - metric: apache2.status
         scope:
           tag: apache2
-  - title: Total Kbytes
+  - title: Total Connections
     data_type: number
     type: number
     color: purple
@@ -30,7 +30,7 @@ positions:
     size_x: 1
     size_y: 1
     series:
-      - metric: apache2.total_kbytes
+      - metric: apache2.connstotal
         scope:
           tag: apache2
   - title: Total Accessess
@@ -48,7 +48,7 @@ positions:
       - metric: apache2.total_accesses
         scope:
           tag: apache2
-  - title: Total Connections
+  - title: Total Kbytes
     data_type: number
     type: number
     color: purple
@@ -60,13 +60,13 @@ positions:
     size_x: 1
     size_y: 1
     series:
-      - metric: apache2.connstotal
+      - metric: apache2.total_kbytes
         scope:
           tag: apache2
-  - title: Uptime (seconds)
+  - title: Busy Workers
     data_type: number
     type: number
-    color: teal
+    color: maroon
     icon: false
     filter: max
     legend: false
@@ -75,10 +75,40 @@ positions:
     size_x: 1
     size_y: 1
     series:
-      - metric: apache2.serveruptimeseconds
+      - metric: apache2.busyworkers
         scope:
           tag: apache2
-  - title: 1 Minute Load
+  - title: Idle Workers
+    data_type: number
+    type: number
+    color: maroon
+    icon: false
+    filter: max
+    legend: false
+    row: 1
+    col: 6
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.idleworkers
+        scope:
+          tag: apache2
+  - title: Requests Per Second
+    data_type: number
+    type: detailed-chart
+    color: fuchsia
+    icon: true
+    filter: avg
+    legend: false
+    row: 2
+    col: 1
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: apache2.reqpersec
+        scope:
+          tag: apache2
+  - title: 1 Minute Load Average
     data_type: number
     type: detailed-chart
     color: teal
@@ -86,9 +116,9 @@ positions:
     filter: avg
     legend: false
     row: 2
-    col: 1
+    col: 3
     size_x: 2
-    size_y: 1
+    size_y: 2
     series:
       - metric: apache2.load1
         scope:
@@ -101,9 +131,9 @@ positions:
     filter: avg
     legend: false
     row: 2
-    col: 3
+    col: 5
     size_x: 2
-    size_y: 2
+    size_y: 1
     series:
       - metric: apache2.bytesperreq
         scope:
@@ -115,27 +145,42 @@ positions:
     icon: true
     filter: avg
     legend: false
-    row: 2
+    row: 3
     col: 5
     size_x: 2
-    size_y: 2
+    size_y: 1
     series:
       - metric: apache2.bytespersec
         scope:
           tag: apache2
-  - title: Requests Per Second
+  - title: Scoreboard Keepalive (read)
     data_type: number
-    type: detailed-chart
-    color: fuchsia
-    icon: true
-    filter: avg
+    type: number
+    color: navy
+    icon: false
+    filter: max
     legend: false
-    row: 3
+    row: 4
     col: 1
-    size_x: 2
-    size_y: 2
+    size_x: 1
+    size_y: 1
     series:
-      - metric: apache2.reqpersec
+      - metric: apache2.stats.keepalive
+        scope:
+          tag: apache2
+  - title: Scoreboard DNSLookUp
+    data_type: number
+    type: number
+    color: navy
+    icon: false
+    filter: max
+    legend: false
+    row: 4
+    col: 2
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: apache2.stats.dnslookup
         scope:
           tag: apache2
   - title: Scoreboard Waiting
@@ -198,10 +243,10 @@ positions:
       - metric: apache2.stats.closing
         scope:
           tag: apache2
-  - title: Scoreboard Keepalive(read)
+  - title: Scoreboard Logging
     data_type: number
     type: number
-    color: navy
+    color: blue
     icon: false
     filter: max
     legend: false
@@ -210,13 +255,13 @@ positions:
     size_x: 1
     size_y: 1
     series:
-      - metric: apache2.stats.keepalive
+      - metric: apache2.stats.logging
         scope:
           tag: apache2
-  - title: Scoreboard DNSLookUp
+  - title: Scoreboard Open
     data_type: number
     type: number
-    color: navy
+    color: blue
     icon: false
     filter: max
     legend: false
@@ -225,7 +270,7 @@ positions:
     size_x: 1
     size_y: 1
     series:
-      - metric: apache2.stats.dnslookup
+      - metric: apache2.stats.open
         scope:
           tag: apache2
   - title: Scoreboard Sending
@@ -286,65 +331,5 @@ positions:
     size_y: 1
     series:
       - metric: apache2.stats.idle_cleanup
-        scope:
-          tag: apache2
-  - title: Scoreboard Logging
-    data_type: number
-    type: number
-    color: blue
-    icon: false
-    filter: max
-    legend: false
-    row: 6
-    col: 1
-    size_x: 1
-    size_y: 1
-    series:
-      - metric: apache2.stats.logging
-        scope:
-          tag: apache2
-  - title: Scoreboard Open
-    data_type: number
-    type: number
-    color: blue
-    icon: false
-    filter: max
-    legend: false
-    row: 6
-    col: 2
-    size_x: 1
-    size_y: 1
-    series:
-      - metric: apache2.stats.open
-        scope:
-          tag: apache2
-  - title: Idle Workers
-    data_type: number
-    type: number
-    color: maroon
-    icon: false
-    filter: max
-    legend: false
-    row: 7
-    col: 1
-    size_x: 1
-    size_y: 1
-    series:
-      - metric: apache2.idleworkers
-        scope:
-          tag: apache2
-  - title: apache2.busyworkers
-    data_type: number
-    type: number
-    color: maroon
-    icon: false
-    filter: max
-    legend: false
-    row: 7
-    col: 2
-    size_x: 1
-    size_y: 1
-    series:
-      - metric: apache2.busyworkers
         scope:
           tag: apache2

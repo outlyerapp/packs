@@ -1,5 +1,4 @@
-title: apache2
-description: ''
+title: Apache2
 criteria:
   - metric: apache2.status
     scope:
@@ -7,5 +6,6 @@ criteria:
     condition:
       timeout: 120
       threshold: false
-      operator: gt
-actions: []
+actions:
+  - emails: []
+    message: ''

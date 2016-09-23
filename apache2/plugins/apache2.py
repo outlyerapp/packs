@@ -58,7 +58,6 @@ if req.status_code != 200:
 # Get some stats off the page
 metrics={}
 for line in req.iter_lines():
-    print line
     if re.match('Total Accesses', line):
         metrics['total_accesses'] = line.split(':')[1].strip()
     elif re.match('Total kBytes', line):
