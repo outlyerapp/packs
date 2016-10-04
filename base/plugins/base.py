@@ -115,7 +115,7 @@ def check_netio():
     # total net counters
     net_all = psutil.net_io_counters()._asdict()
     for k, v in net_all.iteritems():
-        net_map['network.'+ k] = v
+        net_map['network.'+k] = v
     # per net io counters
     net_per_nic = psutil.net_io_counters(pernic=True)
     for device, details in net_per_nic.iteritems():
@@ -131,7 +131,7 @@ def check_cputime():
     # total cpu counters
     cputime_all = psutil.cpu_times_percent()._asdict()
     for k, v in cputime_all.iteritems():
-        cpu_map['cpu.'+ k] = v
+        cpu_map['cpu.'+k] = v
     # per cpu counters
     cputime_per_cpu = psutil.cpu_times_percent(percpu=True)
     for i in range(len(cputime_per_cpu)):
@@ -162,24 +162,25 @@ def check_diskio():
         for device, details in diskio_per_disk.iteritems():
             for k, v in diskio_per_disk[device]._asdict().iteritems():
                 disk_map["disk." + device.lower() + "." + k] = v
+
+        # check for any device mapper partitions
+        for partition in psutil.disk_partitions():
+            if '/dev/mapper' in partition.device:
+                dm = True
+        # per device mapper friendly name io counters
+        if dm:
+            device_mapper = {}
+            for name in os.listdir('/dev/mapper'):
+                path = os.path.join('/dev/mapper', name)
+                if os.path.islink(path):
+                    device_mapper[os.readlink(os.path.join('/dev/mapper', name)).replace('../', '')] = name
+            for device, details in diskio_per_disk.iteritems():
+                for k, v in diskio_per_disk[device]._asdict().iteritems():
+                    if device in device_mapper:
+                        disk_map["disk." + device_mapper[device] + "." + k] = v
+        return disk_map
     except RuntimeError:  # Windows needs disk stats turned on with 'diskperf -y'
-        pass
-    # check for any device mapper partitions
-    for partition in psutil.disk_partitions():
-        if '/dev/mapper' in partition.device:
-            dm = True
-    # per device mapper friendly name io counters
-    if dm:
-        device_mapper = {}
-        for name in os.listdir('/dev/mapper'):
-            path = os.path.join('/dev/mapper', name)
-            if os.path.islink(path):
-                device_mapper[os.readlink(os.path.join('/dev/mapper', name)).replace('../', '')] = name
-        for device, details in diskio_per_disk.iteritems():
-            for k, v in diskio_per_disk[device]._asdict().iteritems():
-                if device in device_mapper:
-                    disk_map["disk." + device_mapper[device] + "." + k] = v
-    return disk_map
+            pass
 
 
 def check_virtmem():
@@ -246,10 +247,12 @@ try:
                 raw_output[present_key + '_per_sec'] = calculate_rate(present_value, past_output[present_key])
 
             if exact_match(present_key, 'network.bytes_sent'):
-                raw_output['net_upload'] = str((_get_counter_increment(past_output[present_key], present_value) / 1024) / RATE_INTERVAL) + 'Kps'
+                raw_output['net_upload'] = str((_get_counter_increment(past_output[present_key], present_value)
+                                                / 1024) / RATE_INTERVAL) + 'Kps'
 
             if exact_match(present_key, 'network.bytes_recv'):
-                raw_output['net_download'] = str((_get_counter_increment(past_output[present_key], present_value) / 1024) / RATE_INTERVAL) + 'Kps'
+                raw_output['net_download'] = str((_get_counter_increment(past_output[present_key], present_value)
+                                                  / 1024) / RATE_INTERVAL) + 'Kps'
 
     raw_output.update(past_output)
     output = "OK | "
@@ -259,5 +262,5 @@ try:
     sys.exit(0)
 
 except Exception, e:
-    print "Plugin failed %s check with error: %s" % (check, e)
+    print "Plugin failed %s check with error: %s" % e
     sys.exit(2)

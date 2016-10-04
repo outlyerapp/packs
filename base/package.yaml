@@ -1,6 +1,6 @@
 title: Base
 author: Dataloop.IO
-version: 1.0.7
+version: 1.0.8
 description: Basic operating system metrics including cpu, memory, network and disk.
 icon:
     name: base
