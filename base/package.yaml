@@ -1,6 +1,10 @@
 title: Base
 author: Dataloop.IO
 version: 1.0.8
+processes:
+    - System Idle Process
+    - /usr/lib/systemd/systemd
+    - /sbin/init
 description: Basic operating system metrics including cpu, memory, network and disk.
 icon:
     name: base
