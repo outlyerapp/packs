@@ -1,6 +1,6 @@
 title: Base
 author: Dataloop.IO
-version: 1.0.8
+version: 1.0.9
 processes:
     - System Idle Process
     - /usr/lib/systemd/systemd
