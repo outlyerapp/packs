@@ -1,16 +1,19 @@
 title: MySQL
+annotations: []
 period: 3600
+locked: false
 positions:
   - title: Agent Status
     data_type: boolean
     type: status
     color: red
+    icon: true
+    filter: avg
+    legend: false
     row: 1
     col: 1
     size_x: 1
     size_y: 1
-    icon: true
-    legend: false
     series:
       - metric: 'source:status'
         scope:
@@ -19,12 +22,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: navy
+    icon: true
+    filter: avg
+    legend: false
     row: 1
     col: 2
     size_x: 2
     size_y: 2
-    icon: true
-    legend: false
     series:
       - metric: base.cpu
         scope:
@@ -33,12 +37,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: navy
+    icon: true
+    filter: avg
+    legend: false
     row: 1
     col: 4
     size_x: 2
     size_y: 2
-    icon: true
-    legend: false
     series:
       - metric: base.cpu.iowait
         scope:
@@ -47,40 +52,43 @@ positions:
     data_type: number
     type: detailed-chart
     color: navy
+    icon: true
+    filter: avg
+    legend: false
     row: 1
     col: 6
     size_x: 2
     size_y: 1
-    icon: true
-    legend: false
     series:
       - metric: base.vmem.total_gb
         scope:
           tag: mysql
-  - title: '% Used /data'
+  - title: Load Average
     data_type: number
     type: detailed-chart
     color: navy
+    icon: true
+    filter: avg
+    legend: false
     row: 1
     col: 8
     size_x: 2
     size_y: 2
-    icon: true
-    legend: false
     series:
-      - metric: base.disk./.percent_used
+      - metric: base.load_1_min
         scope:
           tag: mysql
   - title: Host Status
     data_type: nagios
     type: status
     color: lime
+    icon: true
+    filter: avg
+    legend: false
     row: 2
     col: 1
     size_x: 1
     size_y: 1
-    icon: true
-    legend: false
     series:
       - metric: base.status
         scope:
@@ -89,12 +97,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: navy
+    icon: true
+    filter: avg
+    legend: false
     row: 2
     col: 6
     size_x: 2
     size_y: 1
-    icon: true
-    legend: false
     series:
       - metric: base.vmem.available_gb
         scope:
@@ -103,12 +112,13 @@ positions:
     data_type: nagios
     type: status
     color: red
+    icon: true
+    filter: avg
+    legend: false
     row: 3
     col: 1
     size_x: 1
     size_y: 1
-    icon: true
-    legend: false
     series:
       - metric: mysql.status
         scope:
@@ -117,12 +127,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: maroon
+    icon: true
+    filter: avg
+    legend: false
     row: 3
     col: 2
     size_x: 2
     size_y: 2
-    icon: true
-    legend: false
     series:
       - metric: mysql.slow_queries_per_sec
         scope:
@@ -131,12 +142,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: navy
+    icon: true
+    filter: avg
+    legend: false
     row: 3
     col: 4
     size_x: 2
     size_y: 2
-    icon: true
-    legend: false
     series:
       - metric: mysql.open_tables
         scope:
@@ -145,12 +157,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: maroon
+    icon: true
+    filter: avg
+    legend: false
     row: 3
     col: 6
     size_x: 2
     size_y: 2
-    icon: true
-    legend: false
     series:
       - metric: mysql.questions_per_sec
         scope:
@@ -159,12 +172,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: maroon
+    icon: true
+    filter: avg
+    legend: false
     row: 3
     col: 8
     size_x: 1
     size_y: 2
-    icon: true
-    legend: false
     series:
       - metric: mysql.connections_per_sec
         scope:
@@ -173,12 +187,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: maroon
+    icon: true
+    filter: avg
+    legend: false
     row: 3
     col: 9
     size_x: 1
     size_y: 2
-    icon: true
-    legend: false
     series:
       - metric: mysql.aborted_connects_per_sec
         scope:
@@ -187,12 +202,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: olive
+    icon: true
+    filter: avg
+    legend: false
     row: 4
     col: 1
     size_x: 1
     size_y: 1
-    icon: true
-    legend: false
     series:
       - metric: mysql.threads_running
         scope:
@@ -201,12 +217,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: navy
+    icon: true
+    filter: avg
+    legend: false
     row: 5
     col: 1
     size_x: 1
     size_y: 1
-    icon: true
-    legend: false
     series:
       - metric: base.net_upload
         scope:
@@ -215,12 +232,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: purple
+    icon: true
+    filter: avg
+    legend: false
     row: 5
     col: 2
-    size_x: 1
+    size_x: 2
     size_y: 1
-    icon: true
-    legend: false
     series:
       - metric: mysql.innodb_buffer_pool_pages_data
         scope:
@@ -229,40 +247,28 @@ positions:
     data_type: number
     type: detailed-chart
     color: aqua
-    row: 5
-    col: 3
-    size_x: 1
-    size_y: 1
     icon: true
+    filter: avg
     legend: false
-    series:
-      - metric: mysql.innodb_row_lock_waits_per_sec
-        scope:
-          tag: mysql
-  - title: Open Files / s
-    data_type: number
-    type: detailed-chart
-    color: navy
     row: 5
     col: 4
     size_x: 2
-    size_y: 2
-    icon: true
-    legend: false
+    size_y: 1
     series:
-      - metric: mysql.open_files_per_sec
+      - metric: mysql.innodb_row_lock_waits_per_sec
         scope:
           tag: mysql
   - title: Temp Tables / s
     data_type: number
     type: detailed-chart
     color: olive
+    icon: true
+    filter: avg
+    legend: false
     row: 5
     col: 6
     size_x: 2
     size_y: 2
-    icon: true
-    legend: false
     series:
       - metric: mysql.created_tmp_tables_per_sec
         scope:
@@ -271,12 +277,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: olive
+    icon: true
+    filter: avg
+    legend: false
     row: 5
     col: 8
     size_x: 1
     size_y: 2
-    icon: true
-    legend: false
     series:
       - metric: mysql.created_tmp_disk_tables_per_sec
         scope:
@@ -285,12 +292,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: olive
+    icon: true
+    filter: avg
+    legend: false
     row: 5
     col: 9
     size_x: 1
     size_y: 2
-    icon: true
-    legend: false
     series:
       - metric: mysql.created_tmp_files_per_sec
         scope:
@@ -299,12 +307,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: navy
+    icon: true
+    filter: avg
+    legend: false
     row: 6
     col: 1
     size_x: 1
     size_y: 1
-    icon: true
-    legend: false
     series:
       - metric: base.net_download
         scope:
@@ -313,12 +322,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: purple
+    icon: true
+    filter: avg
+    legend: false
     row: 6
     col: 2
-    size_x: 1
+    size_x: 2
     size_y: 1
-    icon: true
-    legend: false
     series:
       - metric: mysql.innodb_buffer_pool_pages_dirty
         scope:
@@ -327,12 +337,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: aqua
-    row: 6
-    col: 3
-    size_x: 1
-    size_y: 1
     icon: true
+    filter: avg
     legend: false
+    row: 6
+    col: 4
+    size_x: 2
+    size_y: 1
     series:
       - metric: mysql.innodb_row_lock_time_avg
         scope:
@@ -341,13 +352,13 @@ positions:
     data_type: number
     type: number
     color: navy
+    icon: false
+    filter: max
+    legend: false
     row: 7
     col: 1
     size_x: 2
     size_y: 1
-    icon: false
-    legend: false
-    filter: max
     series:
       - metric: mysql.innodb_page_size
         scope:
@@ -356,12 +367,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: purple
+    icon: true
+    filter: avg
+    legend: false
     row: 7
     col: 3
     size_x: 2
     size_y: 1
-    icon: true
-    legend: false
     series:
       - metric: mysql.select_scan_per_sec
         scope:
@@ -370,12 +382,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: aqua
+    icon: true
+    filter: avg
+    legend: false
     row: 7
     col: 5
     size_x: 2
     size_y: 1
-    icon: true
-    legend: false
     series:
       - metric: mysql.innodb_row_lock_time_max
         scope:
@@ -384,12 +397,13 @@ positions:
     data_type: number
     type: detailed-chart
     color: navy
+    icon: true
+    filter: avg
+    legend: false
     row: 7
     col: 7
     size_x: 3
     size_y: 1
-    icon: true
-    legend: false
     series:
       - metric: mysql.qcache_free_memory
         scope:
