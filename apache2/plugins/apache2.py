@@ -5,13 +5,14 @@ import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import re
 
+# Settings
 HOST = 'localhost'
 STATUS_URL = 'server-status?auto'
 PORT = 443
 SSL = True
 PROC_CHECK = True
 
-# disable any ssl insecurity warnings
+
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 apache2_running = True
 ERROR = 0
@@ -48,12 +49,11 @@ if SSL:
 else:
     PROTO = 'http'
 
-
-req = requests.get('%s://%s:%s/%s' % (PROTO, HOST, PORT, STATUS_URL), verify=False)
-
-if req.status_code != 200:
-    print "Unable to connect to server status page"
-    ERROR = 2
+try:
+    req = requests.get('%s://%s:%s/%s' % (PROTO, HOST, PORT, STATUS_URL), verify=False)
+except Exception, e:
+    print "Plugin Failed! Check the settings at the top of the plugin. For Apache2 configuration see https://github.com/dataloop/packs/blob/master/apache2/README.md"
+    sys.exit(2)
 
 # Get some stats off the page
 metrics={}
@@ -101,10 +101,8 @@ for line in req.iter_lines():
     elif re.match('ConnsAsyncClosing', line):
         metrics['ConnsAsyncClosing'] = line.split(':')[1].strip()
     elif re.match('Scoreboard', line):
-        # print line
         name, value = line.split(': ')
         value = value.strip()
-        #metrics['stats'] = {}
         metrics['stats.open'] = value.count('.')
         metrics['stats.waiting'] = value.count('_')
         metrics['stats.starting'] = value.count('S')
@@ -149,3 +147,4 @@ for k,v in metrics.items():
     message += "%s=%s;;;; " % (k, v)
 
 print message
+sys.exit(0)

@@ -1,6 +1,6 @@
 title: Apache2
 author: Dataloop.IO
-version: 1.0.1
+version: 1.0.2
 processes:
     - apache2
 description: Apache2 metrics from the mod-status module. Instructions contain configuration steps.
