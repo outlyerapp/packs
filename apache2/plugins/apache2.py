@@ -17,6 +17,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 apache2_running = True
 ERROR = 0
 
+
 def get_proc_name(proc):
     try:
         return proc.name()
@@ -27,7 +28,7 @@ def get_proc_name(proc):
         # IGNORE proc died between listing and naming
         pass
     except Exception as E:
-        print "error accessing process name: %s" % E
+        print "Error accessing process name: %s" % E
     return None
 
 
@@ -39,7 +40,7 @@ if PROC_CHECK:
             apache2_running = True
 
 if not apache2_running:
-    print "CRITICAL: Apache2 not running!"
+    print "CRITICAL: apache2 not running"
     ERROR = 2
     sys.exit(2)
 
@@ -52,11 +53,12 @@ else:
 try:
     req = requests.get('%s://%s:%s/%s' % (PROTO, HOST, PORT, STATUS_URL), verify=False)
 except Exception, e:
-    print "Plugin Failed! Check the settings at the top of the plugin. For Apache2 configuration see https://github.com/dataloop/packs/blob/master/apache2/README.md"
+    print "Plugin Failed! Check the settings at the top of the plugin. For Apache2 configuration see " \
+          "https://github.com/dataloop/packs/blob/master/apache2/README.md"
     sys.exit(2)
 
 # Get some stats off the page
-metrics={}
+metrics = {}
 for line in req.iter_lines():
     if re.match('Total Accesses', line):
         metrics['total_accesses'] = line.split(':')[1].strip()
@@ -142,9 +144,13 @@ for line in req.iter_lines():
     elif re.match('CacheRemoveMissCount', line):
         metrics['CacheRemoveMissCount'] = line.split(':')[1].strip()
 
-message = "OK | "
-for k,v in metrics.items():
-    message += "%s=%s;;;; " % (k, v)
-
-print message
-sys.exit(0)
+if metrics:
+    message = "OK | "
+    for k,v in metrics.items():
+        message += "%s=%s;;;; " % (k.lower(), v)
+    print message
+    sys.exit(0)
+else:
+    print "Plugin Failed! Check the settings at the top of the plugin. For Apache2 configuration see " \
+          "https://github.com/dataloop/packs/blob/master/apache2/README.md"
+    sys.exit(2)
