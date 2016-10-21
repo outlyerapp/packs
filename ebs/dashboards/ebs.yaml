@@ -1,0 +1,98 @@
+title: ebs
+annotations: []
+period: 86400
+locked: false
+positions:
+  - title: Top Ops
+    data_type: number
+    type: top-ten
+    color: blue
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 1
+    size_x: 2
+    size_y: 3
+    series:
+      - metric: aws.ebs.volume_read_ops.avg
+        scope:
+          tag: ebs
+      - metric: aws.ebs.volume_write_ops.avg
+        scope:
+          tag: ebs
+  - title: aws.ebs.volume_total_read_time.avg
+    data_type: number
+    type: detailed-chart
+    color: navy
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 3
+    size_x: 2
+    size_y: 3
+    series:
+      - metric: aws.ebs.volume_total_read_time.avg
+        scope:
+          tag: ebs
+  - title: aws.ebs.volume_total_write_time.avg
+    data_type: number
+    type: detailed-chart
+    color: navy
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 5
+    size_x: 2
+    size_y: 3
+    series:
+      - metric: aws.ebs.volume_total_write_time.avg
+        scope:
+          tag: ebs
+  - title: aws.ebs.volume_queue_length.avg
+    data_type: number
+    type: detailed-chart
+    color: green
+    icon: true
+    filter: avg
+    legend: false
+    row: 4
+    col: 1
+    size_x: 2
+    size_y: 3
+    series:
+      - metric: aws.ebs.volume_queue_length.avg
+        scope:
+          tag: ebs
+  - title: aws.ebs.volume_read_ops.avg
+    data_type: number
+    type: detailed-chart
+    color: orange
+    icon: true
+    filter: avg
+    legend: false
+    row: 4
+    col: 3
+    size_x: 2
+    size_y: 3
+    series:
+      - metric: aws.ebs.volume_read_ops.avg
+        scope:
+          tag: ebs
+  - title: aws.ebs.volume_write_ops.avg
+    data_type: number
+    type: detailed-chart
+    color: orange
+    icon: true
+    filter: avg
+    legend: false
+    row: 4
+    col: 5
+    size_x: 2
+    size_y: 3
+    series:
+      - metric: aws.ebs.volume_write_ops.avg
+        scope:
+          tag: ebs

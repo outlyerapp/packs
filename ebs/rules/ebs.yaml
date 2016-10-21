@@ -1,0 +1,13 @@
+title: ebs
+description: ''
+criteria:
+  - metric: aws.ebs.volume_queue_length.avg
+    scope:
+      tag: ebs
+    condition:
+      timeout: 300
+      threshold: 100
+      operator: gt
+actions:
+  - emails: []
+    message: ''
