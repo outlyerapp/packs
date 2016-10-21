@@ -1,0 +1,9 @@
+title: Docker
+author: Dataloop.IO
+version: 1.0.0
+description: Dashboards and alert rules for EC2 instances monitored with the AWS integration
+instructions_required: true
+icon:
+    name: ec2
+    background: orange
+    foreground: white

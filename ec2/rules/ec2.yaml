@@ -1,0 +1,12 @@
+title: ec2
+criteria:
+  - metric: aws.ec2.status_check_failed_system.count
+    scope:
+      tag: ec2
+    condition:
+      timeout: 120
+      threshold: 0
+      operator: gt
+actions:
+  - emails: []
+    message: ''

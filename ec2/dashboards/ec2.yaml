@@ -1,0 +1,146 @@
+title: ec2
+annotations: []
+period: 3600
+locked: false
+positions:
+  - title: Instance Status
+    data_type: boolean
+    type: status
+    color: red
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 1
+    size_x: 1
+    size_y: 2
+    series:
+      - metric: 'source:status'
+        scope:
+          tag: ec2
+  - title: cpu utilisation (max)
+    data_type: number
+    type: detailed-chart
+    color: navy
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 2
+    size_x: 3
+    size_y: 2
+    series:
+      - metric: aws.ec2.cpu_utilization.max
+        scope:
+          tag: ec2
+  - title: Top CPU
+    data_type: number
+    type: top-ten
+    color: navy
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 5
+    size_x: 3
+    size_y: 2
+    series:
+      - metric: aws.ec2.cpu_utilization.max
+        scope:
+          tag: ec2
+  - title: aws.ec2.disk_read_ops.max
+    data_type: number
+    type: detailed-chart
+    color: orange
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 1
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.ec2.disk_read_ops.max
+        scope:
+          tag: ec2
+  - title: aws.ec2.disk_write_ops.max
+    data_type: number
+    type: detailed-chart
+    color: orange
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 3
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.ec2.disk_write_ops.max
+        scope:
+          tag: ec2
+  - title: Top Disk
+    data_type: number
+    type: top-ten
+    color: orange
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 5
+    size_x: 3
+    size_y: 2
+    series:
+      - metric: aws.ec2.disk_read_ops.max
+        scope:
+          tag: ec2
+      - metric: aws.ec2.disk_write_ops.max
+        scope:
+          tag: ec2
+  - title: aws.ec2.network_in.max
+    data_type: number
+    type: detailed-chart
+    color: olive
+    icon: true
+    filter: avg
+    legend: false
+    row: 5
+    col: 1
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.ec2.network_in.max
+        scope:
+          tag: ec2
+  - title: aws.ec2.network_out.max
+    data_type: number
+    type: detailed-chart
+    color: olive
+    icon: true
+    filter: avg
+    legend: false
+    row: 5
+    col: 3
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.ec2.network_out.max
+        scope:
+          tag: ec2
+  - title: Top Network
+    data_type: number
+    type: top-ten
+    color: olive
+    icon: true
+    filter: avg
+    legend: false
+    row: 5
+    col: 5
+    size_x: 3
+    size_y: 2
+    series:
+      - metric: aws.ec2.network_in.max
+        scope:
+          tag: ec2
+      - metric: aws.ec2.network_out.max
+        scope:
+          tag: ec2
