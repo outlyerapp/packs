@@ -3,7 +3,8 @@
 *WARNING: This pack will only work with the latest version of the Dataloop.IO Agent*
 
 The plugin for this pack monitors java processes via JMX. You will need to set the JMX
-URL to connect to the java process to pull out all the internal java metrics.
+URL to connect to the java process to pull out all the internal java metrics. **You will need
+Java 1.5 or above installed for this integration to work**
 
 To set the JMX URL edit the `java.py` plugin and change:
 
