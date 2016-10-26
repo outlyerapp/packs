@@ -1,0 +1,114 @@
+title: java
+annotations: []
+period: 600
+locked: false
+positions:
+  - title: Status
+    data_type: nagios
+    type: status
+    color: aqua
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 1
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: java.status
+        scope:
+          tag: java
+  - title: Thread Counts
+    data_type: number
+    type: chart
+    color: blue
+    icon: true
+    filter: avg
+    legend: true
+    row: 1
+    col: 2
+    size_x: 3
+    size_y: 3
+    series:
+      - metric: java.jvm.threading.totalstartedthreadcount
+        scope:
+          tag: java
+  - title: Started Thread Count
+    data_type: number
+    type: number
+    color: blue
+    icon: true
+    symbol: cogs
+    filter: max
+    legend: false
+    row: 1
+    col: 5
+    size_x: 2
+    size_y: 3
+    series:
+      - metric: java.jvm.threading.totalstartedthreadcount
+        scope:
+          tag: java
+  - title: Loaded Class Count
+    data_type: number
+    type: number
+    color: orange
+    icon: true
+    filter: max
+    legend: false
+    row: 2
+    col: 1
+    size_x: 1
+    size_y: 2
+    series:
+      - metric: java.jvm.classloading.totalloadedclasscount
+        scope:
+          tag: java
+  - title: Garbage Collection Time
+    data_type: number
+    type: scattered-chart
+    color: red
+    icon: true
+    filter: avg
+    legend: true
+    row: 4
+    col: 1
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: java.jvm.gc.concurrentmarksweep.collectiontime
+        scope:
+          tag: java
+      - metric: java.jvm.gc.parnew.collectiontime
+        scope:
+          tag: java
+  - title: JVM Heap Memory Used
+    data_type: number
+    type: detailed-chart
+    color: olive
+    icon: true
+    filter: avg
+    legend: false
+    row: 4
+    col: 3
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: java.jvm.memory.heap.used
+        scope:
+          tag: java
+  - title: JVM Nonheap Memory Used
+    data_type: number
+    type: detailed-chart
+    color: olive
+    icon: true
+    filter: avg
+    legend: false
+    row: 4
+    col: 5
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: java.jvm.memory.nonheap.used
+        scope:
+          tag: java

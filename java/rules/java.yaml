@@ -1,0 +1,13 @@
+title: Java
+description: ''
+criteria:
+  - metric: java.status
+    scope:
+      tag: java
+    condition:
+      timeout: 120
+      threshold: false
+      operator: gt
+actions:
+  - emails: []
+    message: ''

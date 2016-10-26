@@ -1,0 +1,11 @@
+title: Java
+author: Dataloop.IO
+version: 1.0.0
+processes:
+    - java
+description: Monitors Java processes on local machine via JMX
+instructions_required: true
+icon:
+    name: service
+    background: white
+    foreground: blue
