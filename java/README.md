@@ -1,6 +1,6 @@
 # Java Pack
 
-*WARNING: This pack will only work with the latest version of the Dataloop.IO Agent*
+*WARNING: This pack will only work with the latest version of the Dataloop.IO Agent, Version 1.3.11-1 or above.*
 
 The plugin for this pack monitors java processes via JMX. You will need to set the JMX
 URL to connect to the java process to pull out all the internal java metrics. **You will need
