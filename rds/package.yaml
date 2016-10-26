@@ -1,0 +1,8 @@
+title: rds
+author: Dataloop.IO
+version: 1.0.0
+description: Dashboards and alert rules for relational databases monitored with the AWS integration
+icon:
+    name: elastic-lb
+    background: orange
+    foreground: white
