@@ -1,4 +1,4 @@
-title: EC2
+title: ec2
 author: Dataloop.IO
 version: 1.0.0
 description: Dashboards and alert rules for EC2 instances monitored with the AWS integration

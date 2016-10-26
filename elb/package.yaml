@@ -1,0 +1,8 @@
+title: elb
+author: Dataloop.IO
+version: 1.0.0
+description: Dashboards and alert rules for elastic load balancers monitored with the AWS integration
+icon:
+    name: elastic-lb
+    background: orange
+    foreground: white

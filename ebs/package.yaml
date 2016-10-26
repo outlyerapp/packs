@@ -1,4 +1,4 @@
-title: EBS
+title: ebs
 author: Dataloop.IO
 version: 1.0.0
 description: Dashboards and alert rules for EBS volumes monitored with the AWS integration
