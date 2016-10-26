@@ -1,5 +1,7 @@
 # Java Pack
 
+*WARNING: This pack will only work with the latest version of the Dataloop.IO Agent*
+
 The plugin for this pack monitors java processes via JMX. You will need to set the JMX
 URL to connect to the java process to pull out all the internal java metrics.
 
@@ -7,7 +9,11 @@ To set the JMX URL edit the `java.py` plugin and change:
 
 ```
 JMX_URL = 'service:jmx:rmi:///jndi/rmi://localhost:9090/jmxrmi'
+JMX_USERNAME = ''
+JMX_PASSWORD = ''
 ```
+
+*NOTE: You only need to set the username and password if authentication is enabled for your JMX URL*
 
 If you don't know the JMX_URL you can use the jmxquery.jar to list all the local JVM's with their connection
 URLs by running the following command on your Linux server:

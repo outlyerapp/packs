@@ -12,6 +12,10 @@ import json
 JAVA_HOME = 'java'
 # Set the JMX URL Endpoint to Connect To
 JMX_URL = 'service:jmx:rmi:///jndi/rmi://localhost:9090/jmxrmi'
+# Set JMX Username, if authentication required
+JMX_USERNAME = ''
+# Set JMX Password, if authentication required
+JMX_PASSWORD = ''
 
 # Define query of metrics you wish to pull with output names as they will appear in Dataloop when you browse metrics
 METRICS = "jvm.classloading.loadedclasscount=java.lang:type=ClassLoading/LoadedClassCount;" + \
@@ -28,20 +32,20 @@ METRICS = "jvm.classloading.loadedclasscount=java.lang:type=ClassLoading/LoadedC
           "jvm.memory.nonheap.init=java.lang:type=Memory/NonHeapMemoryUsage/init;" + \
           "jvm.memory.nonheap.max=java.lang:type=Memory/NonHeapMemoryUsage/max;" + \
           "jvm.memory.nonheap.used=java.lang:type=Memory/NonHeapMemoryUsage/used;" + \
-          "jvm.os.OpenFileDescriptorCount=java.lang:type=OperatingSystem/OpenFileDescriptorCount;" + \
-          "jvm.os.MaxFileDescriptorCount=java.lang:type=OperatingSystem/MaxFileDescriptorCount;" + \
-          "jvm.os.CommittedVirtualMemorySize=java.lang:type=OperatingSystem/CommittedVirtualMemorySize;" + \
-          "jvm.os.TotalSwapSpaceSize=java.lang:type=OperatingSystem/TotalSwapSpaceSize;" + \
-          "jvm.os.FreeSwapSpaceSize=java.lang:type=OperatingSystem/FreeSwapSpaceSize;" + \
-          "jvm.os.ProcessCpuTime=java.lang:type=OperatingSystem/ProcessCpuTime;" + \
-          "jvm.os.FreePhysicalMemorySize=java.lang:type=OperatingSystem/FreePhysicalMemorySize;" + \
-          "jvm.os.TotalPhysicalMemorySize=java.lang:type=OperatingSystem/TotalPhysicalMemorySize;" + \
-          "jvm.os.SystemCpuLoad=java.lang:type=OperatingSystem/SystemCpuLoad;" + \
-          "jvm.os.ProcessCpuLoad=java.lang:type=OperatingSystem/ProcessCpuLoad;" + \
-          "jvm.os.FreePhysicalMemorySize=java.lang:type=OperatingSystem/FreePhysicalMemorySize;" + \
-          "jvm.os.TotalPhysicalMemorySize=java.lang:type=OperatingSystem/TotalPhysicalMemorySize;" + \
-          "jvm.os.SystemCpuLoad=java.lang:type=OperatingSystem/SystemCpuLoad;" + \
-          "jvm.os.ProcessCpuLoad=java.lang:type=OperatingSystem/ProcessCpuLoad;" + \
+          "jvm.os.openfiledescriptorcount=java.lang:type=OperatingSystem/OpenFileDescriptorCount;" + \
+          "jvm.os.maxfiledescriptorcount=java.lang:type=OperatingSystem/MaxFileDescriptorCount;" + \
+          "jvm.os.committedvirtualmemorysize=java.lang:type=OperatingSystem/CommittedVirtualMemorySize;" + \
+          "jvm.os.totalswapspacesize=java.lang:type=OperatingSystem/TotalSwapSpaceSize;" + \
+          "jvm.os.freeswapspacesize=java.lang:type=OperatingSystem/FreeSwapSpaceSize;" + \
+          "jvm.os.processcputime=java.lang:type=OperatingSystem/ProcessCpuTime;" + \
+          "jvm.os.freephysicalmemorysize=java.lang:type=OperatingSystem/FreePhysicalMemorySize;" + \
+          "jvm.os.totalphysicalmemorysize=java.lang:type=OperatingSystem/TotalPhysicalMemorySize;" + \
+          "jvm.os.systemcpuload=java.lang:type=OperatingSystem/SystemCpuLoad;" + \
+          "jvm.os.processcpuload=java.lang:type=OperatingSystem/ProcessCpuLoad;" + \
+          "jvm.os.freephysicalmemorysize=java.lang:type=OperatingSystem/FreePhysicalMemorySize;" + \
+          "jvm.os.totalphysicalmemorysize=java.lang:type=OperatingSystem/TotalPhysicalMemorySize;" + \
+          "jvm.os.systemcpuload=java.lang:type=OperatingSystem/SystemCpuLoad;" + \
+          "jvm.os.processcpuload=java.lang:type=OperatingSystem/ProcessCpuLoad;" + \
           "jvm.os.systemloadaverage=java.lang:type=OperatingSystem/SystemLoadAverage;" + \
           "jvm.runtime.uptime=java.lang:type=Runtime/Uptime;" + \
           "jvm.threading.threadcount=java.lang:type=Threading/ThreadCount;" + \
@@ -52,6 +56,8 @@ METRICS = "jvm.classloading.loadedclasscount=java.lang:type=ClassLoading/LoadedC
 
 def getMetrics():
     command = [JAVA_HOME, '-jar', '../embedded/lib/jmxquery.jar', '-url', JMX_URL, '-metrics', METRICS, '-json']
+    if JMX_USERNAME:
+        command.extend(['-username', JMX_USERNAME, '-password', JMX_PASSWORD])
     jsonOutput = ""
 
     try:
