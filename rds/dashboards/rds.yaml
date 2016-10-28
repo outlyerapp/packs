@@ -1,0 +1,95 @@
+title: rds
+annotations: []
+period: 600
+locked: false
+positions:
+  - title: aws.rds.database_connections.count
+    data_type: number
+    type: number
+    color: fuchsia
+    icon: false
+    filter: max
+    legend: false
+    row: 1
+    col: 1
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.rds.database_connections.count
+        scope:
+          tag: rds
+  - title: aws.rds.free_storage_space.sum
+    data_type: number
+    type: number
+    color: navy
+    icon: false
+    filter: max
+    legend: false
+    row: 1
+    col: 3
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.rds.free_storage_space.sum
+        scope:
+          tag: rds
+  - title: aws.rds.read_latency.avg
+    data_type: number
+    type: detailed-chart
+    color: green
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 5
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.rds.read_latency.avg
+        scope:
+          tag: rds
+  - title: aws.rds.cpu_utilization.avg
+    data_type: number
+    type: detailed-chart
+    color: blue
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 1
+    size_x: 2
+    size_y: 3
+    series:
+      - metric: aws.rds.cpu_utilization.avg
+        scope:
+          tag: rds
+  - title: aws.rds.read_iops.avg
+    data_type: number
+    type: detailed-chart
+    color: red
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 3
+    size_x: 2
+    size_y: 3
+    series:
+      - metric: aws.rds.read_iops.avg
+        scope:
+          tag: rds
+  - title: aws.rds.read_throughput.avg
+    data_type: number
+    type: detailed-chart
+    color: navy
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 5
+    size_x: 2
+    size_y: 3
+    series:
+      - metric: aws.rds.read_throughput.avg
+        scope:
+          tag: rds
