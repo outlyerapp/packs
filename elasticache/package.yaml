@@ -1,0 +1,8 @@
+title: elasticache
+author: Dataloop.IO
+version: 1.0.0
+description: Dashboards and alert rules for elasticache monitored with the AWS integration
+icon:
+    name: elasticache
+    background: orange
+    foreground: white

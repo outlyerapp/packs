@@ -3,6 +3,6 @@ author: Dataloop.IO
 version: 1.0.0
 description: Dashboards and alert rules for relational databases monitored with the AWS integration
 icon:
-    name: elastic-lb
+    name: amazon-rds
     background: orange
     foreground: white
