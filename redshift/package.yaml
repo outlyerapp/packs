@@ -3,6 +3,6 @@ author: Dataloop.IO
 version: 1.0.0
 description: Dashboards and alert rules for redshift monitored with the AWS integration
 icon:
-    name: aws
+    name: redshift
     background: orange
     foreground: white

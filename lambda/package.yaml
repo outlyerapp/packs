@@ -3,6 +3,6 @@ author: Dataloop.IO
 version: 1.0.0
 description: Dashboards and alert rules for lambda monitored with the AWS integration
 icon:
-    name: aws
+    name: lambda
     background: orange
     foreground: white

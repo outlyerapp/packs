@@ -3,6 +3,6 @@ author: Dataloop.IO
 version: 1.0.0
 description: Dashboards and alert rules for s3 buckets monitored with the AWS integration
 icon:
-    name: aws
+    name: s3
     background: orange
     foreground: white
