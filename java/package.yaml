@@ -4,6 +4,6 @@ version: 1.0.0
 description: Monitors Java processes on local machine via JMX
 instructions_required: true
 icon:
-    name: service
+    name: java
     background: white
     foreground: blue
