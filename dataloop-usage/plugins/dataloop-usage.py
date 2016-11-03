@@ -22,13 +22,12 @@ def get_agent_count():
     count = {'total': 0}
 
     # List all the accounts for your org
-    accounts = make_request('/accounts')
+    accounts = make_request('/accounts?view=counts')
 
     # Loop through all accounts to get no. of agents
     for account in accounts:
         name = account['name']
-        agents = make_request('/accounts/' + name + '/agents')
-        agent_count = len(agents)
+        agent_count = account['counts']['agents']['total']
         count[name] = agent_count
         count['total'] = count['total'] + agent_count
 
