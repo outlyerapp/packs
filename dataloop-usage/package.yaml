@@ -1,0 +1,9 @@
+title: Dataloop Usage Tracking
+author: Dataloop.IO
+version: 1.0.0
+description: Tracks your agent usage across your Dataloop.IO Organisation for billing visibility.
+instructions_required: true
+icon:
+    name: logo-loop
+    background: white
+    foreground: "#54A3DA"

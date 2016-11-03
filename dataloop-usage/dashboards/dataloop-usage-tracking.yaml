@@ -1,0 +1,36 @@
+title: Dataloop Usage Tracking
+annotations: []
+period: 2592000
+locked: false
+positions:
+  - title: Connected Agents By Sub-Account
+    data_type: number
+    type: stacked-chart
+    color: navy
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 1
+    size_x: 4
+    size_y: 4
+    series:
+      - metric: 'dataloop-usage.usage.agents.account.*'
+        scope:
+          tag: dataloop-usage
+  - title: Total Agents Connected
+    data_type: number
+    type: number
+    color: maroon
+    icon: true
+    symbol: hdd-o
+    filter: max
+    legend: false
+    row: 1
+    col: 5
+    size_x: 2
+    size_y: 4
+    series:
+      - metric: dataloop-usage.usage.agents.total
+        scope:
+          tag: dataloop-usage
