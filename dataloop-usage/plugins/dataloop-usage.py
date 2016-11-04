@@ -26,8 +26,19 @@ def get_agent_count():
 
     # Loop through all accounts to get no. of agents
     for account in accounts:
+
         name = account['name']
-        agent_count = account['counts']['agents']['total']
+        agent_count = 0
+
+        # Need to loop through agents to ensure we're not counting docker containers
+        agents = make_request('/accounts/' + name + '/agents')
+
+        for agent in agents:
+            if ('osName' in agent) and (agent['osName'] != 'docker'):
+                agent_count += 1
+            elif ('provider' in agent) and (agent['provider']) and (agent['provider']['service'] == 'ec2'):
+                agent_count += 1
+
         count[name] = agent_count
         count['total'] = count['total'] + agent_count
 
