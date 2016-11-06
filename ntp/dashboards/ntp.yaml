@@ -1,0 +1,50 @@
+title: NTP
+annotations: []
+period: 600
+locked: false
+positions:
+  - title: status
+    data_type: nagios
+    type: status
+    color: maroon
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 1
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: ntp.status
+        scope:
+          tag: ntp
+  - title: ntp.drift
+    data_type: number
+    type: detailed-chart
+    color: navy
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 2
+    size_x: 4
+    size_y: 4
+    series:
+      - metric: ntp.drift
+        scope:
+          tag: ntp
+  - title: top 10 drift
+    data_type: number
+    type: top-ten
+    color: orange
+    icon: true
+    filter: avg
+    legend: false
+    row: 2
+    col: 1
+    size_x: 1
+    size_y: 3
+    series:
+      - metric: ntp.drift
+        scope:
+          tag: ntp

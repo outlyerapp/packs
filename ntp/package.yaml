@@ -1,0 +1,8 @@
+title: ntp
+author: Dataloop.IO
+version: 1.0.0
+description: Monitors time drift on Dataloop agents by comparing system time to pool.ntp.org
+icon:
+    name: base
+    background: black
+    foreground: white

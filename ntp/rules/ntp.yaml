@@ -1,0 +1,11 @@
+title: NTP
+criteria:
+  - metric: ntp.status
+    scope:
+      tag: ntp
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails: []
+    message: ''
