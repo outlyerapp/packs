@@ -1,0 +1,95 @@
+title: elasticache
+annotations: []
+period: 600
+locked: false
+positions:
+  - title: 'aws.elasti_cache.cache_hits.*'
+    data_type: number
+    type: detailed-chart
+    color: purple
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 1
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: 'aws.elasti_cache.cache_hits.*'
+        scope:
+          tag: elasti_cache
+  - title: aws.elasti_cache.replication_lag.max
+    data_type: number
+    type: detailed-chart
+    color: olive
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 3
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.elasti_cache.replication_lag.max
+        scope:
+          tag: elasti_cache
+  - title: aws.elasti_cache.curr_connections.max
+    data_type: number
+    type: detailed-chart
+    color: teal
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 5
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.elasti_cache.curr_connections.max
+        scope:
+          tag: elasti_cache
+  - title: aws.elasti_cache.cpu_utilization.max
+    data_type: number
+    type: detailed-chart
+    color: blue
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 1
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.elasti_cache.cpu_utilization.max
+        scope:
+          tag: elasti_cache
+  - title: aws.elasti_cache.bytes_used_for_cache.max
+    data_type: number
+    type: detailed-chart
+    color: maroon
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 3
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.elasti_cache.bytes_used_for_cache.max
+        scope:
+          tag: elasti_cache
+  - title: aws.elasti_cache.swap_usage.max
+    data_type: number
+    type: detailed-chart
+    color: red
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 5
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.elasti_cache.swap_usage.max
+        scope:
+          tag: elasti_cache

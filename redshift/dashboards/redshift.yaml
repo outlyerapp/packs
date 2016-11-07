@@ -1,0 +1,98 @@
+title: redshift
+annotations: []
+period: 600
+locked: false
+positions:
+  - title: aws.redshift.cpu_utilization.max
+    data_type: number
+    type: detailed-chart
+    color: orange
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 1
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.redshift.cpu_utilization.max
+        scope:
+          tag: redshift
+  - title: aws.redshift.read_iops.max
+    data_type: number
+    type: detailed-chart
+    color: fuchsia
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 3
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.redshift.read_iops.max
+        scope:
+          tag: redshift
+  - title: aws.redshift.write_throughput.max
+    data_type: number
+    type: detailed-chart
+    color: teal
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 5
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.redshift.write_throughput.max
+        scope:
+          tag: redshift
+  - title: aws.redshift.database_connections.max
+    data_type: number
+    type: detailed-chart
+    color: orange
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 1
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.redshift.database_connections.max
+        scope:
+          tag: redshift
+  - title: aws.redshift.read_latency.max
+    data_type: number
+    type: detailed-chart
+    color: olive
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 3
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.redshift.read_latency.max
+        scope:
+          tag: redshift
+  - title: 'aws.redshift.network_receive_throughput.max, aws.redshift.network_transmit_throughput.max'
+    data_type: number
+    type: detailed-chart
+    color: teal
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 5
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.redshift.network_receive_throughput.max
+        scope:
+          tag: redshift
+      - metric: aws.redshift.network_transmit_throughput.max
+        scope:
+          tag: redshift

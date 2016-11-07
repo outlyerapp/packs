@@ -1,0 +1,50 @@
+title: elb
+annotations: []
+period: 600
+locked: false
+positions:
+  - title: aws.elb.latency.max
+    data_type: number
+    type: detailed-chart
+    color: blue
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 1
+    size_x: 3
+    size_y: 4
+    series:
+      - metric: aws.elb.latency.max
+        scope:
+          tag: elb
+  - title: aws.elb.http_code_backend_2_xx.max
+    data_type: number
+    type: detailed-chart
+    color: navy
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 4
+    size_x: 3
+    size_y: 2
+    series:
+      - metric: aws.elb.http_code_backend_2_xx.max
+        scope:
+          tag: elb
+  - title: aws.elb.http_code_backend_4_xx.max
+    data_type: number
+    type: detailed-chart
+    color: yellow
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 4
+    size_x: 3
+    size_y: 2
+    series:
+      - metric: aws.elb.http_code_backend_4_xx.max
+        scope:
+          tag: elb
