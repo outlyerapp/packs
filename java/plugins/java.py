@@ -7,13 +7,15 @@
 import subprocess
 import json
 
-# Path to Java home directory. If you want to use JVM discovery functions must point to a valid JDK with tools.jar embedded
-# By default will just run as default java runtime, however '-list jvms' option will not work if this is not a JDK
-JAVA_HOME = 'java'
+# Path to Java binary. On Windows, you should use forward slashes as the path separator
+JAVA_BIN = "java"
+
 # Set the JMX URL Endpoint to Connect To
 JMX_URL = 'service:jmx:rmi:///jndi/rmi://localhost:9090/jmxrmi'
+
 # Set JMX Username, if authentication required
 JMX_USERNAME = ''
+
 # Set JMX Password, if authentication required
 JMX_PASSWORD = ''
 
@@ -55,7 +57,7 @@ METRICS = "jvm.classloading.loadedclasscount=java.lang:type=ClassLoading/LoadedC
 
 
 def getMetrics():
-    command = [JAVA_HOME, '-jar', '../embedded/lib/jmxquery.jar', '-url', JMX_URL, '-metrics', METRICS, '-json']
+    command = [JAVA_BIN, '-jar', '../embedded/lib/jmxquery.jar', '-url', JMX_URL, '-metrics', METRICS, '-json']
     if JMX_USERNAME:
         command.extend(['-username', JMX_USERNAME, '-password', JMX_PASSWORD])
     jsonOutput = ""
