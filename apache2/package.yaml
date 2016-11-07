@@ -3,6 +3,7 @@ author: Dataloop.IO
 version: 1.0.3
 processes:
     - apache2
+    - httpd
 description: Apache2 metrics from the mod-status module. Instructions contain configuration steps.
 instructions_required: true
 icon:
