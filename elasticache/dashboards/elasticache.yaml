@@ -3,7 +3,7 @@ annotations: []
 period: 600
 locked: false
 positions:
-  - title: 'aws.elasti_cache.cache_hits.*'
+  - title: 'aws.elasticache.cache_hits.*'
     data_type: number
     type: detailed-chart
     color: purple
@@ -15,10 +15,10 @@ positions:
     size_x: 2
     size_y: 2
     series:
-      - metric: 'aws.elasti_cache.cache_hits.*'
+      - metric: 'aws.elasticache.cache_hits.*'
         scope:
-          tag: elasti_cache
-  - title: aws.elasti_cache.replication_lag.max
+          tag: elasticache
+  - title: aws.elasticache.replication_lag.max
     data_type: number
     type: detailed-chart
     color: olive
@@ -30,10 +30,10 @@ positions:
     size_x: 2
     size_y: 2
     series:
-      - metric: aws.elasti_cache.replication_lag.max
+      - metric: aws.elasticache.replication_lag.max
         scope:
-          tag: elasti_cache
-  - title: aws.elasti_cache.curr_connections.max
+          tag: elasticache
+  - title: aws.elasticache.curr_connections.max
     data_type: number
     type: detailed-chart
     color: teal
@@ -45,10 +45,10 @@ positions:
     size_x: 2
     size_y: 2
     series:
-      - metric: aws.elasti_cache.curr_connections.max
+      - metric: aws.elasticache.curr_connections.max
         scope:
-          tag: elasti_cache
-  - title: aws.elasti_cache.cpu_utilization.max
+          tag: elasticache
+  - title: aws.elasticache.cpu_utilization.max
     data_type: number
     type: detailed-chart
     color: blue
@@ -60,10 +60,10 @@ positions:
     size_x: 2
     size_y: 2
     series:
-      - metric: aws.elasti_cache.cpu_utilization.max
+      - metric: aws.elasticache.cpu_utilization.max
         scope:
-          tag: elasti_cache
-  - title: aws.elasti_cache.bytes_used_for_cache.max
+          tag: elasticache
+  - title: aws.elasticache.bytes_used_for_cache.max
     data_type: number
     type: detailed-chart
     color: maroon
@@ -75,10 +75,10 @@ positions:
     size_x: 2
     size_y: 2
     series:
-      - metric: aws.elasti_cache.bytes_used_for_cache.max
+      - metric: aws.elasticache.bytes_used_for_cache.max
         scope:
-          tag: elasti_cache
-  - title: aws.elasti_cache.swap_usage.max
+          tag: elasticache
+  - title: aws.elasticache.swap_usage.max
     data_type: number
     type: detailed-chart
     color: red
@@ -90,6 +90,6 @@ positions:
     size_x: 2
     size_y: 2
     series:
-      - metric: aws.elasti_cache.swap_usage.max
+      - metric: aws.elasticache.swap_usage.max
         scope:
-          tag: elasti_cache
+          tag: elasticache
