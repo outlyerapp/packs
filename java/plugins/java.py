@@ -73,7 +73,8 @@ def getMetrics():
     # Print Nagios output
     output = "OK | "
     for metric in metrics:
-        output += metric['metricName'] + "=" + metric['value'] + ";;;; "
+        if 'value' in metric.keys():
+            output += metric['metricName'] + "=" + metric['value'] + ";;;; "
     print output
 
 
