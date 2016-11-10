@@ -27,6 +27,12 @@ METRICS = "jvm.classloading.loadedclasscount=java.lang:type=ClassLoading/LoadedC
           "jvm.gc.concurrentmarksweep.collectiontime=java.lang:type=GarbageCollector,name=ConcurrentMarkSweep/CollectionTime;" + \
           "jvm.gc.parnew.collectioncount=java.lang:type=GarbageCollector,name=ParNew/CollectionCount;" + \
           "jvm.gc.concurrentmarksweep.collectioncount=java.lang:type=GarbageCollector,name=ConcurrentMarkSweep/CollectionCount;" + \
+          "jvm.gc.psmarksweep.duration=java.lang:type=GarbageCollector,name=PS MarkSweep/LastGcInfo/duration;" + \
+          "jvm.gc.psmarksweep.collectioncount=java.lang:type=GarbageCollector,name=PS MarkSweep/CollectionCount" + \
+          "jvm.gc.psmarksweep.collectiontime=java.lang:type=GarbageCollector,name=PS MarkSweep/CollectionTime" + \
+          "jvm.gc.psscavange.duration=java.lang:type=GarbageCollector,name=PS Scavenge/LastGcInfo/duration" + \
+          "jvm.gc.psscavange.collectioncount=java.lang:type=GarbageCollector,name=PS Scavenge/CollectionCount" + \
+          "jvm.gc.psscavange.collectiontime=java.lang:type=GarbageCollector,name=PS Scavenge/CollectionTime" + \
           "jvm.memory.heap.committed=java.lang:type=Memory/HeapMemoryUsage/committed;" + \
           "jvm.memory.heap.init=java.lang:type=Memory/HeapMemoryUsage/max;" + \
           "jvm.memory.heap.used=java.lang:type=Memory/HeapMemoryUsage/used;" + \
@@ -34,6 +40,14 @@ METRICS = "jvm.classloading.loadedclasscount=java.lang:type=ClassLoading/LoadedC
           "jvm.memory.nonheap.init=java.lang:type=Memory/NonHeapMemoryUsage/init;" + \
           "jvm.memory.nonheap.max=java.lang:type=Memory/NonHeapMemoryUsage/max;" + \
           "jvm.memory.nonheap.used=java.lang:type=Memory/NonHeapMemoryUsage/used;" + \
+          "jvm.memorypool.pspermgen.collectionusage.max=java.lang:type=MemoryPool,name=PS Perm Gen/CollectionUsage/max" + \
+          "jvm.memorypool.pspermgen.collectionusage.used=java.lang:type=MemoryPool,name=PS Perm Gen/CollectionUsage/used" + \
+          "jvm.memorypool.pspermgen.usage.max=java.lang:type=MemoryPool,name=PS Perm Gen/Usage/max" + \
+          "jvm.memorypool.pspermgen.usage.used=java.lang:type=MemoryPool,name=PS Perm Gen/Usage/used" + \
+          "jvm.memorypool.pssurvivorspace.peakusage.max=java.lang:type=MemoryPool,name=PS Survivor Space/PeakUsage/max" + \
+          "jvm.memorypool.pssurvivorspace.peakusage.used=java.lang:type=MemoryPool,name=PS Survivor Space/PeakUsage/used" + \
+          "jvm.memorypool.pssurvivorspace.usage.max=java.lang:type=MemoryPool,name=PS Survivor Space/Usage/max" + \
+          "jvm.memorypool.pssurvivorspace.usage.used=java.lang:type=MemoryPool,name=PS Survivor Space/Usage/used" + \
           "jvm.os.openfiledescriptorcount=java.lang:type=OperatingSystem/OpenFileDescriptorCount;" + \
           "jvm.os.maxfiledescriptorcount=java.lang:type=OperatingSystem/MaxFileDescriptorCount;" + \
           "jvm.os.committedvirtualmemorysize=java.lang:type=OperatingSystem/CommittedVirtualMemorySize;" + \
