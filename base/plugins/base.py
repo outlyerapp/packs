@@ -180,7 +180,7 @@ def check_diskio():
                         disk_map["disk." + device_mapper[device] + "." + k] = v
         return disk_map
     except RuntimeError:  # Windows needs disk stats turned on with 'diskperf -y'
-            pass
+        return {}
 
 
 def check_virtmem():
@@ -262,5 +262,5 @@ try:
     sys.exit(0)
 
 except Exception, e:
-    print "Plugin failed %s check with error: %s" % e
+    print "Plugin failed check with error: %s" % e
     sys.exit(2)
