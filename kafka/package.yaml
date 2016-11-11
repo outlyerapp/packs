@@ -1,0 +1,11 @@
+title: Kafka
+author: Dataloop.IO
+version: 1.0.1
+description: Metrics via JMX for Kafka
+instructions_required: true
+icon:
+    name: base
+    background: green
+    foreground: white
+
+
