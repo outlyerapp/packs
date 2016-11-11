@@ -1,0 +1,185 @@
+title: Kafka
+annotations: []
+period: 600
+locked: false
+positions:
+  - title: controller count
+    data_type: number
+    type: number
+    color: blue
+    icon: false
+    filter: sum
+    legend: false
+    row: 1
+    col: 1
+    size_x: 1
+    size_y: 2
+    series:
+      - metric: kafka.controller.kafkacontroller.activecontrollercount.value
+        scope:
+          tag: kafka
+  - title: leader election time 99th percentile (ms)
+    data_type: number
+    type: detailed-chart
+    color: blue
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 2
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: kafka.controller.controllerstats.leaderelectionrateandtimems.99thpercentile
+        scope:
+          tag: kafka
+  - title: unclean leader elections (1 min rate)
+    data_type: number
+    type: detailed-chart
+    color: blue
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 4
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: kafka.controller.controllerstats.uncleanleaderelectionspersec.oneminuterate
+        scope:
+          tag: kafka
+  - title: offline partitions
+    data_type: number
+    type: number
+    color: blue
+    icon: false
+    filter: sum
+    legend: false
+    row: 1
+    col: 6
+    size_x: 1
+    size_y: 2
+    series:
+      - metric: kafka.controller.kafkacontroller.offlinepartitionscount.value
+        scope:
+          tag: kafka
+  - title: imbalanced replica
+    data_type: number
+    type: number
+    color: blue
+    icon: false
+    filter: sum
+    legend: false
+    row: 1
+    col: 7
+    size_x: 1
+    size_y: 2
+    series:
+      - metric: kafka.controller.kafkacontroller.preferredreplicaimbalancecount.value
+        scope:
+          tag: kafka
+  - title: network responses sent
+    data_type: number
+    type: number
+    color: fuchsia
+    icon: false
+    filter: sum
+    legend: false
+    row: 3
+    col: 1
+    size_x: 1
+    size_y: 2
+    series:
+      - metric: kafka.network.socketserver.responsesbeingsent.value
+        scope:
+          tag: kafka
+  - title: network request queue size
+    data_type: number
+    type: detailed-chart
+    color: fuchsia
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 2
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: kafka.network.requestchannel.requestqueuesize.value
+        scope:
+          tag: kafka
+  - title: network response queue size
+    data_type: number
+    type: detailed-chart
+    color: fuchsia
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 4
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: kafka.network.requestchannel.responsequeuesize.value
+        scope:
+          tag: kafka
+  - title: network processor idle avg (1 min rate)
+    data_type: number
+    type: detailed-chart
+    color: fuchsia
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 6
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: kafka.network.socketserver.networkprocessoravgidlepercent.oneminuterate
+        scope:
+          tag: kafka
+  - title: 'kafka.server.brokertopicmetrics.*'
+    data_type: number
+    type: detailed-chart
+    color: green
+    icon: true
+    filter: avg
+    legend: false
+    row: 5
+    col: 2
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: 'kafka.server.brokertopicmetrics.*'
+        scope:
+          tag: kafka
+  - title: 'kafka.server.delayedfetchrequestmetrics.*'
+    data_type: number
+    type: detailed-chart
+    color: teal
+    icon: true
+    filter: avg
+    legend: false
+    row: 5
+    col: 4
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: 'kafka.server.delayedfetchrequestmetrics.*'
+        scope:
+          tag: kafka
+  - title: 'kafka.server.delayedproducerrequestmetrics.*'
+    data_type: number
+    type: detailed-chart
+    color: orange
+    icon: true
+    filter: avg
+    legend: false
+    row: 5
+    col: 6
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: 'kafka.server.delayedproducerrequestmetrics.*'
+        scope:
+          tag: kafka

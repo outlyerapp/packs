@@ -1,0 +1,12 @@
+title: Kafka
+criteria:
+  - metric: 'kafka.status'
+    scope:
+      tag: kafka
+    condition:
+      timeout: 120
+      threshold: false
+actions:
+  - emails: []
+    message: ''
+
