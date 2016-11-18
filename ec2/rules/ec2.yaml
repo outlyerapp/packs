@@ -1,6 +1,6 @@
 title: ec2
 criteria:
-  - metric: aws.ec2.status_check_failed_system.count
+  - metric: aws.ec2.status_check_failed_system.max
     scope:
       tag: ec2
     condition:
