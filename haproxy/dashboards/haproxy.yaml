@@ -1,0 +1,258 @@
+title: HAProxy
+annotations: []
+period: 86400
+locked: false
+positions:
+  - title: HAProxy Status
+    data_type: nagios
+    type: status
+    color: lime
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 1
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: haproxy.status
+        scope:
+          tag: haproxy
+  - title: Frontend Request Rate
+    data_type: number
+    type: detailed-chart
+    color: yellow
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 2
+    size_x: 8
+    size_y: 1
+    series:
+      - metric: haproxy.stats.frontend.req_rate
+        scope:
+          tag: haproxy
+  - title: Frontend 2XX
+    data_type: number
+    type: number
+    color: green
+    icon: true
+    symbol: exchange
+    filter: sum
+    legend: false
+    row: 2
+    col: 1
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: haproxy.stats.frontend.hrsp_2xx
+        scope:
+          tag: haproxy
+  - title: Frontend Network Traffic
+    data_type: number
+    type: detailed-chart
+    color: lime
+    icon: true
+    filter: avg
+    legend: false
+    row: 2
+    col: 2
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: haproxy.stats.frontend.bin
+        scope:
+          tag: haproxy
+      - metric: haproxy.stats.frontend.bout
+        scope:
+          tag: haproxy
+  - title: Frontend Sessions
+    data_type: number
+    type: detailed-chart
+    color: maroon
+    icon: true
+    filter: avg
+    legend: false
+    row: 2
+    col: 4
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: haproxy.stats.frontend.scur
+        scope:
+          tag: haproxy
+  - title: Frontend Sessions/Second
+    data_type: number
+    type: detailed-chart
+    color: orange
+    icon: true
+    filter: avg
+    legend: false
+    row: 2
+    col: 6
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: haproxy.stats.frontend.rate
+        scope:
+          tag: haproxy
+  - title: Frontend Requests Denied
+    data_type: number
+    type: detailed-chart
+    color: red
+    icon: true
+    filter: avg
+    legend: false
+    row: 2
+    col: 8
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: haproxy.stats.frontend.dreq
+        scope:
+          tag: haproxy
+  - title: Frontend 5XX
+    data_type: number
+    type: number
+    color: red
+    icon: true
+    symbol: exchange
+    filter: sum
+    legend: false
+    row: 3
+    col: 1
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: haproxy.stats.frontend.hrsp_5xx
+        scope:
+          tag: haproxy
+  - title: Backend 2XX
+    data_type: number
+    type: number
+    color: green
+    icon: true
+    symbol: exchange
+    filter: sum
+    legend: false
+    row: 4
+    col: 1
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: haproxy.stats.backend.hrsp_2xx
+        scope:
+          tag: haproxy
+  - title: Backend Network Traffic
+    data_type: number
+    type: detailed-chart
+    color: lime
+    icon: true
+    filter: avg
+    legend: false
+    row: 4
+    col: 2
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: haproxy.stats.backend.bin
+        scope:
+          tag: haproxy
+      - metric: haproxy.stats.backend.bout
+        scope:
+          tag: haproxy
+  - title: Backend Session
+    data_type: number
+    type: detailed-chart
+    color: maroon
+    icon: true
+    filter: avg
+    legend: false
+    row: 4
+    col: 4
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: haproxy.stats.backend.scur
+        scope:
+          tag: haproxy
+  - title: Backend Sessions/Second
+    data_type: number
+    type: detailed-chart
+    color: orange
+    icon: true
+    filter: avg
+    legend: false
+    row: 4
+    col: 6
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: haproxy.stats.backend.rate
+        scope:
+          tag: haproxy
+  - title: Backend Requests Denied
+    data_type: number
+    type: detailed-chart
+    color: red
+    icon: true
+    filter: avg
+    legend: false
+    row: 4
+    col: 8
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: haproxy.stats.backend.dreq
+        scope:
+          tag: haproxy
+  - title: Backend Queue
+    data_type: number
+    type: number
+    color: maroon
+    icon: true
+    symbol: list
+    filter: sum
+    legend: false
+    row: 5
+    col: 1
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: haproxy.stats.backend.qcur
+        scope:
+          tag: haproxy
+  - title: Backend Connection Errors
+    data_type: number
+    type: number
+    color: red
+    icon: true
+    filter: sum
+    legend: false
+    row: 6
+    col: 1
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: haproxy.stats.backend.econ
+        scope:
+          tag: haproxy
+  - title: Errors (Frontend and Backend)
+    data_type: number
+    type: scattered-chart
+    color: red
+    icon: true
+    filter: avg
+    legend: false
+    row: 6
+    col: 2
+    size_x: 8
+    size_y: 1
+    series:
+      - metric: haproxy.stats.backend.eresp
+        scope:
+          tag: haproxy
+      - metric: haproxy.stats.frontend.ereq
+        scope:
+          tag: haproxy

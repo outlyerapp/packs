@@ -1,0 +1,41 @@
+title: HAProxy
+description: ''
+criteria:
+  - metric: haproxy.stats.frontend.dreq
+    scope:
+      tag: haproxy
+    condition:
+      timeout: 120
+      threshold: 10
+      operator: gt
+  - metric: haproxy.stats.frontend.ereq
+    scope:
+      tag: haproxy
+    condition:
+      timeout: 120
+      threshold: 10
+      operator: gt
+  - metric: haproxy.stats.backend.qcur
+    scope:
+      tag: haproxy
+    condition:
+      timeout: 120
+      threshold: 10
+      operator: gt
+  - metric: haproxy.stats.backend.eresp
+    scope:
+      tag: haproxy
+    condition:
+      timeout: 120
+      threshold: 10
+      operator: gt
+  - metric: haproxy.status
+    scope:
+      tag: haproxy
+    condition:
+      timeout: 120
+      threshold: false
+      operator: gt
+actions:
+  - emails: []
+    message: ''

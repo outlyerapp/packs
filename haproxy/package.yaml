@@ -1,0 +1,11 @@
+title: HAProxy
+author: Dataloop.IO
+version: 1.0.0
+description: Monitors HAProxy Service
+instructions_required: true
+processes:
+    - haproxy
+icon:
+    name: haproxy
+    background: white
+    foreground: blue
