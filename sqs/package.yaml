@@ -1,0 +1,8 @@
+title: sqs
+author: Dataloop.IO
+version: 1.0.0
+description: Dashboards and alert rules for SQS queues monitored with the AWS integration
+icon:
+    name: sqs
+    background: orange
+    foreground: white
