@@ -3,6 +3,6 @@ author: Dataloop.IO
 version: 1.0.0
 description: Dashboards and alert rules for SNS notifications monitored with the AWS integration
 icon:
-    name: autoscaling
+    name: sns
     background: orange
     foreground: white

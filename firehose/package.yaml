@@ -3,6 +3,6 @@ author: Dataloop.IO
 version: 1.0.0
 description: Dashboards and alert rules for Firehose streams monitored with the AWS integration
 icon:
-    name: autoscaling
+    name: firehose
     background: orange
     foreground: white
