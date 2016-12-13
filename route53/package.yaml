@@ -1,0 +1,8 @@
+title: route53
+author: Dataloop.IO
+version: 1.0.0
+description: Dashboards and alert rules for route 53 DNS health checks monitored with the AWS integration
+icon:
+    name: autoscaling
+    background: orange
+    foreground: white

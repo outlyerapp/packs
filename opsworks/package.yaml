@@ -1,0 +1,8 @@
+title: opsworks
+author: Dataloop.IO
+version: 1.0.0
+description: Dashboards and alert rules for OpsWorks stacks monitored with the AWS integration
+icon:
+    name: autoscaling
+    background: orange
+    foreground: white
