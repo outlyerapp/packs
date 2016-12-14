@@ -4,7 +4,7 @@ criteria:
     scope:
       tag: ec2
     condition:
-      timeout: 120
+      timeout: 600
       threshold: 0
       operator: gt
 actions:

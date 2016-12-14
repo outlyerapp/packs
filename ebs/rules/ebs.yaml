@@ -5,7 +5,7 @@ criteria:
     scope:
       tag: ebs
     condition:
-      timeout: 300
+      timeout: 1800
       threshold: 100
       operator: gt
 actions:
