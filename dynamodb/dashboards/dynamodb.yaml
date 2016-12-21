@@ -1,6 +1,6 @@
 title: dynamodb
 annotations: []
-period: 600
+period: 3600
 locked: false
 positions:
   - title: aws.dynamo_db.provisioned_read_capacity_units.max

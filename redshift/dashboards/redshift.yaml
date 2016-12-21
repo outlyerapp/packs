@@ -1,6 +1,6 @@
 title: redshift
 annotations: []
-period: 600
+period: 3600
 locked: false
 positions:
   - title: aws.redshift.cpu_utilization.max

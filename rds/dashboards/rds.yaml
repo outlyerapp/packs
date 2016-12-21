@@ -1,6 +1,6 @@
 title: rds
 annotations: []
-period: 600
+period: 3600
 locked: false
 positions:
   - title: aws.rds.database_connections.count

@@ -1,6 +1,6 @@
 title: elb
 annotations: []
-period: 600
+period: 3600
 locked: false
 positions:
   - title: aws.elb.latency.max

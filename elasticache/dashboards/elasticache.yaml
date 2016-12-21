@@ -1,6 +1,6 @@
 title: elasticache
 annotations: []
-period: 600
+period: 3600
 locked: false
 positions:
   - title: 'aws.elasticache.cache_hits.*'
