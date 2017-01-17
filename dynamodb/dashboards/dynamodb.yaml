@@ -3,7 +3,7 @@ annotations: []
 period: 3600
 locked: false
 positions:
-  - title: aws.dynamo_db.provisioned_read_capacity_units.max
+  - title: aws.dynamodb.provisioned_read_capacity_units.max
     data_type: number
     type: detailed-chart
     color: aqua
@@ -15,10 +15,10 @@ positions:
     size_x: 5
     size_y: 2
     series:
-      - metric: aws.dynamo_db.provisioned_read_capacity_units.max
+      - metric: aws.dynamodb.provisioned_read_capacity_units.max
         scope:
-          tag: dynamo_db
-  - title: aws.dynamo_db.provisioned_write_capacity_units.max
+          tag: dynamodb
+  - title: aws.dynamodb.provisioned_write_capacity_units.max
     data_type: number
     type: detailed-chart
     color: blue
@@ -30,6 +30,6 @@ positions:
     size_x: 5
     size_y: 2
     series:
-      - metric: aws.dynamo_db.provisioned_write_capacity_units.max
+      - metric: aws.dynamodb.provisioned_write_capacity_units.max
         scope:
-          tag: dynamo_db
+          tag: dynamodb
