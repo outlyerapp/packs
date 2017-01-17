@@ -1,6 +1,6 @@
 title: ebs
 annotations: []
-period: 86400
+period: 3600
 locked: false
 positions:
   - title: Top Ops
