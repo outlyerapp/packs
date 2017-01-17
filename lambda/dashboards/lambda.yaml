@@ -1,0 +1,66 @@
+title: lambda
+annotations: []
+period: 3600
+locked: false
+positions:
+  - title: invocations
+    data_type: number
+    type: number
+    color: green
+    icon: false
+    filter: max
+    legend: false
+    row: 1
+    col: 1
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.lambda.invocations.avg
+        scope:
+          tag: lambda
+  - title: throttles
+    data_type: number
+    type: number
+    color: orange
+    icon: false
+    filter: max
+    legend: false
+    row: 1
+    col: 3
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.lambda.throttles.avg
+        scope:
+          tag: lambda
+  - title: errors
+    data_type: number
+    type: number
+    color: red
+    icon: false
+    symbol: exclamation-triangle
+    filter: max
+    legend: false
+    row: 1
+    col: 5
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.lambda.errors.avg
+        scope:
+          tag: lambda
+  - title: duration (average)
+    data_type: number
+    type: detailed-chart
+    color: navy
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 1
+    size_x: 6
+    size_y: 3
+    series:
+      - metric: aws.lambda.duration.avg
+        scope:
+          tag: lambda
