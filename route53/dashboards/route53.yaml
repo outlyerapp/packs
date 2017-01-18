@@ -1,0 +1,35 @@
+title: route53
+annotations: []
+period: 3600
+locked: false
+positions:
+  - title: healthy healthchecks (avg)
+    data_type: number
+    type: detailed-chart
+    color: navy
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 1
+    size_x: 5
+    size_y: 3
+    series:
+      - metric: aws.route53.health_check_percentage_healthy.avg
+        scope:
+          tag: route53
+  - title: healthcheck status
+    data_type: number
+    type: detailed-chart
+    color: green
+    icon: true
+    filter: avg
+    legend: false
+    row: 4
+    col: 1
+    size_x: 5
+    size_y: 3
+    series:
+      - metric: aws.route53.health_check_status.avg
+        scope:
+          tag: route53

@@ -1,0 +1,156 @@
+title: opsworks
+annotations: []
+period: 3600
+locked: false
+positions:
+  - title: status
+    data_type: boolean
+    type: status
+    color: teal
+    icon: true
+    filter: max
+    legend: false
+    row: 1
+    col: 1
+    size_x: 1
+    size_y: 2
+    series:
+      - metric: 'source:status'
+        scope:
+          tag: opsworks
+  - title: active processes
+    data_type: number
+    type: number
+    color: purple
+    icon: false
+    symbol: cogs
+    filter: avg
+    legend: false
+    row: 1
+    col: 2
+    size_x: 1
+    size_y: 2
+    series:
+      - metric: aws.opsworks.procs.avg
+        scope:
+          tag: opsworks
+  - title: active processes
+    data_type: number
+    type: detailed-chart
+    color: orange
+    icon: true
+    filter: avg
+    legend: false
+    row: 1
+    col: 3
+    size_x: 4
+    size_y: 2
+    series:
+      - metric: aws.opsworks.procs.avg
+        scope:
+          tag: opsworks
+  - title: cpu system (avg)
+    data_type: number
+    type: detailed-chart
+    color: navy
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 1
+    size_x: 3
+    size_y: 2
+    series:
+      - metric: aws.opsworks.cpu_system.avg
+        scope:
+          tag: opsworks
+  - title: cpu user (avg)
+    data_type: number
+    type: detailed-chart
+    color: maroon
+    icon: true
+    filter: avg
+    legend: false
+    row: 3
+    col: 4
+    size_x: 3
+    size_y: 2
+    series:
+      - metric: aws.opsworks.cpu_user.avg
+        scope:
+          tag: opsworks
+  - title: load average 1 min
+    data_type: number
+    type: detailed-chart
+    color: navy
+    icon: true
+    filter: avg
+    legend: false
+    row: 5
+    col: 1
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.opsworks.load_1.avg
+        scope:
+          tag: opsworks
+  - title: load average 5 min
+    data_type: number
+    type: detailed-chart
+    color: navy
+    icon: true
+    filter: avg
+    legend: false
+    row: 5
+    col: 3
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.opsworks.load_5.avg
+        scope:
+          tag: opsworks
+  - title: load average 15 min
+    data_type: number
+    type: detailed-chart
+    color: navy
+    icon: true
+    filter: avg
+    legend: false
+    row: 5
+    col: 5
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: aws.opsworks.load_15.avg
+        scope:
+          tag: opsworks
+  - title: memory free (avg)
+    data_type: number
+    type: detailed-chart
+    color: green
+    icon: true
+    filter: avg
+    legend: false
+    row: 7
+    col: 1
+    size_x: 3
+    size_y: 2
+    series:
+      - metric: aws.opsworks.memory_free.avg
+        scope:
+          tag: opsworks
+  - title: memory used (avg)
+    data_type: number
+    type: detailed-chart
+    color: orange
+    icon: true
+    filter: avg
+    legend: false
+    row: 7
+    col: 4
+    size_x: 3
+    size_y: 2
+    series:
+      - metric: aws.opsworks.memory_used.avg
+        scope:
+          tag: opsworks
