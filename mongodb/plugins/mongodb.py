@@ -6,10 +6,49 @@ from pymongo import MongoClient
 HOST = 'localhost'
 PORT = 27017
 INTERVAL = 5
+CONTAINER_ID= "devenv_mongo_1" # TODO pass in environment variable
+
+def connect_host():
+    client = MongoClient(HOST, PORT)
+    return client.admin
+
+def connect_container():
+
+    # TODO: What is the best way to determine what container I am??
+    import platform
+    AGENT_CONTAINER_NAME = platform.node()
+
+    import docker
+    client = docker.from_env()
+    target = client.containers.get(CONTAINER_ID)
+
+    # print "CONTAINER", target.name
+    # TODO: detect port
+    # target_port = target.attrs["HostConfig"]["PortBindings"]["27017/tcp"][0]["HostPort"]
+    # print target_port
+
+    # TODO: join network before proceeding
+    (name, network) = target.attrs["NetworkSettings"]["Networks"].items()[0]
+    target_network = client.networks.get(name)
+    me = client.containers.get(AGENT_CONTAINER_NAME)
+
+    # TODO: Only attempt to connect when not already connected
+    try:
+        target_network.connect(me)
+    except:
+        pass
+
+    # print "NETWORK", name
+    ip = network["IPAddress"]
+    # print "IP", ip
+    client = MongoClient(ip, PORT)
+    return client.admin
 
 try:
-    client = MongoClient(HOST, PORT)
-    db = client.admin
+    if CONTAINER_ID:
+        db = connect_container()
+    else:
+        db = connect_host()
 except Exception, e:
     print "Plugin Failed! %s" % e
     sys.exit(2)
@@ -76,6 +115,7 @@ def collect_metrics():
     except:
         repl_set_get_status = {}
     return normalize(merge_dicts(db_stats, server_status, repl_set_get_status))
+
 
 first_run = collect_metrics()
 time.sleep(INTERVAL)
