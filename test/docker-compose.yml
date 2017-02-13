@@ -1,0 +1,19 @@
+version: '2'
+services:
+
+  mongo:
+    image: mongo:3.2.3
+    ports:
+      - "27017:27017"
+
+  nginx:
+    image: nginx:1.11.9
+    ports:
+      - "8080:80"
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=pass
+    ports:
+      - "3306:3306"

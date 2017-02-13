@@ -7,6 +7,8 @@ import time
 from datetime import datetime
 
 LOGFILE = '/var/log/nginx/access.log'
+SINCE = 30 # last 30 seconds
+CONTAINER_ID = os.environ.get("CONTAINER_ID")
 
 # nginx health check
 
@@ -53,6 +55,48 @@ times = {
     'max': 0
 }
 
+
+def update_stats(line):
+    regex = ''.join('(?P<' + g + '>.*?)' if g else re.escape(c) for g, c in re.findall(r'\$(\w+)|(.)', timed_combined))
+    m = re.match(regex, line)
+    if not m:
+        regex = ''.join('(?P<' + g + '>.*?)' if g else re.escape(c) for g, c in re.findall(r'\$(\w+)|(.)', combined))
+        m = re.match(regex, line)
+    data = m.groupdict()
+
+    line_time = datetime.strptime(data['time_local'], '%d/%b/%Y:%H:%M:%S '+ timezone)
+    delta = start_time - line_time
+    if delta.seconds < SINCE:
+        code = data['status']
+        if code not in status_codes.keys():
+            status_codes[code] = 1
+        else:
+            status_codes[code] += 1
+        if code.startswith('2'):
+            status_codes['2xx'] += 1
+        if code.startswith('3'):
+            status_codes['3xx'] += 1
+        if code.startswith('4'):
+            status_codes['4xx'] += 1
+        if code.startswith('5'):
+            status_codes['5xx'] += 1
+        try:
+            if 'request_time' in data.iterkeys():
+                time_taken = data['request_time']
+                if 'min' not in times.iterkeys():
+                    times['min'] = time_taken
+                times['count'] += 1
+                times['total'] += float(time_taken)
+                if time_taken > times['max']:
+                    times['max'] = time_taken
+                if time_taken < times['min']:
+                    times['min'] = time_taken
+        except ValueError:
+            # Request time not castable to float (like '-')
+            pass
+    else:
+        return True
+
 def reverse_read(fname, separator=os.linesep):
     with file(fname) as f:
         f.seek(0, 2)
@@ -71,49 +115,29 @@ def reverse_read(fname, separator=os.linesep):
             a_line = a_line[::-1]
             yield a_line
 
-for line in reverse_read(LOGFILE):
-    try:
-        regex = ''.join('(?P<' + g + '>.*?)' if g else re.escape(c) for g, c in re.findall(r'\$(\w+)|(.)', timed_combined))
-        m = re.match(regex, line)
-        if not m:
-            regex = ''.join('(?P<' + g + '>.*?)' if g else re.escape(c) for g, c in re.findall(r'\$(\w+)|(.)', combined))
-            m = re.match(regex, line)
-        data = m.groupdict()
 
-        line_time = datetime.strptime(data['time_local'], '%d/%b/%Y:%H:%M:%S '+ timezone)
-        delta = start_time - line_time
-        if delta.seconds < 30:
-            code = data['status']
-            if code not in status_codes.keys():
-                status_codes[code] = 1
-            else:
-                status_codes[code] += 1
-            if code.startswith('2'):
-                status_codes['2xx'] += 1
-            if code.startswith('3'):
-                status_codes['3xx'] += 1
-            if code.startswith('4'):
-                status_codes['4xx'] += 1
-            if code.startswith('5'):
-                status_codes['5xx'] += 1
-            try:
-                if 'request_time' in data.iterkeys():
-                    time_taken = data['request_time']
-                    if 'min' not in times.iterkeys():
-                        times['min'] = time_taken
-                    times['count'] += 1
-                    times['total'] += float(time_taken)
-                    if time_taken > times['max']:
-                        times['max'] = time_taken
-                    if time_taken < times['min']:
-                        times['min'] = time_taken
-            except ValueError:
-                # Request time not castable to float (like '-')
-                pass
-        else:
-            break
-    except (AttributeError, ValueError):
-        continue
+if CONTAINER_ID:
+    import docker
+    client = docker.from_env()
+    target = client.containers.get(CONTAINER_ID)
+    logs = target.logs(since=SINCE, stderr=False).split("\n")
+    logs.reverse() # To match behaiviour of log file reading below
+
+    for line in logs:
+        try:
+            stop = update_stats(line)
+            if stop:
+                break
+        except (AttributeError, ValueError):
+            continue
+else:
+    for line in reverse_read(LOGFILE):
+        try:
+            stop = update_stats(line)
+            if stop:
+                break
+        except (AttributeError, ValueError):
+            continue
 
 
 message = "OK | "
@@ -124,7 +148,11 @@ if times['count'] > 0:
     message += "avg_time=%0.2fs;;;; " % (float(times['total'])/float(times['count']))
 
 if all (key in times for key in ("max","min")):
-    message += "max_time=%0.2fs;;;; min_time=%0.2fs;;;;" % (float(times['max']), float(times['min']))
+    message += "max_time=%0.2fs;;;; " % float(times['max'])
+    try:
+        message += "min_time=%0.2fs;;;;"  % float(times['min'])
+    except:
+        pass
 
 print message
 sys.exit(0)
