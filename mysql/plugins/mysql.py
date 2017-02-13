@@ -5,11 +5,14 @@ import sys
 import json
 from datetime import datetime
 
+import olhelper as util
+
 # configure these settings
 
 MYSQL_USER = 'root'
 MYSQL_PASSWORD = ''
 MYSQL_HOST = ''
+CONTAINER_ID = os.environ.get("CONTAINER_ID")
 
 # metrics collection
 
@@ -79,8 +82,12 @@ def get_mysql_status(version):
     if MYSQL_HOST:
         command.append('-h%s' % MYSQL_HOST)
     command += ['-e', 'show global status']
+
     try:
-        resp = subprocess.check_output(command)
+        if CONTAINER_ID:
+            resp = util.exec_run(id=CONTAINER_ID, command=command)
+        else:
+            resp = subprocess.check_output(command)
     except Exception, e:
         print "connection failure for show global status: %s" % e
         sys.exit(2)
@@ -89,6 +96,9 @@ def get_mysql_status(version):
     for line in metric_list:
         if line:
             metric = line.split('\t')
+            # Skip warning message
+            if metric[0].startswith("mysql: [Warning]"):
+                continue
             k = metric[0].strip().lower()
             k = k.replace('com_', '',1)
             v = metric[1]
@@ -116,7 +126,10 @@ def get_version():
         command.append('-h%s' % MYSQL_HOST)
     command += ['-e', "show global variables like 'version'"]
     try:
-        resp = subprocess.check_output(command)
+        if CONTAINER_ID:
+            resp = util.exec_run(id=CONTAINER_ID, command=command)
+        else:
+            resp = subprocess.check_output(command)
     except Exception, e:
         print "connection failure for show global versions: %s" % e
         sys.exit(2)
@@ -125,6 +138,9 @@ def get_version():
     for line in metric_list:
         if line:
             metric = line.split('\t')
+            # Skip warning message
+            if not metric[0] == "version":
+                continue
             instance_version = metric[1]
     return instance_version
 
@@ -154,6 +170,7 @@ def convert_sizes_from_bytes(k, v):
 def tmp_file():
     if not os.path.isdir(TMPDIR):
         os.makedirs(TMPDIR)
+
     if not os.path.isfile(TMPDIR + '/' + TMPFILE):
         os.mknod(TMPDIR + '/' + TMPFILE)
 
