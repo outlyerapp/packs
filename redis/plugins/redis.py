@@ -1,9 +1,18 @@
 #!/usr/bin/env python
+import os
 import sys
 import subprocess
 
+CONTAINER_ID = os.environ.get("CONTAINER_ID")
+
 try:
-    output = subprocess.check_output(('redis-cli', 'info'))
+    if CONTAINER_ID:
+        import docker
+        client = docker.from_env()
+        target = client.containers.get(CONTAINER_ID)
+        output = target.exec_run("redis-cli info")
+    else:
+        output = subprocess.check_output(('redis-cli', 'info'))
 except Exception, e:
     print "Plugin Failed! %s" % e
     sys.exit(2)
