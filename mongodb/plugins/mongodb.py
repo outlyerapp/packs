@@ -4,8 +4,6 @@ import sys
 import time
 import json
 
-import olhelper as util
-
 HOST = 'localhost'
 PORT = 27017
 INTERVAL = 5
@@ -65,12 +63,16 @@ def normalize(d):
             new_dict[k] = v
     return new_dict
 
-def command(cmd):
-    command = "mongo --quiet --eval 'JSON.stringify({});'".format(cmd)
-    return json.loads(util.exec_run(id=CONTAINER_ID, command=command))
-
 def collect_metrics():
     if CONTAINER_ID:
+        import docker
+        client = docker.from_env()
+        target = client.containers.get(CONTAINER_ID)
+
+        def command(cmd):
+            command = "mongo --quiet --eval 'JSON.stringify({});'".format(cmd)
+            return json.loads(target.exec_run(command))
+
         db_stats = command("db.stats(1024)")
         server_status = flatten(command("db.serverStatus()"))
         try:

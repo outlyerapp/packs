@@ -85,7 +85,11 @@ def get_mysql_status(version):
 
     try:
         if CONTAINER_ID:
-            resp = util.exec_run(id=CONTAINER_ID, command=command)
+            import docker
+            client = docker.from_env()
+            target = client.containers.get(CONTAINER_ID)
+
+            resp = target.exec_run(command)
         else:
             resp = subprocess.check_output(command)
     except Exception, e:
