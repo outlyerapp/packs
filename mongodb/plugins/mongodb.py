@@ -97,9 +97,13 @@ def collect_metrics():
 
 
 
-first_run = collect_metrics()
-time.sleep(INTERVAL)
-second_run = collect_metrics()
+try:
+    first_run = collect_metrics()
+    time.sleep(INTERVAL)
+    second_run = collect_metrics()
+except Exception, e:
+    print "Plugin Failed! %s" % e
+    sys.exit(2)
 
 metrics = {}
 for k, v in second_run.iteritems():
