@@ -2,12 +2,18 @@
 import os
 import sys
 import time
-import json
+from pymongo import MongoClient
 
-HOST = 'localhost'
+HOST = os.environ.get("HOST", 'localhost')
 PORT = 27017
 INTERVAL = 5
-CONTAINER_ID = os.environ.get("CONTAINER_ID")
+
+try:
+    client = MongoClient(HOST, PORT)
+    db = client.admin
+except Exception, e:
+    print "Plugin Failed! %s" % e
+    sys.exit(2)
 
 def flatten(d, result=None):
     if result is None:
@@ -64,46 +70,17 @@ def normalize(d):
     return new_dict
 
 def collect_metrics():
-    if CONTAINER_ID:
-        import docker
-        client = docker.from_env()
-        target = client.containers.get(CONTAINER_ID)
+    db_stats = db.command('dbstats')
+    server_status = flatten(db.command('serverStatus'))
+    try:
+        repl_set_get_status = db.command('replSetGetStatus')
+    except:
+        repl_set_get_status = {}
+    return normalize(merge_dicts(db_stats, server_status, repl_set_get_status))
 
-        def command(cmd):
-            command = "mongo --quiet --eval 'JSON.stringify({});'".format(cmd)
-            return json.loads(target.exec_run(command))
-
-        db_stats = command("db.stats(1024)")
-        server_status = flatten(command("db.serverStatus()"))
-        try:
-            repl_set_get_status = command("db.replSetGetStatus()")
-        except:
-            repl_set_get_status = {}
-
-        return normalize(merge_dicts(db_stats, server_status, repl_set_get_status))
-    else:
-        from pymongo import MongoClient
-        client = MongoClient(HOST, PORT)
-        db = client.admin
-
-        db_stats = db.command('dbstats')
-        server_status = flatten(db.command('serverStatus'))
-        try:
-            repl_set_get_status = db.command('replSetGetStatus')
-        except:
-            repl_set_get_status = {}
-
-        return normalize(merge_dicts(db_stats, server_status, repl_set_get_status))
-
-
-
-try:
-    first_run = collect_metrics()
-    time.sleep(INTERVAL)
-    second_run = collect_metrics()
-except Exception, e:
-    print "Plugin Failed! %s" % e
-    sys.exit(2)
+first_run = collect_metrics()
+time.sleep(INTERVAL)
+second_run = collect_metrics()
 
 metrics = {}
 for k, v in second_run.iteritems():
