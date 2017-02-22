@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 import sys
 import requests
 import collections
@@ -9,7 +10,7 @@ Hit up the nodes stats url and pull back all the metrics for that node
 TODO: clean up some of the kv pairs coming back and exclude the non-numeric
 values (some come back as mb and have a byte equiv key
 """
-HOST = 'localhost'
+HOST = os.environ.get("HOST", 'localhost')
 PORT = 9200
 BASE_URL = "http://%s:%s" % (HOST, PORT)
 LOCAL_URL = "/_nodes/_local"
