@@ -1,19 +1,24 @@
 #!/usr/bin/env python
 import sys
 import requests
+import StringIO
 from requests.auth import HTTPBasicAuth
+
+from outlyer.plugin_helper.container import patch_all
+patch_all()
+
 
 # settings
 
-USER = 'Administrator'
+USER = 'admin'
 PASSWORD = 'password'
 URL = 'http://localhost:8091'
 
 # constants
 
 success_message = "OK | "
-failure_message = "FAILED! | "
-perf_data = ""
+failure_message = "CRITICAL | "
+buf = StringIO.StringIO()
 healthy = True
 auth = HTTPBasicAuth(USER, PASSWORD)
 
@@ -51,7 +56,7 @@ def bytes_to_gb(num):
 # pools
 
 try:
-    default_pool = requests.get(URL + '/pools/default', auth=auth, timeout=60).json()
+    default_pool = requests.get(URL + '/pools/default', auth=auth, timeout=5).json()
 except Exception, e:
     print "Plugin Failed! Unable to connect to %s: %s" % (URL, e)
     sys.exit(2)
@@ -69,8 +74,8 @@ storage_totals = default_pool['storageTotals']
 for k, v in flatten(storage_totals, key='totals', path='storage').iteritems():
     if type(v) is int or type(v) is float:
         metric_path = k.lower()
-        perf_data += metric_path + '=' + str(v) + ';;;; '
-        perf_data += metric_path + '_gb=' + str(bytes_to_gb(v)) + 'GB;;;; '
+        buf.write('{0}={1};;;; '.format(metric_path, v))
+        buf.write('{0}_gb={1}GB;;;; '.format(metric_path, bytes_to_gb(v)))
 
 nodes = default_pool['nodes']
 
@@ -81,13 +86,13 @@ for node in nodes:
         for k, v in flatten(node, key='stats', path='node').iteritems():
             if type(v) is int or type(v) is float:
                 metric_path = k.lower()
-                perf_data += metric_path + '=' + str(v) + ';;;; '
+                buf.write('{0}={1};;;; '.format(metric_path, v))
 
 # buckets
 
 try:
     buckets = requests.get(URL + '/pools/default/buckets', auth=auth, timeout=60).json()
-except:
+except requests.HTTPError:
     buckets = []
 
 bucket_names = []
@@ -99,11 +104,11 @@ for name in bucket_names:
     for k, v in flatten(bucket, key=name, path='bucket').iteritems():
         if type(v) is int or type(v) is float:
             metric_path = k.lower()
-            perf_data += metric_path + '=' + str(v) + ';;;; '
+            buf.write('{0}={1};;;; '.format(metric_path, v))
 
 if healthy:
-    print success_message + perf_data
+    print success_message + buf.getvalue()
     sys.exit(0)
 else:
-    print failure_message + perf_data
+    print failure_message + buf.getvalue()
     sys.exit(2)

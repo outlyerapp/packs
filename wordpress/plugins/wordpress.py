@@ -2,6 +2,8 @@
 import requests
 import sys
 
+from outlyer.plugin_helper.container import patch_all
+patch_all()
 
 """
 This module requires the Wordpress Rest API V2 Module installed on your Wordpress Site to work. You can download
