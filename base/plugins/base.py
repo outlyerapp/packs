@@ -165,7 +165,7 @@ def check_diskio():
 
         # check for any device mapper partitions
         for partition in psutil.disk_partitions():
-            if '/dev/mapper' in partition.device:
+            if 'mapper' in os.listdir('/dev'):
                 dm = True
         # per device mapper friendly name io counters
         if dm:
