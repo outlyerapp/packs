@@ -4,9 +4,6 @@ import requests
 import StringIO
 from urllib import quote
 
-from outlyer.plugin_helper.container import patch_all
-patch_all()
-
 # Settings
 HOST = "localhost"
 USERNAME = "guest"
@@ -17,9 +14,6 @@ PROTO = "http"
 QUEUE_STATS = False
 EXCHANGE_STATS = False
 VERIFY_SSL = True
-
-exit_code = 0
-exit_message = "OK | "
 
 
 def request_data(path):
@@ -124,6 +118,9 @@ def get_partitions(node):
     resp = request_data("/api/nodes/%s" % node)
     return len(resp['partitions'])
 
+
+exit_code = 0
+exit_message = "OK | "
 
 try:
     # overview metrics
