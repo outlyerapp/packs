@@ -3,9 +3,6 @@ import sys
 import requests
 import StringIO
 
-from outlyer.plugin_helper.container import patch_all
-patch_all()
-
 URL = 'http://127.0.0.1:8098/stats'
 
 
