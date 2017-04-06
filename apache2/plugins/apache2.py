@@ -6,10 +6,6 @@ import psutil
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
-from outlyer.plugin_helper.container import patch_all
-patch_all()
-
-
 # Settings
 HOST = 'localhost'
 STATUS_URL = 'server-status?auto'
