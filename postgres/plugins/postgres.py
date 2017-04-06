@@ -7,7 +7,7 @@ import psycopg2.extras
 from time import sleep
 
 # settings
-HOST = '172.18.0.19'
+HOST = 'localhost'
 PORT = 5432
 DB = 'postgres'
 USER = 'postgres'
@@ -51,15 +51,15 @@ if pg_ver >= 9.6:
     q_activity = '''
     SELECT state, (CASE wait_event WHEN NULL THEN FALSE ELSE TRUE END) AS waiting,
         extract(EPOCH FROM current_timestamp - xact_start)::INT,
-        extract(EPOCH FROM current_timestamp - query_start)::INT 
+        extract(EPOCH FROM current_timestamp - query_start)::INT
     FROM pg_stat_activity
     '''
 else:
     # noinspection SqlResolve
     q_activity = '''
-    SELECT state, waiting, 
-        extract(EPOCH FROM current_timestamp - xact_start)::INT, 
-        extract(EPOCH FROM current_timestamp - query_start)::INT 
+    SELECT state, waiting,
+        extract(EPOCH FROM current_timestamp - xact_start)::INT,
+        extract(EPOCH FROM current_timestamp - query_start)::INT
     FROM pg_stat_activity
     '''
 
@@ -121,9 +121,9 @@ pg_metrics.update(
 # background writer query returns one row that needs to be parsed
 # noinspection SqlResolve
 q_bg_writer = '''
-  SELECT checkpoints_timed, checkpoints_req, checkpoint_write_time, 
-         checkpoint_sync_time, buffers_checkpoint, buffers_clean, 
-         buffers_backend, buffers_alloc 
+  SELECT checkpoints_timed, checkpoints_req, checkpoint_write_time,
+         checkpoint_sync_time, buffers_checkpoint, buffers_clean,
+         buffers_backend, buffers_alloc
   FROM pg_stat_bgwriter
   '''
 results = query_post(db_curs, q_bg_writer)
@@ -152,9 +152,9 @@ time_between = 5
 
 # noinspection SqlResolve
 q_stats = '''
-    SELECT (sum(xact_commit) + sum(xact_rollback)), sum(tup_inserted), 
-           sum(tup_updated), sum(tup_deleted), (sum(tup_returned) + sum(tup_fetched)), 
-           sum(blks_read), sum(blks_hit) 
+    SELECT (sum(xact_commit) + sum(xact_rollback)), sum(tup_inserted),
+           sum(tup_updated), sum(tup_deleted), (sum(tup_returned) + sum(tup_fetched)),
+           sum(blks_read), sum(blks_hit)
     FROM pg_stat_database
     '''
 results_past = query_post(db_curs, q_stats)
@@ -207,9 +207,9 @@ pg_metrics.update(
 # table statistics returns one row that needs to be parsed
 # noinspection SqlResolve
 q_table_stats = '''
-    SELECT sum(seq_tup_read), sum(idx_tup_fetch), 
-           extract(EPOCH FROM now() - min(last_vacuum))::INT/60/60, 
-           extract(EPOCH FROM now() - min(last_analyze))::INT/60/60 
+    SELECT sum(seq_tup_read), sum(idx_tup_fetch),
+           extract(EPOCH FROM now() - min(last_vacuum))::INT/60/60,
+           extract(EPOCH FROM now() - min(last_analyze))::INT/60/60
     FROM pg_stat_all_tables
     '''
 results = query_post(db_curs, q_table_stats)
