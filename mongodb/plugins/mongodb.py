@@ -4,9 +4,6 @@ import sys
 import time
 from pymongo import MongoClient
 
-from outlyer.plugin_helper.container import mongo
-mongo.patch()
-
 HOST = 'localhost'
 PORT = 27017
 INTERVAL = 5
