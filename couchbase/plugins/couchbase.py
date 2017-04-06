@@ -4,9 +4,6 @@ import requests
 import StringIO
 from requests.auth import HTTPBasicAuth
 
-from outlyer.plugin_helper.container import patch_all
-patch_all()
-
 
 # settings
 
@@ -23,7 +20,6 @@ healthy = True
 auth = HTTPBasicAuth(USER, PASSWORD)
 
 # functions
-
 
 def average_list(l):
     try:
