@@ -5,9 +5,6 @@ import time
 import json
 import StringIO
 
-from outlyer.plugin_helper.container import patch_all
-patch_all()
-
 
 def get_varnish_metrics():
     try:
