@@ -5,9 +5,6 @@ import sys
 import json
 from datetime import datetime
 
-from outlyer.plugin_helper.container import patch_all
-patch_all()
-
 
 # configure these settings
 
