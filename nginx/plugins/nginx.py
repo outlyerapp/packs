@@ -8,9 +8,6 @@ import tempfile
 import StringIO
 from datetime import datetime
 
-from outlyer.plugin_helper.container import patch_all, is_container, get_container_id
-patch_all()
-
 LOGFILE = '/var/log/nginx/access.log'
 
 
