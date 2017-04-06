@@ -3,10 +3,6 @@
 import sys
 import subprocess
 
-from outlyer.plugin_helper import container
-container.patch()
-
-
 try:
     output = subprocess.check_output(('redis-cli', 'info'))
 except Exception, e:
