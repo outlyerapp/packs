@@ -5,6 +5,7 @@ import sys
 import json
 from datetime import datetime
 
+
 # configure these settings
 
 MYSQL_USER = 'root'

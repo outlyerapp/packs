@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 import sys
 import requests
+import StringIO
 
 URL = 'http://127.0.0.1:8098/stats'
+
 
 try:
     resp = requests.get(URL).json()
@@ -10,14 +12,14 @@ except Exception, e:
     print "connection failed: %s" % e
     sys.exit(2)
 
-
-result = "OK | "
+buf = StringIO.StringIO()
+buf.write('OK | ')
 for k, v in resp.iteritems():
     if isinstance(v, int) or isinstance(v, float):
             if 'time' in k or 'latency' in k:
-                result += str(k) + '=' + str(v/1000) + 'ms;;;; '
+                buf.write('{0}={1}ms;;;; '.format(k, v / 1000))
             else:
-                result += str(k) + '=' + str(v) + ';;;; '
+                buf.write('{0}={1};;;; '.format(k, v))
 
-print result
+print buf.getvalue()
 sys.exit(0)

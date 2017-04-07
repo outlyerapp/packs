@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import sys
 import time
 from pymongo import MongoClient
@@ -6,6 +7,7 @@ from pymongo import MongoClient
 HOST = 'localhost'
 PORT = 27017
 INTERVAL = 5
+
 
 try:
     client = MongoClient(HOST, PORT)

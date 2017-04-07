@@ -1,22 +1,19 @@
 #!/usr/bin/env python
-import subprocess
 import sys
+import subprocess
 import time
+import json
+import StringIO
 
 
 def get_varnish_metrics():
     try:
-        ps = subprocess.Popen(('/usr/bin/varnishstat', '-1'), stdout=subprocess.PIPE)
-        data = subprocess.check_output(('awk', '{print $1,$2}'), stdin=ps.stdout)
-        ps.wait()
-        if ps.returncode != 0:
-            print "Plugin Failed!"
-            sys.exit(2)
+        data = json.loads(subprocess.check_output('varnishstat -j'))
         m = {}
-        for line in data.splitlines():
-            if len(line.split()) > 0:
-                name = line.split()[0].lower().replace('(', '_').replace(')', '_').replace(',,', '_')
-                m[name] = line.split()[1]
+        for name, desc in data.iteritems():
+            if isinstance(desc, dict):
+                value = desc.get('value')
+                m[name.lower()] = value
         return m
     except Exception, e:
         print "Plugin Failed! %s" % e
@@ -37,9 +34,10 @@ for metric, value in metrics.iteritems():
 
 metrics.update(metric_rates)
 
-output = "OK | "
+buf = StringIO.StringIO()
+buf.write('OK | ')
 for k, v in metrics.iteritems():
-    output += str(k) + '=' + str(v) + ';;;; '
+    buf.write('{0}={1};;;; '.format(k, v))
 
-print output
+print buf.getvalue()
 sys.exit(0)
