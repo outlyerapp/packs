@@ -1,157 +1,138 @@
 title: Docker
+annotations: []
 period: 600
+locked: false
 positions:
   - title: status
     data_type: boolean
     type: status
     color: green
+    icon: true
+    legend: false
     row: 1
     col: 1
     size_x: 1
     size_y: 2
-    legend: false
-    icon: true
     series:
       - metric: 'source:status'
         scope:
           tag: docker
-  - title: running containers
+  - title: base.count
     data_type: number
     type: number
     color: green
+    icon: false
+    filter: sum
+    legend: false
     row: 1
     col: 2
     size_x: 2
     size_y: 2
-    legend: false
-    icon: false
-    filter: sum
     series:
       - metric: base.count
         scope:
           tag: docker
-  - title: percent memory memory
+  - title: base.load_1_min
     data_type: number
     type: detailed-chart
-    color: navy
+    color: olive
+    icon: true
+    filter: avg
+    legend: false
     row: 1
     col: 4
     size_x: 3
     size_y: 2
-    legend: false
-    icon: true
-    filter: avg
     series:
-      - metric: base.memory
+      - metric: base.load_1_min
         scope:
           tag: docker
-  - title: network transmit and receive errors
+  - title: base.cpu
     data_type: number
     type: detailed-chart
     color: purple
-    row: 1
-    col: 7
-    size_x: 2
-    size_y: 2
-    legend: false
     icon: true
     filter: avg
-    series:
-      - metric: network.rx_errors
-        scope:
-          tag: docker
-      - metric: network.tx_errors
-        scope:
-          tag: docker
-  - title: percent cpu used
-    data_type: number
-    type: detailed-chart
-    color: blue
+    legend: false
     row: 3
     col: 1
-    size_x: 3
+    size_x: 6
     size_y: 2
-    legend: false
-    icon: true
-    filter: avg
     series:
       - metric: base.cpu
         scope:
           tag: docker
-  - title: memory working set
+  - title: base.memory
     data_type: number
     type: detailed-chart
-    color: olive
-    row: 3
-    col: 4
-    size_x: 3
-    size_y: 2
-    legend: false
+    color: orange
     icon: true
     filter: avg
-    series:
-      - metric: memory.working_set
-        scope:
-          tag: docker
-  - title: network transmit and received dropped
-    data_type: number
-    type: detailed-chart
-    color: green
-    row: 3
-    col: 7
+    legend: false
+    row: 5
+    col: 1
     size_x: 2
     size_y: 2
-    legend: false
+    series:
+      - metric: base.memory
+        scope:
+          tag: docker
+  - title: base.memory.used
+    data_type: number
+    type: stacked-chart
+    color: yellow
     icon: true
     filter: avg
-    series:
-      - metric: network.rx_dropped
-        scope:
-          tag: docker
-      - metric: network.tx_dropped
-        scope:
-          tag: docker
-  - title: cpu load average
-    data_type: number
-    type: detailed-chart
-    color: olive
+    legend: false
     row: 5
+    col: 3
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: base.memory.used
+        scope:
+          tag: docker
+  - title: base.memory.total
+    data_type: number
+    type: stacked-chart
+    color: yellow
+    icon: true
+    filter: avg
+    legend: false
+    row: 5
+    col: 5
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: base.memory.total
+        scope:
+          tag: docker
+  - title: base.net_download
+    data_type: number
+    type: chart
+    color: blue
+    icon: true
+    filter: avg
+    legend: false
+    row: 7
     col: 1
     size_x: 3
     size_y: 2
-    legend: false
-    icon: true
-    filter: avg
-    series:
-      - metric: cpu.load_average
-        scope:
-          tag: docker
-  - title: network download (kps)
-    data_type: number
-    type: detailed-chart
-    color: fuchsia
-    row: 5
-    col: 4
-    size_x: 3
-    size_y: 2
-    legend: false
-    icon: true
-    filter: avg
     series:
       - metric: base.net_download
         scope:
           tag: docker
-  - title: network upload (kps)
+  - title: base.net_upload
     data_type: number
-    type: detailed-chart
-    color: purple
-    row: 5
-    col: 7
-    size_x: 2
-    size_y: 2
-    legend: false
+    type: chart
+    color: fuchsia
     icon: true
     filter: avg
+    legend: false
+    row: 7
+    col: 4
+    size_x: 3
+    size_y: 2
     series:
       - metric: base.net_upload
         scope:
