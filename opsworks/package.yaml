@@ -3,6 +3,6 @@ author: Dataloop.IO
 version: 1.0.0
 description: Dashboards and alert rules for OpsWorks stacks monitored with the AWS integration
 icon:
-    name: opsworks
-    background: orange
+    name: aws
+    background: "#769A3E"
     foreground: white

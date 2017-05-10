@@ -6,5 +6,5 @@ processes:
 description: Queries the stats and health endpoints for all Elasticsearch metrics
 icon:
     name: elasticsearch
-    background: "#31beb1"
-    foreground: white
+    background: "#38BFB0"
+    foreground: "#231F20"

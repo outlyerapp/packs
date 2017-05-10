@@ -7,5 +7,5 @@ description: This pack requires the dataloop/dataloop-docker container to be sta
 instructions_required: true
 icon:
     name: docker
-    background: lightblue
+    background: "#0086CC"
     foreground: white

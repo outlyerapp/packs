@@ -6,5 +6,5 @@ processes:
 description: high-performance, distributed memory object caching system metrics
 icon:
     name: memcache
-    background: dimgray
-    foreground: lightseagreen
+    background: "#554D4A"
+    foreground: "#258E84"

@@ -4,5 +4,5 @@ version: 1.0.0
 description: Dashboards and alert rules for SQS queues monitored with the AWS integration
 icon:
     name: sqs
-    background: orange
+    background: "#D9A73F"
     foreground: white

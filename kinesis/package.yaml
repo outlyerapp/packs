@@ -4,5 +4,5 @@ version: 1.0.0
 description: Dashboards and alert rules for kinesis monitored with the AWS integration
 icon:
     name: kinesis
-    background: orange
+    background: "#F58537"
     foreground: white

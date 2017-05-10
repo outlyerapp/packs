@@ -5,5 +5,5 @@ description: Add metrics from Google Analytics to your dashboards.
 instructions_required: true
 icon:
     name: website
-    background: "#F7981E"
-    foreground: "#EE5A30"
+    background: "#F2570E"
+    foreground: white

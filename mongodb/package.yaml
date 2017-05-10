@@ -7,5 +7,5 @@ processes:
 description: Every metric from mongostat
 icon:
     name: mongodb
-    background: green
-    foreground: white
+    background: "#343637"
+    foreground: "#63B43D"

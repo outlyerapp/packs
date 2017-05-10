@@ -7,5 +7,5 @@ description: MySQL monitoring. You may need to edit the mysql.py plugin to set u
 instructions_required: true
 icon:
     name: mysql
-    background: orange
-    foreground: darkblue
+    background: "#E48E00"
+    foreground: "#00618A"

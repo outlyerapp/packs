@@ -6,5 +6,5 @@ processes:
 description: Metrics from Microsoft Internet Information Services
 icon:
     name: iis
-    background: midnightblue
+    background: "#0075CC"
     foreground: white

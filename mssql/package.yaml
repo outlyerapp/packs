@@ -4,6 +4,6 @@ version: 1.0.0
 description: Microsoft SQL Server metrics
 icon:
     name: mssql
-    background: white
-    foreground: crimson
+    background: "#AAB3BD"
+    foreground: "#E2312A"
 processes: []

@@ -7,5 +7,5 @@ processes:
     - haproxy
 icon:
     name: haproxy
-    background: white
-    foreground: blue
+    background: "#071BE2"
+    foreground: white
