@@ -7,5 +7,5 @@ processes:
 description: Postfix status, mail queue size and cpu / memory stats for core processes
 icon:
     name: postfix
-    background: gray
-    foreground: white
+    background: "#555753"
+    foreground: "#F7EDA6"

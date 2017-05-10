@@ -5,5 +5,5 @@ description: Scrapes the php-fpm status page for metrics
 instructions_required: true
 icon:
     name: process
-    background: blue
+    background: "#8993BE"
     foreground: white

@@ -4,5 +4,5 @@ version: 1.0.0
 description: Dashboards and alert rules for relational databases monitored with the AWS integration
 icon:
     name: amazon-rds
-    background: orange
+    background: "#3174B6"
     foreground: white

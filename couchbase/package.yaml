@@ -7,5 +7,5 @@ description: Cluster health, node metrics and bucket stats.
 instructions_required: true
 icon:
     name: couchbase
-    background: red
+    background: "#F01E19"
     foreground: white

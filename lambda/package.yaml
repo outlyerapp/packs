@@ -4,5 +4,5 @@ version: 1.0.0
 description: Dashboards and alert rules for lambda monitored with the AWS integration
 icon:
     name: lambda
-    background: orange
+    background: "#F58537"
     foreground: white
