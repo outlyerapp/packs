@@ -8,7 +8,9 @@ import tempfile
 import StringIO
 from datetime import datetime
 
-LOGFILE = '/var/log/nginx/access.log'
+LOGFILE = '/var/log/nginx/access.log'  # change this to 'stdout' 
+# if you log to stdout on a container
+
 SINCE = 30
 
 
