@@ -3,8 +3,7 @@ import os
 import re
 import sys
 import time
-import subprocess
-import tempfile
+import psutil
 import StringIO
 from datetime import datetime
 
@@ -108,24 +107,34 @@ for line in read(LOGFILE, since=SINCE):
         continue
 
 # nginx health check
+def get_proc_name(proc):
+    try:
+        return proc.name()
+    except psutil.AccessDenied:
+        # IGNORE: we don't have permission to access this process
+        pass
+    except psutil.NoSuchProcess:
+        # IGNORE: process has died between listing and getting info
+        pass
+    except Exception as e:
+        print "error accessing process info: %s" % e
+    return None
+
+def nginx_process():
+    for p in psutil.process_iter():
+        process_name = get_proc_name(p)
+        if process_name == 'nginx':
+            return True
 
 nginx_running = False
-worker_count = 0
-
-output = subprocess.check_output("ps awux")
-if re.search(r'nginx: master process', output, re.MULTILINE):
-    nginx_running = True
-    worker_count = len(re.findall(r'nginx: worker process', output))
+nginx_running = nginx_process()
 
 if not nginx_running:
     print "CRITICAL - nginx master process is not running"
     sys.exit(2)
 
-
-
 buf = StringIO.StringIO()
 buf.write('OK | ')
-buf.write('worker_count={0};;;; '.format(worker_count))
 
 for k, v in status_codes.iteritems():
     buf.write('{0}={1};;;; '.format(k, v))
