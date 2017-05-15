@@ -95,16 +95,6 @@ def find_vars(text):
 def log_format_2_regex(text):
     return ''.join('(?P<' + g + '>.*?)' if g else re.escape(c) for g, c in find_vars(text))
 
-timed_combined_regex = re.compile(log_format_2_regex(TIMED_COMBINED_FORMAT))
-combined_regex = re.compile(log_format_2_regex(COMBINED_FORMAT))
-
-for line in read(LOGFILE, since=SINCE):
-    try:
-        stop = update_stats(line)
-        if stop:
-            break
-    except (AttributeError, ValueError):
-        continue
 
 # nginx health check
 def get_proc_name(proc):
@@ -138,6 +128,19 @@ nginx_running = find_nginx_process()
 if not nginx_running:
     print "CRITICAL - nginx master process is not running"
     sys.exit(2)
+
+
+timed_combined_regex = re.compile(log_format_2_regex(TIMED_COMBINED_FORMAT))
+combined_regex = re.compile(log_format_2_regex(COMBINED_FORMAT))
+
+for line in read(LOGFILE, since=SINCE):
+    try:
+        stop = update_stats(line)
+        if stop:
+            break
+    except (AttributeError, ValueError):
+        continue
+
 
 buf = StringIO.StringIO()
 buf.write('OK | ')
