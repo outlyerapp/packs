@@ -16,22 +16,26 @@ SINCE = 30
 # log file parsing
 
 def reverse_read(fname, separator=os.linesep, since=None):
-    with file(fname) as f:
-        f.seek(0, 2)  # go to end of file
-        fsize = f.tell()
-        r_cursor = 1
-        while r_cursor <= fsize:
-            a_line = ''
+    try:
+        with file(fname) as f:
+            f.seek(0, 2)  # go to end of file
+            fsize = f.tell()
+            r_cursor = 1
             while r_cursor <= fsize:
-                f.seek(-1 * r_cursor, 2)
-                r_cursor += 1
-                c = f.read(1)
-                if c == separator and a_line:
-                    r_cursor -= 1
-                    break
-                a_line += c
-            a_line = a_line[::-1]
-            yield a_line
+                a_line = ''
+                while r_cursor <= fsize:
+                    f.seek(-1 * r_cursor, 2)
+                    r_cursor += 1
+                    c = f.read(1)
+                    if c == separator and a_line:
+                        r_cursor -= 1
+                        break
+                    a_line += c
+                a_line = a_line[::-1]
+                yield a_line
+    except IOError as e:
+        print "Could not open %s due to error: %s" % (fname, e)
+        sys.exit(2)
 
 try:
     if not read:
@@ -95,16 +99,6 @@ def find_vars(text):
 def log_format_2_regex(text):
     return ''.join('(?P<' + g + '>.*?)' if g else re.escape(c) for g, c in find_vars(text))
 
-timed_combined_regex = re.compile(log_format_2_regex(TIMED_COMBINED_FORMAT))
-combined_regex = re.compile(log_format_2_regex(COMBINED_FORMAT))
-
-for line in read(LOGFILE, since=SINCE):
-    try:
-        stop = update_stats(line)
-        if stop:
-            break
-    except (AttributeError, ValueError):
-        continue
 
 # nginx health check
 def get_proc_name(proc):
@@ -120,18 +114,37 @@ def get_proc_name(proc):
         print "error accessing process info: %s" % e
     return None
 
-def nginx_process():
+def find_nginx_process_psutil():
     for p in psutil.process_iter():
         process_name = get_proc_name(p)
         if process_name == 'nginx':
             return True
 
+try:
+    if not find_nginx_process:
+        find_nginx_process = find_nginx_process_psutil
+except NameError:
+    find_nginx_process = find_nginx_process_psutil
+
 nginx_running = False
-nginx_running = nginx_process()
+nginx_running = find_nginx_process()
 
 if not nginx_running:
     print "CRITICAL - nginx master process is not running"
     sys.exit(2)
+
+
+timed_combined_regex = re.compile(log_format_2_regex(TIMED_COMBINED_FORMAT))
+combined_regex = re.compile(log_format_2_regex(COMBINED_FORMAT))
+
+for line in read(LOGFILE, since=SINCE):
+    try:
+        stop = update_stats(line)
+        if stop:
+            break
+    except (AttributeError, ValueError):
+        continue
+
 
 buf = StringIO.StringIO()
 buf.write('OK | ')
