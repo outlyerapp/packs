@@ -128,9 +128,9 @@ def find_nginx_process_psutil():
 
 try:
     if not find_nginx_process:
-        find_nginx_process = find_nginx_process_psutil()
+        find_nginx_process = find_nginx_process_psutil
 except NameError:
-    find_nginx_process = find_nginx_process_psutil()
+    find_nginx_process = find_nginx_process_psutil
 
 nginx_running = False
 nginx_running = find_nginx_process()
