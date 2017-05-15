@@ -120,14 +120,20 @@ def get_proc_name(proc):
         print "error accessing process info: %s" % e
     return None
 
-def nginx_process():
+def find_nginx_process_psutil():
     for p in psutil.process_iter():
         process_name = get_proc_name(p)
         if process_name == 'nginx':
             return True
 
+try:
+    if not find_nginx_process:
+        find_nginx_process = find_nginx_process_psutil()
+except NameError:
+    find_nginx_process = find_nginx_process_psutil()
+
 nginx_running = False
-nginx_running = nginx_process()
+nginx_running = find_nginx_process()
 
 if not nginx_running:
     print "CRITICAL - nginx master process is not running"
