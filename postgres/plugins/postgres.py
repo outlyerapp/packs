@@ -44,6 +44,14 @@ except Exception as ex:
 db_curs = db_conn.cursor()
 pg_ver = get_pg_version(db_curs)
 
+
+# backends query
+q_backends = 'SELECT sum(numbackends) FROM pg_stat_database;'
+results = query_post(db_curs, q_backends)
+pg_metrics.update({
+    'pypg_connections': int(results[0][0] or 0)
+    })
+
 # single session state query avoids multiple scans of pg_stat_activity
 # state is a different column name in postgres 9.2, previous versions will have to update this query accordingly
 if pg_ver >= 9.6:
