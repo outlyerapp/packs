@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 import sys
 import re
 import StringIO
@@ -7,7 +8,7 @@ import psycopg2.extras
 from time import sleep
 
 # settings
-HOST = 'localhost'
+HOST = os.environ.get("CONTAINER_IP", 'localhost')
 PORT = 5432
 DB = 'postgres'
 USER = 'postgres'
