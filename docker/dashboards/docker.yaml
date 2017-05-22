@@ -35,7 +35,7 @@ positions:
       - metric: base.count
         scope:
           tag: docker
-  - title: load 1
+  - title: 1 min load avg
     data_type: number
     type: detailed-chart
     color: olive
@@ -83,7 +83,7 @@ positions:
       - metric: base.memory
         scope:
           tag: docker
-  - title: memory used
+  - title: memory used (bytes)
     data_type: number
     type: stacked-chart
     color: yellow
@@ -99,7 +99,7 @@ positions:
       - metric: base.memory.used
         scope:
           tag: docker
-  - title: memory total
+  - title: memory total (bytes)
     data_type: number
     type: stacked-chart
     color: yellow
