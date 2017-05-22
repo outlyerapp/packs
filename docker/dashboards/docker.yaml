@@ -8,16 +8,18 @@ positions:
     type: status
     color: green
     icon: true
+    filter: max
     legend: false
     row: 1
     col: 1
     size_x: 1
     size_y: 2
+    widget_type: status
     series:
       - metric: 'source:status'
         scope:
           tag: docker
-  - title: base.count
+  - title: containers
     data_type: number
     type: number
     color: green
@@ -28,11 +30,12 @@ positions:
     col: 2
     size_x: 2
     size_y: 2
+    widget_type: number
     series:
       - metric: base.count
         scope:
           tag: docker
-  - title: base.load_1_min
+  - title: 1 min load avg
     data_type: number
     type: detailed-chart
     color: olive
@@ -43,96 +46,103 @@ positions:
     col: 4
     size_x: 3
     size_y: 2
+    widget_type: detailed-chart
     series:
       - metric: base.load_1_min
         scope:
           tag: docker
-  - title: base.cpu
+  - title: 'cpu (%)'
     data_type: number
     type: detailed-chart
     color: purple
     icon: true
     filter: avg
-    legend: false
+    legend: true
     row: 3
     col: 1
     size_x: 6
-    size_y: 2
+    size_y: 4
+    widget_type: detailed-chart
     series:
       - metric: base.cpu
         scope:
           tag: docker
-  - title: base.memory
+  - title: 'memory used (%)'
     data_type: number
     type: detailed-chart
     color: orange
     icon: true
     filter: avg
     legend: false
-    row: 5
+    row: 7
     col: 1
     size_x: 2
     size_y: 2
+    widget_type: detailed-chart
     series:
       - metric: base.memory
         scope:
           tag: docker
-  - title: base.memory.used
+  - title: memory used (bytes)
     data_type: number
     type: stacked-chart
     color: yellow
     icon: true
     filter: avg
     legend: false
-    row: 5
+    row: 7
     col: 3
     size_x: 2
     size_y: 2
+    widget_type: stacked-chart
     series:
       - metric: base.memory.used
         scope:
           tag: docker
-  - title: base.memory.total
+  - title: memory total (bytes)
     data_type: number
     type: stacked-chart
     color: yellow
     icon: true
     filter: avg
     legend: false
-    row: 5
+    row: 7
     col: 5
     size_x: 2
     size_y: 2
+    widget_type: stacked-chart
     series:
       - metric: base.memory.total
         scope:
           tag: docker
-  - title: base.net_download
+  - title: net download
     data_type: number
     type: chart
     color: blue
     icon: true
     filter: avg
     legend: false
-    row: 7
+    row: 9
     col: 1
     size_x: 3
     size_y: 2
+    widget_type: chart
     series:
       - metric: base.net_download
         scope:
           tag: docker
-  - title: base.net_upload
+  - title: net upload
     data_type: number
     type: chart
     color: fuchsia
     icon: true
     filter: avg
     legend: false
-    row: 7
+    row: 9
     col: 4
     size_x: 3
     size_y: 2
+    widget_type: chart
     series:
       - metric: base.net_upload
         scope:
