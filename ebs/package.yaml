@@ -3,6 +3,6 @@ author: Dataloop.IO
 version: 1.0.0
 description: Dashboards and alert rules for EBS volumes monitored with the AWS integration
 icon:
-    name: ebs
-    background: orange
+    name: aws
+    background: "#F88D00"
     foreground: white

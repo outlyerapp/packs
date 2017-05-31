@@ -88,6 +88,11 @@ def get_mysql_status(version):
     metric_list = resp.split('\n')
     metric_list.sort()
     for line in metric_list:
+        if line.startswith('mysql: [Warning]'):
+            continue
+        if line.startswith('ERROR'):
+            print line
+            sys.exit(2)
         if line:
             metric = line.split('\t')
             k = metric[0].strip().lower()
@@ -124,6 +129,11 @@ def get_version():
 
     metric_list = resp.split('\n')
     for line in metric_list:
+        if line.startswith('mysql: [Warning]'):
+            continue
+        if line.startswith('ERROR'):
+            print line
+            sys.exit(2)
         if line:
             metric = line.split('\t')
             instance_version = metric[1]
@@ -151,30 +161,24 @@ def convert_sizes_from_bytes(k, v):
 # rate calculation
 #
 
-
-def tmp_file():
-    if not os.path.isdir(TMPDIR):
-        os.makedirs(TMPDIR)
-    if not os.path.isfile(TMPDIR + '/' + TMPFILE):
-        os.mknod(TMPDIR + '/' + TMPFILE)
-
-
 def get_cache():
-    with open(TMPDIR + '/' + TMPFILE, 'r') as json_fp:
-        try:
+    json_data = []
+    try:
+        with open(TMPDIR + '/' + TMPFILE, 'r') as json_fp:
             json_data = json.load(json_fp)
-        except Exception, e:
-            print "Not a valid json file. rates calculations impossible: %s" % e
-            json_data = []
+    except Exception as e:
+        print "Not a valid json file. rates calculations impossible: %s" % e
     return json_data
 
 
 def write_cache(cache):
-    with open(TMPDIR + '/' + TMPFILE, 'w') as json_fp:
-        try:
+    if not os.path.isdir(TMPDIR):
+        os.makedirs(TMPDIR)
+    try:
+        with open(TMPDIR + '/' + TMPFILE, 'w') as json_fp:
             json.dump(cache, json_fp)
-        except Exception, e:
-            print "Unable to write cache file, future rates will be hard to calculate: %s" % e
+    except Exception, e:
+        print "Unable to write cache file, future rates will be hard to calculate: %s" % e
 
 
 def cleanse_cache(cache):
@@ -208,7 +212,6 @@ def calculate_rates(data_now, json_data, rateme):
         except Exception, e:
             return None
 
-tmp_file()
 json_data = get_cache()
 
 if len(json_data) > 0:

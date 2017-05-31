@@ -4,5 +4,5 @@ version: 1.0.0
 description: Dashboards and alert rules for SNS notifications monitored with the AWS integration
 icon:
     name: sns
-    background: orange
+    background: "#C17B9E"
     foreground: white

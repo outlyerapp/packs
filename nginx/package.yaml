@@ -1,12 +1,12 @@
 title: Nginx
 author: Dataloop.IO
-version: 1.0.1
+version: 1.1.0
 processes:
     - nginx
 description: Nginx http codes and response times. You will need to follow the instructions in nginx.py for setup.
 instructions_required: true
 icon:
     name: nginx
-    background: green
+    background: "#009639"
     foreground: white
 

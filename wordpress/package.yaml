@@ -5,5 +5,5 @@ description: Monitors a Wordpress site and pulls out key stats.
 instructions_required: true
 icon:
     name: wordpress
-    background: "#21759b"
-    foreground: "#EEEEEE"
+    background: "#1A749C"
+    foreground: white

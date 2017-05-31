@@ -5,5 +5,3 @@ description: Tracks your agent usage across your Dataloop.IO Organisation for bi
 instructions_required: true
 icon:
     name: logo-loop
-    background: white
-    foreground: "#54A3DA"

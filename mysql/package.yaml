@@ -1,11 +1,11 @@
 title: MySQL
 author: Dataloop.IO
-version: 1.0.1
+version: 1.0.2
 processes:
     - mysqld
 description: MySQL monitoring. You may need to edit the mysql.py plugin to set username and password.
 instructions_required: true
 icon:
     name: mysql
-    background: orange
-    foreground: darkblue
+    background: "#E48E00"
+    foreground: "#00618A"

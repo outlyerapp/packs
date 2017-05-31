@@ -4,5 +4,5 @@ version: 1.0.0
 description: Dashboards and alert rules for elasticache monitored with the AWS integration
 icon:
     name: elasticache
-    background: orange
+    background: "#2D72B8"
     foreground: white

@@ -7,5 +7,5 @@ description: Scrapes the management plugin to return overview statistics. Option
 instructions_required: true
 icon:
     name: rabbitmq
-    background: orange
+    background: "#FF6600"
     foreground: white

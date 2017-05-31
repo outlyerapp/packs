@@ -1,157 +1,148 @@
 title: Docker
+annotations: []
 period: 600
+locked: false
 positions:
   - title: status
     data_type: boolean
     type: status
     color: green
+    icon: true
+    filter: max
+    legend: false
     row: 1
     col: 1
     size_x: 1
     size_y: 2
-    legend: false
-    icon: true
+    widget_type: status
     series:
       - metric: 'source:status'
         scope:
           tag: docker
-  - title: running containers
+  - title: containers
     data_type: number
     type: number
     color: green
+    icon: false
+    filter: sum
+    legend: false
     row: 1
     col: 2
     size_x: 2
     size_y: 2
-    legend: false
-    icon: false
-    filter: sum
+    widget_type: number
     series:
       - metric: base.count
         scope:
           tag: docker
-  - title: percent memory memory
+  - title: 1 min load avg
     data_type: number
     type: detailed-chart
-    color: navy
+    color: olive
+    icon: true
+    filter: avg
+    legend: false
     row: 1
     col: 4
     size_x: 3
     size_y: 2
-    legend: false
-    icon: true
-    filter: avg
+    widget_type: detailed-chart
     series:
-      - metric: base.memory
+      - metric: base.load_1_min
         scope:
           tag: docker
-  - title: network transmit and receive errors
+  - title: 'cpu (%)'
     data_type: number
     type: detailed-chart
     color: purple
-    row: 1
-    col: 7
-    size_x: 2
-    size_y: 2
-    legend: false
     icon: true
     filter: avg
-    series:
-      - metric: network.rx_errors
-        scope:
-          tag: docker
-      - metric: network.tx_errors
-        scope:
-          tag: docker
-  - title: percent cpu used
-    data_type: number
-    type: detailed-chart
-    color: blue
+    legend: true
     row: 3
     col: 1
-    size_x: 3
-    size_y: 2
-    legend: false
-    icon: true
-    filter: avg
+    size_x: 6
+    size_y: 4
+    widget_type: detailed-chart
     series:
       - metric: base.cpu
         scope:
           tag: docker
-  - title: memory working set
+  - title: 'memory used (%)'
     data_type: number
     type: detailed-chart
-    color: olive
-    row: 3
-    col: 4
-    size_x: 3
-    size_y: 2
-    legend: false
+    color: orange
     icon: true
     filter: avg
-    series:
-      - metric: memory.working_set
-        scope:
-          tag: docker
-  - title: network transmit and received dropped
-    data_type: number
-    type: detailed-chart
-    color: green
-    row: 3
-    col: 7
+    legend: false
+    row: 7
+    col: 1
     size_x: 2
     size_y: 2
-    legend: false
+    widget_type: detailed-chart
+    series:
+      - metric: base.memory
+        scope:
+          tag: docker
+  - title: memory used (bytes)
+    data_type: number
+    type: stacked-chart
+    color: yellow
     icon: true
     filter: avg
+    legend: false
+    row: 7
+    col: 3
+    size_x: 2
+    size_y: 2
+    widget_type: stacked-chart
     series:
-      - metric: network.rx_dropped
+      - metric: base.memory.used
         scope:
           tag: docker
-      - metric: network.tx_dropped
-        scope:
-          tag: docker
-  - title: cpu load average
+  - title: memory total (bytes)
     data_type: number
-    type: detailed-chart
-    color: olive
-    row: 5
+    type: stacked-chart
+    color: yellow
+    icon: true
+    filter: avg
+    legend: false
+    row: 7
+    col: 5
+    size_x: 2
+    size_y: 2
+    widget_type: stacked-chart
+    series:
+      - metric: base.memory.total
+        scope:
+          tag: docker
+  - title: net download
+    data_type: number
+    type: chart
+    color: blue
+    icon: true
+    filter: avg
+    legend: false
+    row: 9
     col: 1
     size_x: 3
     size_y: 2
-    legend: false
-    icon: true
-    filter: avg
-    series:
-      - metric: cpu.load_average
-        scope:
-          tag: docker
-  - title: network download (kps)
-    data_type: number
-    type: detailed-chart
-    color: fuchsia
-    row: 5
-    col: 4
-    size_x: 3
-    size_y: 2
-    legend: false
-    icon: true
-    filter: avg
+    widget_type: chart
     series:
       - metric: base.net_download
         scope:
           tag: docker
-  - title: network upload (kps)
+  - title: net upload
     data_type: number
-    type: detailed-chart
-    color: purple
-    row: 5
-    col: 7
-    size_x: 2
-    size_y: 2
-    legend: false
+    type: chart
+    color: fuchsia
     icon: true
     filter: avg
+    legend: false
+    row: 9
+    col: 4
+    size_x: 3
+    size_y: 2
+    widget_type: chart
     series:
       - metric: base.net_upload
         scope:

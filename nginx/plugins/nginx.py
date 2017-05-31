@@ -3,30 +3,75 @@ import os
 import re
 import sys
 import time
-import subprocess
-import tempfile
+import psutil
 import StringIO
 from datetime import datetime
 
-LOGFILE = '/var/log/nginx/access.log'
+LOGFILE = '/var/log/nginx/access.log'  # change this to 'stdout' 
+# if you log to stdout on a container
 
-
-# nginx health check
-
-nginx_running = False
-worker_count = 0
-
-output = subprocess.check_output("ps awux")
-if re.search(r'nginx: master process', output, re.MULTILINE):
-    nginx_running = True
-    worker_count = len(re.findall(r'nginx: worker process', output))
-
-if not nginx_running:
-    print "CRITICAL - nginx master process is not running"
-    sys.exit(2)
+SINCE = 30
 
 
 # log file parsing
+
+def reverse_read(fname, separator=os.linesep, since=None):
+    try:
+        with file(fname) as f:
+            f.seek(0, 2)  # go to end of file
+            fsize = f.tell()
+            r_cursor = 1
+            while r_cursor <= fsize:
+                a_line = ''
+                while r_cursor <= fsize:
+                    f.seek(-1 * r_cursor, 2)
+                    r_cursor += 1
+                    c = f.read(1)
+                    if c == separator and a_line:
+                        r_cursor -= 1
+                        break
+                    a_line += c
+                a_line = a_line[::-1]
+                yield a_line
+    except IOError as e:
+        print "Could not open %s due to error: %s" % (fname, e)
+        sys.exit(2)
+
+try:
+    if not read:
+        read = reverse_read
+except NameError:
+    read = reverse_read
+
+def update_stats(line):
+    m = timed_combined_regex.match(line)
+    if not m:
+        m = combined_regex.match(line)
+
+    data = m.groupdict()
+
+    line_time = datetime.strptime(data['time_local'], '%d/%b/%Y:%H:%M:%S ' + timezone)
+    delta = start_time - line_time
+    if delta.seconds < SINCE:
+        code = data['status']
+        status_codes[code] = status_codes.get(code, 0) + 1
+        status_codes[code[0] + 'xx'] += 1
+        try:
+            if 'request_time' in data.iterkeys():
+                time_taken = float(data['request_time'])
+                if 'min' not in times.iterkeys():
+                    times['min'] = time_taken
+                times['count'] += 1
+                times['total'] += time_taken
+                if time_taken > times['max']:
+                    times['max'] = time_taken
+                if time_taken < times['min']:
+                    times['min'] = time_taken
+        except ValueError:
+            # Request time not castable to float (like '-')
+            pass
+    else:
+        return True
 
 COMBINED_FORMAT = '$remote_addr - $remote_user [$time_local] "$request" $status ' \
            '$body_bytes_sent "$http_referer" "$http_user_agent" '
@@ -47,26 +92,6 @@ times = {
     'max': 0
 }
 
-
-def reverse_read(fname, separator=os.linesep):
-    with file(fname) as f:
-        f.seek(0, 2)
-        fsize = f.tell()
-        r_cursor = 1
-        while r_cursor <= fsize:
-            a_line = ''
-            while r_cursor <= fsize:
-                f.seek(-1 * r_cursor, 2)
-                r_cursor += 1
-                c = f.read(1)
-                if c == separator and a_line:
-                    r_cursor -= 1
-                    break
-                a_line += c
-            a_line = a_line[::-1]
-            yield a_line
-
-
 def find_vars(text):
     return var_pattern.findall(text)
 
@@ -75,62 +100,54 @@ def log_format_2_regex(text):
     return ''.join('(?P<' + g + '>.*?)' if g else re.escape(c) for g, c in find_vars(text))
 
 
-logfile = LOGFILE
-temp_file = ''
+# nginx health check
+def get_proc_name(proc):
+    try:
+        return proc.name()
+    except psutil.AccessDenied:
+        # IGNORE: we don't have permission to access this process
+        pass
+    except psutil.NoSuchProcess:
+        # IGNORE: process has died between listing and getting info
+        pass
+    except Exception as e:
+        print "error accessing process info: %s" % e
+    return None
 
-if is_container():
+def find_nginx_process_psutil():
+    for p in psutil.process_iter():
+        process_name = get_proc_name(p)
+        if process_name == 'nginx':
+            return True
 
-    import docker
-    client = docker.from_env()
-    target = client.containers.get(get_container_id())
+try:
+    if not find_nginx_process:
+        find_nginx_process = find_nginx_process_psutil
+except NameError:
+    find_nginx_process = find_nginx_process_psutil
 
-    temp_file = tempfile.mkstemp()[1]
-    log_stream, _ = target.get_archive(logfile)
-    with open(temp_file, 'w') as temp:
-        temp.write(log_stream.read())
+nginx_running = False
+nginx_running = find_nginx_process()
 
-    logfile = temp_file
+if not nginx_running:
+    print "CRITICAL - nginx master process is not running"
+    sys.exit(2)
 
 
 timed_combined_regex = re.compile(log_format_2_regex(TIMED_COMBINED_FORMAT))
 combined_regex = re.compile(log_format_2_regex(COMBINED_FORMAT))
 
-for line in reverse_read(logfile):
+for line in read(LOGFILE, since=SINCE):
     try:
-        m = timed_combined_regex.match(line)
-        if not m:
-            m = combined_regex.match(line)
-
-        data = m.groupdict()
-
-        line_time = datetime.strptime(data['time_local'], '%d/%b/%Y:%H:%M:%S ' + timezone)
-        delta = start_time - line_time
-        if delta.seconds < 30:
-            code = data['status']
-            status_codes[code] = status_codes.get(code, 0) + 1
-            status_codes[code[0] + 'xx'] += 1
-            try:
-                if 'request_time' in data.iterkeys():
-                    time_taken = float(data['request_time'])
-                    if 'min' not in times.iterkeys():
-                        times['min'] = time_taken
-                    times['count'] += 1
-                    times['total'] += time_taken
-                    if time_taken > times['max']:
-                        times['max'] = time_taken
-                    if time_taken < times['min']:
-                        times['min'] = time_taken
-            except ValueError:
-                # Request time not castable to float (like '-')
-                pass
-        else:
+        stop = update_stats(line)
+        if stop:
             break
     except (AttributeError, ValueError):
         continue
 
+
 buf = StringIO.StringIO()
 buf.write('OK | ')
-buf.write('worker_count={0};;;; '.format(worker_count))
 
 for k, v in status_codes.iteritems():
     buf.write('{0}={1};;;; '.format(k, v))
@@ -140,9 +157,6 @@ if times['count'] > 0:
 
 if all(key in times for key in ("max", "min")):
     buf.write('max_time={0:0.2f}s;;;; min_time={1:0.2f}s;;;;'.format(float(times['max']), float(times['min'])))
-
-if is_container():
-    os.remove(temp_file)
 
 print buf.getvalue()
 sys.exit(0)

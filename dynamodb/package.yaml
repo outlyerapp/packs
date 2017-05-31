@@ -4,5 +4,5 @@ version: 1.0.0
 description: Dashboards and alert rules for dynamodb databases monitored with the AWS integration
 icon:
     name: dynamodb
-    background: orange
+    background: "#3368A2"
     foreground: white
