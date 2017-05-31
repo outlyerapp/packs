@@ -8,6 +8,20 @@ criteria:
       timeout: 120
       threshold: false
       operator: gt
+  - metric: java.jvm.gc._major.collectiontime_per_min
+    scope:
+      tag: java
+    condition:
+      timeout: 120
+      threshold: 5000
+      operator: gt
+  - metric: java.jvm.memory.heap.used_pct
+    scope:
+      tag: java
+    condition:
+      timeout: 120
+      threshold: 90
+      operator: gt
 actions:
   - emails: []
     message: ''
