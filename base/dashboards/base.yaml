@@ -1,16 +1,18 @@
 title: All Systems
+annotations: []
 period: 600
+locked: false
 positions:
   - title: server status
     data_type: boolean
     type: status
     color: green
+    icon: true
+    legend: false
     row: 1
     col: 1
     size_x: 1
     size_y: 1
-    icon: true
-    legend: false
     series:
       - metric: 'source:status'
         scope:
@@ -19,46 +21,30 @@ positions:
     data_type: number
     type: number
     color: blue
+    icon: true
+    symbol: arrows-h
+    filter: max
+    legend: false
     row: 1
     col: 2
     size_x: 1
     size_y: 1
-    legend: false
-    icon: true
-    filter: max
-    symbol: arrows-h
     series:
       - metric: base.swap
-        scope:
-          tag: all
-  - title: max disk /
-    data_type: number
-    type: number
-    color: orange
-    row: 1
-    col: 3
-    size_x: 1
-    size_y: 1
-    legend: false
-    icon: true
-    filter: max
-    symbol: hdd-o
-    series:
-      - metric: base.disk./.percent_used
         scope:
           tag: all
   - title: max memory
     data_type: number
     type: number
     color: purple
+    icon: true
+    symbol: bar-chart-o
+    filter: max
+    legend: false
     row: 1
-    col: 4
+    col: 3
     size_x: 1
     size_y: 1
-    legend: false
-    icon: true
-    filter: max
-    symbol: bar-chart-o
     series:
       - metric: base.memory
         scope:
@@ -67,30 +53,30 @@ positions:
     data_type: number
     type: number
     color: navy
+    icon: true
+    symbol: tachometer
+    filter: max
+    legend: false
     row: 1
-    col: 5
+    col: 4
     size_x: 1
     size_y: 1
-    legend: false
-    icon: true
-    filter: max
-    symbol: tachometer
     series:
       - metric: base.cpu
         scope:
           tag: all
-  - title: max load avg
+  - title: max loadavg
     data_type: number
     type: number
-    color: olive
+    color: maroon
+    icon: true
+    symbol: signal
+    filter: max
+    legend: false
     row: 1
-    col: 6
+    col: 5
     size_x: 1
     size_y: 1
-    legend: false
-    icon: true
-    filter: max
-    symbol: bolt
     series:
       - metric: base.load_1_min
         scope:
@@ -99,43 +85,74 @@ positions:
     data_type: number
     type: stacked-chart
     color: navy
-    row: 2
-    col: 1
-    size_x: 6
-    size_y: 2
-    legend: true
     icon: true
     filter: avg
+    legend: true
+    row: 2
+    col: 1
+    size_x: 4
+    size_y: 2
     series:
       - metric: base.load_fractional
+        scope:
+          tag: all
+  - title: top loadavg
+    data_type: number
+    type: top-ten
+    color: olive
+    icon: true
+    symbol: bolt
+    filter: avg
+    legend: false
+    row: 2
+    col: 5
+    size_x: 1
+    size_y: 2
+    series:
+      - metric: base.load_1_min
         scope:
           tag: all
   - title: cpu
     data_type: number
     type: detailed-chart
     color: purple
-    row: 4
-    col: 1
-    size_x: 6
-    size_y: 2
-    legend: false
     icon: true
     filter: avg
+    legend: false
+    row: 4
+    col: 1
+    size_x: 4
+    size_y: 2
     series:
       - metric: base.cpu
+        scope:
+          tag: all
+  - title: top memory
+    data_type: number
+    type: top-ten
+    color: orange
+    icon: true
+    filter: avg
+    legend: false
+    row: 4
+    col: 5
+    size_x: 1
+    size_y: 2
+    series:
+      - metric: base.memory
         scope:
           tag: all
   - title: download
     data_type: number
     type: chart
     color: blue
-    row: 6
-    col: 1
-    size_x: 3
-    size_y: 1
-    legend: false
     icon: true
     filter: avg
+    legend: false
+    row: 6
+    col: 1
+    size_x: 2
+    size_y: 1
     series:
       - metric: base.net_download
         scope:
@@ -144,14 +161,78 @@ positions:
     data_type: number
     type: chart
     color: fuchsia
-    row: 6
-    col: 4
-    size_x: 3
-    size_y: 1
-    legend: false
     icon: true
     filter: avg
+    legend: false
+    row: 6
+    col: 3
+    size_x: 2
+    size_y: 1
     series:
       - metric: base.net_upload
+        scope:
+          tag: all
+  - title: net errors
+    data_type: number
+    type: chart
+    color: red
+    icon: true
+    filter: avg
+    legend: false
+    row: 6
+    col: 5
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: base.network.errin_per_sec
+        scope:
+          tag: all
+      - metric: base.network.errout_per_sec
+        scope:
+          tag: all
+  - title: disk reads
+    data_type: number
+    type: chart
+    color: teal
+    icon: true
+    filter: avg
+    legend: false
+    row: 7
+    col: 1
+    size_x: 2
+    size_y: 1
+    series:
+      - metric: base.disk.read_bytes_per_sec
+        scope:
+          tag: all
+  - title: disk writes
+    data_type: number
+    type: chart
+    color: lime
+    icon: true
+    filter: avg
+    legend: false
+    row: 7
+    col: 3
+    size_x: 2
+    size_y: 1
+    series:
+      - metric: base.disk.write_bytes_per_sec
+        scope:
+          tag: all
+  - title: zombies
+    data_type: number
+    type: number
+    color: purple
+    icon: true
+    symbol: ambulance
+    filter: sum
+    legend: false
+    row: 7
+    col: 5
+    size_x: 1
+    size_y: 1
+    series:
+      - metric: base.processes.zombie
         scope:
           tag: all

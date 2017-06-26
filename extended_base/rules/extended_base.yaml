@@ -1,12 +1,12 @@
-title: All Systems
+title: Disk Space
 description: ''
 criteria:
-  - metric: 'source:status'
+  - metric: ext_base.disk.max_percent_used
     scope:
-      tag: all
+      tag: host
     condition:
       timeout: 120
-      threshold: false
+      threshold: 90
       operator: gt
 actions:
   - emails: []
