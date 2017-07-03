@@ -13,7 +13,7 @@ MYSQL_PASSWORD = ''
 To create a new user specifically for Dataloop with a minimum set of privileges use the following command:
 
 ```
-GRANT USAGE ON *.* TO 'dataloop'@'localhost' IDENTIFIED BY PASSWORD 'password'
+GRANT USAGE ON *.* TO 'dataloop'@'localhost' IDENTIFIED BY 'password'
 ```
 
 Then set the user name and password in the script to match.
