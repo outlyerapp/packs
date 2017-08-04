@@ -1,14 +1,15 @@
-title: java
-annotations: []
-period: 600
+title: Java
+annotations:
+  - Quux
+period: 3600
 locked: false
 positions:
   - title: Status
-    data_type: nagios
+    data_type: boolean
     type: status
     color: aqua
     icon: true
-    filter: avg
+    filter: max
     legend: false
     row: 1
     col: 1
@@ -18,41 +19,41 @@ positions:
       - metric: java.status
         scope:
           tag: java
-  - title: Thread Counts
+  - title: Thread Count
     data_type: number
     type: chart
     color: blue
     icon: true
-    filter: avg
+    filter: max
     legend: true
     row: 1
     col: 2
     size_x: 3
     size_y: 3
     series:
-      - metric: java.jvm.threading.totalstartedthreadcount
+      - metric: java.jvm.threading.thread_count
         scope:
           tag: java
-  - title: Started Thread Count
+  - title: Threads Started/Minute
     data_type: number
     type: number
-    color: blue
+    color: navy
     icon: true
     symbol: cogs
-    filter: max
+    filter: sum
     legend: false
     row: 1
     col: 5
     size_x: 2
     size_y: 3
     series:
-      - metric: java.jvm.threading.totalstartedthreadcount
+      - metric: java.jvm.threading.total_started_thread_count_per_min
         scope:
           tag: java
-  - title: Loaded Class Count
+  - title: Total Classes Loaded
     data_type: number
     type: number
-    color: orange
+    color: maroon
     icon: true
     filter: max
     legend: false
@@ -61,54 +62,96 @@ positions:
     size_x: 1
     size_y: 2
     series:
-      - metric: java.jvm.classloading.totalloadedclasscount
+      - metric: java.jvm.classloading.total_loaded_class_count
         scope:
           tag: java
-  - title: Garbage Collection Time
+  - title: Major GC Time/Minute
     data_type: number
-    type: scattered-chart
+    type: chart
     color: red
     icon: true
-    filter: avg
+    filter: max
     legend: true
     row: 4
     col: 1
     size_x: 2
     size_y: 2
     series:
-      - metric: java.jvm.gc.concurrentmarksweep.collectiontime
+      - metric: java.jvm.gc._major.collectiontime_per_min
         scope:
           tag: java
-      - metric: java.jvm.gc.parnew.collectiontime
-        scope:
-          tag: java
-  - title: JVM Heap Memory Used
+  - title: Minor GC Time/Minute
     data_type: number
-    type: detailed-chart
-    color: olive
+    type: chart
+    color: orange
     icon: true
-    filter: avg
+    filter: max
     legend: false
     row: 4
     col: 3
     size_x: 2
     size_y: 2
     series:
-      - metric: java.jvm.memory.heap.used
+      - metric: java.jvm.gc._minor.collectiontime_per_min
         scope:
           tag: java
-  - title: JVM Nonheap Memory Used
+  - title: 'Heap Memory Used %'
     data_type: number
-    type: detailed-chart
+    type: chart
     color: olive
     icon: true
-    filter: avg
+    filter: max
     legend: false
     row: 4
     col: 5
     size_x: 2
     size_y: 2
     series:
-      - metric: java.jvm.memory.nonheap.used
+      - metric: java.jvm.memory.heap.used_pct
+        scope:
+          tag: java
+  - title: Major GC Events/Minute
+    data_type: number
+    type: chart
+    color: red
+    icon: true
+    filter: max
+    legend: false
+    row: 6
+    col: 1
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: java.jvm.gc._major.collectioncount_per_min
+        scope:
+          tag: java
+  - title: Minor GC Events/Minute
+    data_type: number
+    type: chart
+    color: orange
+    icon: true
+    filter: max
+    legend: false
+    row: 6
+    col: 3
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: java.jvm.gc._minor.collectioncount_per_min
+        scope:
+          tag: java
+  - title: 'Non-Heap Memory Used %'
+    data_type: number
+    type: chart
+    color: purple
+    icon: true
+    filter: max
+    legend: false
+    row: 6
+    col: 5
+    size_x: 2
+    size_y: 2
+    series:
+      - metric: java.jvm.memory.nonheap.used_pct
         scope:
           tag: java
