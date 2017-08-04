@@ -1,0 +1,15 @@
+title: Github Status
+period: 600
+positions:
+  - title: GitHub
+    data_type: nagios
+    type: status
+    color: navy
+    row: 1
+    col: 1
+    size_x: 1
+    size_y: 1
+    legend: false
+    icon: true
+    series:
+      - metric: github.status
