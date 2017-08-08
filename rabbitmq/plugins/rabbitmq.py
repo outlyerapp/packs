@@ -100,7 +100,10 @@ def get_vhosts():
 
 def get_queues(vhost_name):
     queue_names = []
-    resp = request_data("/api/queues/%s" % vhost_name)
+    if vhost == '/':
+        resp = request_data("/api/queues/%%2F")
+    else:
+        resp = request_data("/api/queues/%s" % vhost_name)
     for q in resp:
         queue_names.append(q['name'])
     return queue_names
@@ -108,7 +111,10 @@ def get_queues(vhost_name):
 
 def get_exchanges(vhost_name):
     exchange_names = []
-    resp = request_data("/api/exchanges/%s" % vhost_name)
+    if vhost == '/':
+        resp = request_data("/api/exchanges/%%2F")
+    else:
+        resp = request_data("/api/exchanges/%s" % vhost_name)
     for e in resp:
         exchange_names.append(e['name'])
     return exchange_names
