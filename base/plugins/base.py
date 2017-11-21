@@ -6,8 +6,20 @@ import re
 import psutil
 import subprocess
 import datetime
+import string
+import StringIO
+
 
 RATE_INTERVAL = 5
+
+
+def canonicalize_name(name):
+    name = name or ''
+    s1 = re.sub(r'(.)([A-Z][a-z]+)', r'\1_\2', name)
+    s2 = re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+    s3 = s2.translate(string.maketrans(' -:*', '____'))
+    s4 = re.sub(r'_+', '_', s3)
+    return s4
 
 
 def _bytes_to_gb(num):
@@ -66,10 +78,10 @@ def check_disks():
             disk_usage['disk.' + disk + '.free_gb'] = "%sGb" % free_gb
             total_gb = _bytes_to_gb(usage.total)
             disk_usage['disk.' + disk + '.total_gb'] = "%sGb" % total_gb
-        
+
         except OSError:
             continue
-        
+
     if os.name == 'nt':
         command = ['typeperf.exe', '-sc', '1']
         counters_list = counters.values()
@@ -164,9 +176,9 @@ def check_diskio():
                 disk_map["disk." + device.lower() + "." + k] = v
 
         # check for any device mapper partitions
-        for partition in psutil.disk_partitions():
-            if 'mapper' in os.listdir('/dev'):
-                dm = True
+        if os.path.exists('/dev') and 'mapper' in os.listdir('/dev'):
+            dm = True
+
         # per device mapper friendly name io counters
         if dm:
             device_mapper = {}
@@ -255,10 +267,14 @@ try:
                                                   / 1024) / RATE_INTERVAL) + 'Kps'
 
     raw_output.update(past_output)
-    output = "OK | "
+
+    buf = StringIO.StringIO()
+    buf.write('OK | ')
     for k, v in raw_output.iteritems():
-        output += "%s=%s;;;; " % (k.lower(), v)
-    print output + 'count=1;;;;'
+        buf.write("%s=%s;;;; " % (canonicalize_name(k.lower()), v))
+    buf.write('count=1;;;; ')
+
+    print buf.getvalue()
     sys.exit(0)
 
 except Exception, e:
